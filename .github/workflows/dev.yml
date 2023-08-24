@@ -34,7 +34,7 @@ jobs:
           find ./dist/ -print
 
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_DEV_HOST }}
           username: ${{ secrets.FTP_DEV_USER }}
