@@ -3,6 +3,7 @@ import { FirstSection } from "./components/FirstSection/FirstSection";
 import { Header } from "../../components/Header";
 import { SecondSection } from "./components/SecondSection/SecondSection";
 import { ThirdSection } from "./components/ThirdSection/ThirdSection";
+import { FourthSection } from "./components/Fourth/FourthSection";
 export function HomePage() {
   return (
     <>
@@ -11,6 +12,7 @@ export function HomePage() {
         <FirstSection/>
         <SecondSection />
         <ThirdSection />
+        <FourthSection />
       </Box>
     </>
   );

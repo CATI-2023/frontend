@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import "./style.css";
+import { ButtonInscrevaSe } from "../../../../components/btnIncrevaSe/btnInscrevaSe";
 export function SecondSection() {
   return (
     <>
@@ -29,7 +30,7 @@ export function SecondSection() {
           crescimento. Durante o evento, os participantes terão a oportunidade
           de: 1.Palestras por Especialistas
         </p>
-        <button className="button-subscribe-second-section">INSCREVA-SE AGORA</button>
+        <ButtonInscrevaSe />
       </Box>
     </>
   );
