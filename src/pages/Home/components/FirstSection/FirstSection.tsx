@@ -9,7 +9,7 @@ export function FirstSection() {
         mt={"-6em"}
         height={"100%"}
         sx={{
-          background: `url(${Cerebro}) lightgray 50% / cover no-repeat`,
+          background: `url(${Cerebro})  100% / cover no-repeat`,
           flexShrink: 0,
         }}
         pt={"6em"}

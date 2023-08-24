@@ -1,0 +1,28 @@
+.primary-text-thid-section {
+  color: #fff;
+  font-family: "Nasalization";
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.name-palestrante-third-section {
+  color: #fff;
+  font-family: "Nasalization";
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.text-palestrante-third-section {
+  color: #fff;
+  text-align: center;
+  font-family: 'Nasalization';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 30em;
+}
