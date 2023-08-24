@@ -1,18 +1,16 @@
-.primary-text-second-section {
+.primary-text-fifth-section {
   color: #fff;
+  font-family: 'Nasalization';
   font-size: 64px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-.second-text-second-section {
+.second-text-fifth-section {
   color: #fff;
-  text-align: center;
-  font-family: Inter;
-  font-size: 25px;
+  font-family: 'Nasalization';
+  font-size: 40px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 0px 4em;
 }
-
