@@ -1,0 +1,29 @@
+.primary-text-second-section {
+  color: #fff;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.second-text-second-section {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0px 4em;
+}
+.button-subscribe-second-section {
+  display: inline-flex;
+  padding: 28px 72px 28px 68px;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  border-radius: 50px;
+  background: #00e0e6;
+}
+.button-subscribe-second-section:active {
+  background: #00969b;
+}
