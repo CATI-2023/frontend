@@ -4,7 +4,7 @@ import { Tempo } from "./components/Tempo";
 import { useState, useEffect } from 'react';
 
 export function TimerEvent() {
-  const targetDate = new Date('2023-12-31T23:59:59')
+  const targetDate = new Date('2023-11-01T23:59:59')
   useEffect(() => {
     const interval = setInterval(() => {
       const timeLeft = calculateTimeLeft(targetDate);
@@ -36,8 +36,8 @@ export function TimerEvent() {
     <>
       <Box
         sx={{
-          width: "70%",
-          height: "12em",
+          width: "100%",
+          py: "1em",
           borderRadius: "15px",
           backgroundColor: "#00e0e6",
           mt: "100px",

@@ -1,9 +1,20 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nasalization", sans-serif;
 }
-body{
-    background-color: #00214E; 
-    color: white; 
+
+@font-face {
+  font-family: "Nasalization";
+  src: url("./fonts/nasalization-rg.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  background-color: #00214e;
+  color: white;
+}
+button {
+  all: unset;
 }

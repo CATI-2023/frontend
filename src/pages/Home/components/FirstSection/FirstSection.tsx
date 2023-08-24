@@ -25,6 +25,7 @@ export function FirstSection() {
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
+          px={"4em"}
         >
           <TimerEvent />
         </Box>
