@@ -39,6 +39,6 @@ jobs:
           server: ${{ secrets.FTP_DEV_HOST }}
           username: ${{ secrets.FTP_DEV_USER }}
           password: ${{ secrets.FTP_DEV_PASSWORD }}
-          protocol: ftps
+          protocol: ftp
           server-dir: /var/www/html/
           local-dir: ./dist/
