@@ -26,6 +26,9 @@ export function FirstSection() {
           alignItems={"center"}
           justifyContent={"center"}
           px={"4em"}
+          position={"absolute"}
+          width={"100%"}
+          bottom={"-5em"}
         >
           <TimerEvent />
         </Box>
