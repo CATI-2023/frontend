@@ -1,0 +1,9 @@
+  .logo-unemat {
+      height: 6rem;
+  }
+
+  @media screen and (max-width: 600px) {
+      .logo-unemat {
+          height: 4.5rem;
+      }
+  }
