@@ -22,6 +22,18 @@ export function FirstSection() {
     },
   }));
 
+  const BoxTema = styled(Box)(({ theme }) => ({
+    marginTop:"16rem",
+    padding: "0 4rem",
+    [theme.breakpoints.down("sm")]: {
+      marginTop:"10rem",
+    },
+    [theme.breakpoints.down("md")]: {
+    },
+    [theme.breakpoints.up("lg")]: {
+    },
+  }));
+
   return (
     <>
       <Box
@@ -33,13 +45,13 @@ export function FirstSection() {
         }}
         pt={"7rem"}
     >
-        <Box marginTop={"16rem"} px="4rem">
+        <BoxTema>
           <p className="text-primary-first-section">
             <span className="typography-first-section ">Inteligência artificial</span>,
             máquinas que aprendem, raciocinam e transformam o{" "}
             <span className="typography-first-section ">futuro</span>.
           </p>
-        </Box>
+        </BoxTema>
         <BoxTimer>
           <TimerEvent />
         </BoxTimer>

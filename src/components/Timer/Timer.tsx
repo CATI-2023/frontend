@@ -44,7 +44,8 @@ export function TimerEvent() {
     flexDirection: "column",
     justifyContent: "center",
     [theme.breakpoints.down("sm")]: {
-      width: "100%"
+      width: "100%",
+      borderRadius: "1em",
     },
     [theme.breakpoints.down("md")]: {
     },
@@ -57,7 +58,7 @@ export function TimerEvent() {
     alignItems: "center",
     justifyContent: "space-around",
     [theme.breakpoints.down("sm")]: {
-      display: "block"
+      // display: "block"
     },
     [theme.breakpoints.down("md")]: {
     },

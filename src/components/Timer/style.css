@@ -22,7 +22,7 @@
 
 @media screen and (max-width: 600px) {
   .timer-primary-text {
-    font-size: 1rem;
+    font-size: .8rem;
   }
   .timer-tempo-dia-afins {
     font-size: 1.5rem;
