@@ -20,6 +20,18 @@
   line-height: normal;
 }
 
+@media screen and (max-width: 900px) {
+  .timer-primary-text {
+    font-size: 1.5rem;
+  }
+  .timer-tempo-dia-afins {
+    font-size: 2rem;
+  }
+  .timer-tempo-titulo {
+    font-size: 1rem;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .timer-primary-text {
     font-size: .8rem;

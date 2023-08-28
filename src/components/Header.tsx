@@ -1,23 +1,21 @@
-import { Grid, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { LogoCati } from "../assets/logoCati";
 import { LogoMarcaUnemat } from "../assets/logoMarcaUnemat";
 import "./style.css";
 
 export function Header() {
 
-  const HeaderGrid = styled(Grid)(({ theme }) => ({
-    marginTop: "2em",
-    padding: "0 4em",
-    height: "10em",
+  const HeaderBox = styled(Box)(({ theme }) => ({
+    padding: "4em",
     display: "flex",
+    height: "33vh",
     justifyContent: "space-between",
-    alignItems: "center",
+    // alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      marginTop: "1em",
-      justifyContent: "center",
+      padding: "2em",
     },
     [theme.breakpoints.down("md")]: {
-      marginTop: "2em",
+      padding: "2em",
     },
     [theme.breakpoints.up("lg")]: {
     },
@@ -25,13 +23,10 @@ export function Header() {
 
   return (
     <>
-      <HeaderGrid
-        container
-        spacing={2}
-      >
+      <HeaderBox>
         <LogoCati />
         <LogoMarcaUnemat />
-      </HeaderGrid>
+      </HeaderBox>
     </>
   );
 }

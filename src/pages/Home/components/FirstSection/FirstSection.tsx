@@ -1,20 +1,19 @@
 import { Box } from "@mui/material";
-import Cerebro from "../../../../assets/Cerebro.png";
 import "./style.css";
 import { TimerEvent } from "../../../../components/Timer/Timer";
+import { Header } from "../../../../components/Header";
 import { styled } from "@mui/system";
 export function FirstSection() {
 
   const BoxTimer = styled(Box)(({ theme }) => ({
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    padding:"0 4em",
-    position:"absolute",
-    width:"100%",
-    bottom:"3rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0 4em",
+    position: "relative",
+    height: "33vh",
     [theme.breakpoints.down("sm")]: {
-      padding:"0 6rem",
+      padding: "0 2em",
     },
     [theme.breakpoints.down("md")]: {
     },
@@ -23,33 +22,32 @@ export function FirstSection() {
   }));
 
   const BoxTema = styled(Box)(({ theme }) => ({
-    marginTop:"16rem",
-    padding: "0 4rem",
-    [theme.breakpoints.down("sm")]: {
-      marginTop:"10rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "left",
+    paddingLeft: "4em",
+    height: "34vh",
+    [theme.breakpoints.up("lg")]: {
     },
     [theme.breakpoints.down("md")]: {
     },
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.down("sm")]: {
+      padding: "0 2em",
     },
   }));
 
   return (
     <>
       <Box
-        mt={"-12rem"}
-        height={"100%"}
-        sx={{
-          background: `url(${Cerebro})  100% / cover no-repeat`,
-          flexShrink: 0,
-        }}
-        pt={"7rem"}
-    >
+        className="background-first-section"
+      >
+        <Header />
         <BoxTema>
           <p className="text-primary-first-section">
             <span className="typography-first-section ">Inteligência artificial</span>,
             máquinas que aprendem, raciocinam e transformam o{" "}
             <span className="typography-first-section ">futuro</span>.
+            <br></br><br></br><p>De 06 à 10 de novembro.</p>
           </p>
         </BoxTema>
         <BoxTimer>

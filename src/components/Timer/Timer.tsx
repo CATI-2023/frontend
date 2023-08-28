@@ -43,13 +43,13 @@ export function TimerEvent() {
     alignItems: "stretch",
     flexDirection: "column",
     justifyContent: "center",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      borderRadius: "1em",
+    [theme.breakpoints.up("lg")]: {
     },
     [theme.breakpoints.down("md")]: {
     },
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      borderRadius: "1em",
     },
   }));
 
