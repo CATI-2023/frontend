@@ -1,18 +1,29 @@
 .primary-text-second-section {
   color: #fff;
-  font-size: 64px;
+  font-size: 4rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-align: center;
 }
 .second-text-second-section {
   color: #fff;
   text-align: center;
-  font-family: Inter;
-  font-size: 25px;
+  font-family:"Roboto", sans-serif;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding: 0px 4em;
+  padding: 0px 4rem;
 }
+
+@media screen and (max-width: 600px) {
+  .second-text-second-section {
+    padding: 0px 1rem;
+    font-size: 1rem;
+  }
+  .primary-text-second-section {
+    font-size: 2.5rem;
+  }
+  }
 

@@ -10,8 +10,7 @@ export function ThirdSection() {
         display={"flex"}
         alignItems={"center"}
         flexDirection={"column"}
-        pb={"4em"}
-        pt={"4em"}
+        p={"4em 0"}
         style={{
             background: `url(${Circuitoipresso})  100% / cover no-repeat`,
             flexShrink: 0,

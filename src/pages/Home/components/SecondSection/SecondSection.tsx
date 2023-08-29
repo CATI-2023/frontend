@@ -7,9 +7,9 @@ export function SecondSection() {
       <Box
         display={"flex"}
         height={"100vh"}
-        pt={"8em"}
+        // pt={"8em"}
         alignItems={"center"}
-        justifyContent={"start"}
+        justifyContent={"center"}
         flexDirection={"column"}
         gap={4}
       >

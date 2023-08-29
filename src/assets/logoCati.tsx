@@ -1,11 +1,23 @@
 import { Box } from "@mui/material";
+import { styled } from "@mui/system";
 
 export function LogoCati() {
+
+  const BoxLogo = styled(Box)(({ theme }) => ({
+    width: "20em",
+    [theme.breakpoints.up("lg")]: {
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "13em",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "8em",
+    },
+  }));
+
   return (
-    <Box>
+    <BoxLogo>
       <svg
-        width="200"
-        height="153"
         viewBox="0 0 409 153"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +119,6 @@ export function LogoCati() {
           fill="white"
         />
       </svg>
-    </Box>
+    </BoxLogo>
   );
 }
