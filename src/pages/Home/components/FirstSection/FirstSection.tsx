@@ -16,8 +16,11 @@ export function FirstSection() {
       padding: "0 2em",
     },
     [theme.breakpoints.down("md")]: {
+      padding: "0 3em"
     },
     [theme.breakpoints.up("lg")]: {
+      padding: "0 4em",
+      marginTop: "10em"
     },
   }));
 
