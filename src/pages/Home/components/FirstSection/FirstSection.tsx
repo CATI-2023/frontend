@@ -20,7 +20,7 @@ export function FirstSection() {
     },
     [theme.breakpoints.up("lg")]: {
       padding: "0 4em",
-      marginTop: "10em"
+      marginTop: "6em"
     },
   }));
 

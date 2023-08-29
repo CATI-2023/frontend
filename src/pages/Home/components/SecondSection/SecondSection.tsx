@@ -6,8 +6,9 @@ export function SecondSection() {
     <>
       <Box
         display={"flex"}
-        height={"100vh"}
-        // pt={"8em"}
+        height={{xs: "auto", sm: "auto", md: "100vh", lg: "110vh", xl: "110vh"}}
+        pt={{ xs:"2rem" , sm: "2rem", md: "2rem", lg: "2rem", xl: "4rem"}}
+        pb={{ xs:"2rem", sm: "2rem"}}
         alignItems={"center"}
         justifyContent={"center"}
         flexDirection={"column"}
