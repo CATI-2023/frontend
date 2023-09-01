@@ -5,7 +5,7 @@ import "./style.css";
 export function FifthSection() {
   return (
     <>
-      <Box height={"100vh"} pt={"2em"} textAlign={"center"}>
+      <Box height={"auto"} textAlign={"center"}pt="2em">
         <p
           className="primary-text-fifth-section "
           style={{ textAlign: "center", marginBottom: "1em" }}
