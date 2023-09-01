@@ -1,4 +1,4 @@
-import { Avatar, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import "./style.css";
 import { ColaboradorCard } from "./components/Colaborador";
 import OpenIaLogo from "../../../../assets/OpenAI_Logo1.png"
