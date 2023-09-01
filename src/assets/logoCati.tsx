@@ -6,6 +6,7 @@ export function LogoCati() {
   const BoxLogo = styled(Box)(({ theme }) => ({
     width: "20em",
     [theme.breakpoints.up("lg")]: {
+    width: "15em",
     },
     [theme.breakpoints.down("md")]: {
       width: "13em",

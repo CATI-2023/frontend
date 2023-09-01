@@ -23,17 +23,26 @@
   background-size: 100% 100%;
 }
 
+@media screen and (max-width: 1400px) {
+  .text-primary-first-section {
+    margin-top: 3rem;
+    font-size: 2.3rem;
+  }
+  .typography-first-section {
+    font-size: 2.3rem;
+  }
+}
 @media screen and (max-width: 900px) {
   .background-first-section {
     background-image: url("../../../../assets/Cerebro-md.png");
     /* background-size: 100% 100%; */
   }
   .text-primary-first-section {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .typography-first-section {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 

@@ -18,16 +18,17 @@ export function FourthSection() {
   return (
     <>
       <Box
-        height={"100vh"}
+        height={"auto"}
         pt={"3em"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
+        py={"2rem"}
       >
         <p className="primary-text-fourth-section">Colaboradores</p>
         <Box
           display={"grid"}
-          gridTemplateColumns={"auto auto auto"}
+          gridTemplateColumns={{ xs: "auto", sm: "auto", md: "auto", lg: "auto auto auto", xl: "auto auto auto"}}
           bgcolor={"white"}
           p={"2em"}
           borderRadius={"50px"}
