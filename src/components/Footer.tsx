@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
-import LogoMarcaUnematPreta from "../assets/LogoripoUnemat-Preto 1.png"
+import { LogoMarcaUnemat } from "../assets/logoMarcaUnematPreto";
+import { LogoMarcaSBC } from "../assets/logoMarcaSBC";
+
 export function Footer() {
   return (
     <>
@@ -8,10 +10,13 @@ export function Footer() {
         height={"200px"}
         mt="4em"
         display={"flex"}
-        justifyContent={"center"}
+        justifyContent={"space-evenly"}
         alignItems={"center"}
       >
-        <img src={LogoMarcaUnematPreta} alt="" />
+        {/* <img src={LogoMarcaUnematPreta} alt="" />
+        <img src={LogoMarcaSBC} alt="" /> */}
+        <LogoMarcaUnemat />
+        <LogoMarcaSBC />
       </Box>
     </>
   );
