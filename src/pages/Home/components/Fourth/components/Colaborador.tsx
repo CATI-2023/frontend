@@ -1,7 +1,7 @@
 import { Avatar, Box } from "@mui/material";
 
 interface IColaborador {
-  logo: string;
+  logo?: string;
 }
 
 // export function ColaboradorCard({ logo }: IColaborador) {
@@ -21,7 +21,7 @@ interface IColaborador {
 //   );
 // }
 
-export function ColaboradorCard({ logo }: IColaborador) {
+export function ColaboradorCard({ }: IColaborador) {
   return (
     <>
       <Box
