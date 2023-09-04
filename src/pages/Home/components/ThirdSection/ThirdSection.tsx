@@ -10,7 +10,7 @@ export function ThirdSection() {
         display={"flex"}
         alignItems={"center"}
         flexDirection={"column"}
-        p={"4em 0"}
+        py={"4rem"}
         style={{
           background: `url(${Circuitoipresso})  100% / cover no-repeat`,
           flexShrink: 0,
@@ -19,11 +19,16 @@ export function ThirdSection() {
         <p className="primary-text-thid-section ">Palestrantes</p>
         <Box
           display={"grid"}
-          gridTemplateColumns={"auto auto"}
+          gridTemplateColumns={{
+            xs: "auto",
+            sm: "auto",
+            md: "auto",
+            lg: "auto auto",
+            xl: "auto atuo",
+          }}
           alignItems={"center"}
           justifyContent={"space-evenly"}
           justifyItems={"center"}
-          width={"100%"}
         >
           <Palestrante />
           <Palestrante />
