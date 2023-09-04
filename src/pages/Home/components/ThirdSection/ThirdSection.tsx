@@ -12,9 +12,9 @@ export function ThirdSection() {
         flexDirection={"column"}
         p={"4em 0"}
         style={{
-            background: `url(${Circuitoipresso})  100% / cover no-repeat`,
-            flexShrink: 0,
-          }}
+          background: `url(${Circuitoipresso})  100% / cover no-repeat`,
+          flexShrink: 0,
+        }}
       >
         <p className="primary-text-thid-section ">Palestrantes</p>
         <Box
@@ -31,8 +31,8 @@ export function ThirdSection() {
           <Palestrante />
           <Palestrante />
           <Palestrante />
+          <Palestrante />
         </Box>
-        <Palestrante />
       </Box>
     </>
   );
