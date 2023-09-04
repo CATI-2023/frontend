@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/material";
-import { LogoCati } from "../assets/logoCati";
-import { LogoMarcaUnemat } from "../assets/logoMarcaUnemat";
+import { LogoCati } from "../assets/logoMarcaCatiCACC";
+import { LogoMarcaUnemat } from "../assets/logoMarcaUnematNomeCampus";
 import "./style.css";
 
 export function Header() {
