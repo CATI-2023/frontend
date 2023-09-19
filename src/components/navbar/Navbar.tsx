@@ -1,0 +1,31 @@
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import DrawerComponent from "../drawer/Drawer";
+import { logout } from "../../utils/Auth";
+
+type Props = {
+    title: string;
+}
+
+
+export function Navbar( { title }:Props ) {
+  return (
+    <>
+      <Box>
+        <AppBar position="static">
+          <Toolbar>
+            <DrawerComponent title={title} />
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1 }}
+              color="inherit"
+            >
+              {title}
+            </Typography>
+            <Button color="inherit" onClick={() => {logout()}}>User</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    </>
+  );
+}

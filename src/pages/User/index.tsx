@@ -1,8 +1,11 @@
+import { Navbar } from "../../components/navbar/Navbar";
+
 export function UserPage() {
 
   return (
     <>
-      <p>mexendo aqui</p>
+      <Navbar title="Dashboard"/>
+      aa
     </>
   );
 }
