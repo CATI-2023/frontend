@@ -13,9 +13,9 @@ export function HomePage() {
         <FirstSection/>
         <SecondSection />
         <ThirdSection />
+        <ArtigosSection />
         <FourthSection />
         <FifthSection />
-        <ArtigosSection />
         <Footer/>
       </Box>
     </>
