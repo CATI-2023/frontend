@@ -32,12 +32,12 @@ export function ArtigosSection() {
           flexDirection={"column"}
         >
           <ButtonDefault
-            title="Cronograma CATI"
+            title="Normas para submissão de artigos"
             href={cronograma}
             download={true}
           />
           <ButtonDefault
-            title="Modelo Artigo SBC"
+            title="Modelo artigo SBC"
             href={
               "https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
             }
