@@ -5,6 +5,7 @@ import { ThirdSection } from "./components/ThirdSection/ThirdSection";
 import { FourthSection } from "./components/Fourth/FourthSection";
 import { FifthSection } from "./components/Fifth/Fifth";
 import { Footer } from "../../components/Footer";
+import { ArtigosSection } from "./components/Artigos";
 export function HomePage() {
   return (
     <>
@@ -12,6 +13,7 @@ export function HomePage() {
         <FirstSection/>
         <SecondSection />
         <ThirdSection />
+        <ArtigosSection />
         <FourthSection />
         <FifthSection />
         <Footer/>
