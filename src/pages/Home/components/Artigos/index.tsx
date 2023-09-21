@@ -1,7 +1,18 @@
-import { Box, Grid, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Grid,
+  Link,
+  List,
+  ListItem,
+  Typography,
+} from "@mui/material";
 import { ButtonDefault } from "../../../../components/buttonDefault/btnInscrevaSe";
 import cronograma from "./assets/Submissoes_Trabalhos_CATI_2023_Atualizado.pdf";
 import { ListItens } from "../../../../components/listItens/listItens";
+import { ArrowUp } from "../../../../assets/ArrowUp";
 
 export function ArtigosSection() {
   let datasImportantes = [
@@ -54,70 +65,128 @@ export function ArtigosSection() {
           publicação de artigos da SBC.
         </p>
         <Grid container marginTop={{ md: "2rem", xs: "1rem" }}>
-          <Grid item xs={12} md={6} justifyContent={"center"} marginBottom={{ md: "2rem", xs: "1rem" }}>
-            <Typography
-              textAlign={"center"}
-              fontSize={{
-                xs: "1.1rem",
-                sm: "1.5rem",
-                md: "1.5rem",
-                lg: "1.8rem",
-                xl: "2.5rem",
-              }}
-            >
-              <h3>
-                <u>Datas Importantes</u>
-              </h3>
-              <ListItens itens={datasImportantes} />
-            </Typography>
+          <Grid
+            sx={{ display: { sm: "hidden" } }}
+            item
+            xs={12}
+            md={6}
+            justifyContent={"center"}
+            marginBottom={{ md: "2rem", xs: "1rem" }}
+          >
+            <Box margin={"0 1rem"} display={{ xs: "flex", md: "none" }}>
+              <Accordion sx={{width: "100%"}}>
+                <AccordionSummary expandIcon={<ArrowUp />}>
+                  <Typography>Datas Importantes</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <ListItens itens={datasImportantes} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+            <Box display={{ xs: "none", md: "flex" }}>
+              <Typography
+                textAlign={"center"}
+                fontSize={{
+                  xs: "1.1rem",
+                  sm: "1.5rem",
+                  md: "1.5rem",
+                  lg: "1.8rem",
+                  xl: "2.5rem",
+                }}
+              >
+                <h3>
+                  <u>Datas Importantes</u>
+                </h3>
+                <ListItens itens={datasImportantes} iconColor="white"/>
+              </Typography>
+            </Box>
           </Grid>
           <Grid item xs={12} md={6} marginBottom={{ md: "2rem", xs: "1rem" }}>
-            <Typography
-              textAlign={"center"}
-              fontSize={{
-                xs: "1.1rem",
-                sm: "1.5rem",
-                md: "1.5rem",
-                lg: "1.8rem",
-                xl: "2.5rem",
-              }}
-            >
-              <h3>
-                <u>Links Importantes</u>
-              </h3>
-            </Typography>
-            <Box
-              gap={2}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              flexDirection={"column"}
-              marginTop={"2rem"}
-            >
-              <ButtonDefault
-                style={{ padding: "1rem 2rem", width: "60%" }}
-                title="Normas para submissão de artigos"
-                href={cronograma}
-                download={true}
-              />
-              <ButtonDefault
-                style={{ padding: "1rem 2rem", width: "60%" }}
-                title="Modelo artigo SBC"
-                href={
-                  "https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
-                }
-                download={false}
-                target="_blank"
-              />
-              <ButtonDefault
-                style={{ padding: "1rem 2rem", width: "60%" }}
-                title="Modelo artigo resumido SBC"
-                href={
-                  "https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
-                }
-                download={false}
-                target="_blank"
-              />
+            <Box margin={"0 1rem"} display={{ xs: "flex", md: "none" }}>
+              <Accordion sx={{width: "100%"}}>
+                <AccordionSummary expandIcon={<ArrowUp />}>
+                  <Typography>Links Importantes</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <List>
+                    <ListItem>
+                      <Link
+                        title="Normas para submissão de artigos"
+                        href={cronograma}
+                        download
+                      >
+                        Normas para submissão de artigos
+                      </Link>
+                    </ListItem>
+                    <ListItem>
+                      <Link
+                        title="Modelo artigo SBC"
+                        href="https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
+                        target="_blank"
+                      >
+                        Modelo artigo SBC
+                      </Link>
+                    </ListItem>
+                    <ListItem>
+                      <Link
+                        title="Modelo artigo resumido SBC"
+                        href="https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
+                        target="_blank"
+                      >
+                        Modelo artigo resumido SBC
+                      </Link>
+                    </ListItem>
+                  </List>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+            <Box display={{ xs: "none", md: "flex" }}>
+              <Typography
+                textAlign={"center"}
+                fontSize={{
+                  xs: "1.1rem",
+                  sm: "1.5rem",
+                  md: "1.5rem",
+                  lg: "1.8rem",
+                  xl: "2.5rem",
+                }}
+              >
+                <h3>
+                  <u>Links Importantes</u>
+                </h3>
+                <Box
+                  gap={2}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  flexDirection={"column"}
+                  marginTop={"1rem"}
+                >
+                  <ButtonDefault
+                    style={{marginBottom: "1rem", padding: "1rem 2rem", width: "60%" }}
+                    title="Normas para submissão de artigos"
+                    href={cronograma}
+                    download={true}
+                  />
+                  <ButtonDefault
+                    style={{marginBottom: "1rem", padding: "1rem 2rem", width: "60%" }}
+                    title="Modelo artigo SBC"
+                    href={
+                      "https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
+                    }
+                    download={false}
+                    target="_blank"
+                  />
+                  <ButtonDefault
+                    style={{marginBottom: "1rem", padding: "1rem 2rem", width: "60%" }}
+                    title="Modelo artigo resumido SBC"
+                    href={
+                      "https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
+                    }
+                    download={false}
+                    target="_blank"
+                  />
+                </Box>
+              </Typography>
             </Box>
           </Grid>
         </Grid>
