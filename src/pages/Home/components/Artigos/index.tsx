@@ -127,7 +127,7 @@ export function ArtigosSection() {
                         Modelo artigo SBC
                       </Link>
                     </ListItem>
-                    <ListItem>
+                    {/* <ListItem>
                       <Link
                         title="Modelo artigo resumido SBC"
                         href="https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos"
@@ -135,7 +135,7 @@ export function ArtigosSection() {
                       >
                         Modelo artigo resumido SBC
                       </Link>
-                    </ListItem>
+                    </ListItem> */}
                   </List>
                 </AccordionDetails>
               </Accordion>
@@ -176,7 +176,7 @@ export function ArtigosSection() {
                     download={false}
                     target="_blank"
                   />
-                  <ButtonDefault
+                  {/* <ButtonDefault
                     style={{marginBottom: "1rem", padding: "1rem 2rem", width: "60%" }}
                     title="Modelo artigo resumido SBC"
                     href={
@@ -184,7 +184,7 @@ export function ArtigosSection() {
                     }
                     download={false}
                     target="_blank"
-                  />
+                  /> */}
                 </Box>
               </Typography>
             </Box>
