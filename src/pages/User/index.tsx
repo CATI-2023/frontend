@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../utils/Auth";
+import { Navbar } from "../../components/navbar/Navbar";
 
 export function UserPage() {
-    const navigate = useNavigate();
+
   return (
     <>
-      <h1>Vc está logado</h1>
-      <button onClick={() => {logout(), navigate("/")}}>Logout</button>
+      <Navbar title="Dashboard"/>
+      aa
     </>
   );
 }
