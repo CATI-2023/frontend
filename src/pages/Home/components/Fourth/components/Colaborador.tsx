@@ -1,4 +1,4 @@
-import { Avatar, Box, SxProps } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 
 interface IColaborador {
   logo?: string;
@@ -21,7 +21,7 @@ interface IColaborador {
 //   );
 // }
 
-export function ColaboradorCard({ }: IColaborador) {
+export function ColaboradorCard({}: IColaborador) {
   return (
     <>
       <Box
