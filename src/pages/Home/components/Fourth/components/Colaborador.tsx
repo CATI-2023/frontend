@@ -1,4 +1,4 @@
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, SxProps } from "@mui/material";
 
 interface IColaborador {
   logo?: string;

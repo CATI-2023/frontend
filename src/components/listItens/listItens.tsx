@@ -5,7 +5,7 @@ type Props = {
   itens: string[];
   iconColor?: string;
 };
-export function ListItens({ itens, iconColor}: Props) {
+export function ListItens({ itens, iconColor }: Props) {
   return (
     <>
       <List
@@ -14,10 +14,10 @@ export function ListItens({ itens, iconColor}: Props) {
           textAlign: "left",
         }}
       >
-        {itens.map((i) => (
-          <ListItem sx={{ padding: "0" }}>
+        {itens.map((i, idx) => (
+          <ListItem sx={{ padding: "0" }} key={idx}>
             <ListItemIcon sx={{ minWidth: "2rem" }}>
-              <LabelImportant sx={{ color: iconColor}} />
+              <LabelImportant sx={{ color: iconColor }} />
             </ListItemIcon>
             <ListItemText>
               <p className="item-list-index">{i}</p>
