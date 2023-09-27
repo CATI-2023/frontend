@@ -17,6 +17,13 @@
   padding: 0px 4rem;
 }
 
+.background-second-section {
+  background-image: url("../../../../assets/background-circuit.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
 @media screen and (max-width: 1366px) {
   .second-text-second-section {
     padding: 0px 3rem;

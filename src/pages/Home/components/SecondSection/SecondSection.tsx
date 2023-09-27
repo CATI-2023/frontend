@@ -5,10 +5,17 @@ export function SecondSection() {
   return (
     <>
       <Box
+        className="background-second-section"
         display={"flex"}
-        height={{xs: "auto", sm: "auto", md: "100vh", lg: "110vh", xl: "110vh"}}
-        pt={{ xs:"2rem" , sm: "2rem", md: "2rem", lg: "2rem", xl: "4rem"}}
-        pb={{ xs:"2rem", sm: "2rem"}}
+        height={{
+          xs: "auto",
+          sm: "auto",
+          md: "100vh",
+          lg: "110vh",
+          xl: "110vh",
+        }}
+        pt={{ xs: "2rem", sm: "2rem", md: "2rem", lg: "2rem", xl: "4rem" }}
+        pb={{ xs: "2rem", sm: "2rem" }}
         alignItems={"center"}
         justifyContent={"center"}
         flexDirection={"column"}
