@@ -21,7 +21,7 @@ interface IColaborador {
 //   );
 // }
 
-export function ColaboradorCard({ }: IColaborador) {
+export function ColaboradorCard({}: IColaborador) {
   return (
     <>
       <Box
