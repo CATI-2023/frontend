@@ -1,5 +1,5 @@
 .background-jogos-section {
-  background-image: url("../../../../assets/backgorund_ia_games.jpg");
+  background-image: url("../../../../assets/background-circuit.jpg");
   height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
@@ -39,5 +39,8 @@
 @media screen and (max-width: 600px) {
   .second-text-jogos-section {
     font-size: 1.5rem;
+  }
+  .background-jogos-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
   }
 }

@@ -26,3 +26,16 @@
   line-height: normal;
   width: 30rem;
 }
+
+.background-third-section {
+  background-image: url("../../../../assets/background-circuit.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .background-third-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
+  }
+}

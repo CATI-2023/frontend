@@ -1,7 +1,13 @@
 .background-artigos-section {
-  background-image: url("../../../../assets/background_maos.png");
-  height: 100vh;
+  background-image: url("../../../../assets/background-circuit.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
+  height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+  .background-artigos-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
+  }
 }
