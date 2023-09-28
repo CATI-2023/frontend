@@ -1,18 +1,12 @@
 import { Box } from "@mui/material";
 import "./style.css";
 import { ColaboradorCard } from "./components/Colaborador";
-import OpenIaLogo from "../../../../assets/OpenAI_Logo1.png"
-import TresCoracoesLogo from "../../../../assets/logo-cafe-3-coracoes.png"
-import SpacexLogo from "../../../../assets/spacex1.png"
-import MicrosoftLogo from "../../../../assets/Microsoft-Logo.png"
-import BombaLogo from "../../../../assets/bomba patch.png"
-import GoogleLogo from "../../../../assets/Google_2015_logo.png"
-import RedBullLogo from "../../../../assets/Red-Bull-Logo.png"
-import SicrediLogo from "../../../../assets/sicredi-logo.svg"
-import AppleLogo from "../../../../assets/apple-logo.png"
-import UbisoftLogo from "../../../../assets/ubisoft-logo-.png"
-import DollyLogo from "../../../../assets/Dolly_logo.png"
-import AlfaLogo from "../../../../assets/6694f1b7-0ee5-42d4-982f-9c4b0f2c3a7.png"
+import JZStore from "../../../../assets/colaboradores/JZ_Store.jpeg";
+import KikoTecnologia from "../../../../assets/colaboradores/KIKO_tecnologia.png";
+import ParadiseOutlet from "../../../../assets/colaboradores/Paradise_Outlet.jpg";
+import ReiCapinhas from "../../../../assets/colaboradores/Rei_das_capinhas.jpg";
+import SteakHouse from "../../../../assets/colaboradores/SL_STEAK_HOUSE.png";
+
 export function FourthSection() {
   return (
     <>
@@ -37,35 +31,33 @@ export function FourthSection() {
           mb="1em"
           display={{ xs: "none", md: "grid" }}
         >
-          <ColaboradorCard logo={OpenIaLogo} />
-          <ColaboradorCard logo={TresCoracoesLogo}/>
-          <ColaboradorCard logo={SpacexLogo}/>
-          <ColaboradorCard logo={MicrosoftLogo}/>
-          <ColaboradorCard logo={BombaLogo}/>
-          <ColaboradorCard logo={GoogleLogo}/>
-          <ColaboradorCard logo={RedBullLogo} />
-          <ColaboradorCard logo={SicrediLogo} />
-          <ColaboradorCard logo={AppleLogo} />
-          <ColaboradorCard logo={UbisoftLogo} />
-          <ColaboradorCard logo={DollyLogo} />
-          <ColaboradorCard logo={AlfaLogo} />
+          <ColaboradorCard logo={KikoTecnologia} />
+          <ColaboradorCard logo={JZStore}/>
+          <ColaboradorCard logo={ParadiseOutlet}/>
+          <ColaboradorCard logo={ReiCapinhas}/>
+          <ColaboradorCard logo={SteakHouse}/>
+          <ColaboradorCard logo={KikoTecnologia} />
+          <ColaboradorCard logo={JZStore}/>
+          <ColaboradorCard logo={ParadiseOutlet}/>
+          <ColaboradorCard logo={ReiCapinhas}/>
+          <ColaboradorCard logo={SteakHouse}/>
+          <ColaboradorCard logo={KikoTecnologia} />
+          <ColaboradorCard logo={JZStore}/>
         </Box>
         <Box
           // display={"grid"}
           gridTemplateColumns={{ xs: "auto", sm: "auto", md: "auto", lg: "auto auto auto", xl: "auto auto auto"}}
           bgcolor={"white"}
-          p={"2em"}
+          p={"1em"}
           borderRadius={"50px"}
-          mt={"1em"}
-          mb="1em"
+          m={"1em 1em"}
           display={{ xs: "grid", md: "none" }}
         >
-          <ColaboradorCard logo={OpenIaLogo} />
-          <ColaboradorCard logo={TresCoracoesLogo}/>
-          <ColaboradorCard logo={SpacexLogo}/>
-          <ColaboradorCard logo={MicrosoftLogo}/>
-          <ColaboradorCard logo={BombaLogo}/>
-          <ColaboradorCard logo={GoogleLogo}/>
+          <ColaboradorCard logo={KikoTecnologia} />
+          <ColaboradorCard logo={JZStore}/>
+          <ColaboradorCard logo={ParadiseOutlet}/>
+          <ColaboradorCard logo={ReiCapinhas}/>
+          <ColaboradorCard logo={SteakHouse}/>
         </Box>
       </Box>
     </>

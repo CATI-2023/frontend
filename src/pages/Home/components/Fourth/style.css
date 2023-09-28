@@ -9,7 +9,7 @@
 
 .background-colaboradores-section {
   background-image: url("../../../../assets/background_maos_2.jpg");
-  height: 100vh;
+  min-height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;

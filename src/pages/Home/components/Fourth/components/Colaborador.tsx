@@ -1,4 +1,4 @@
-import { Avatar, Box } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface IColaborador {
   logo?: string;
@@ -21,18 +21,18 @@ interface IColaborador {
 //   );
 // }
 
-export function ColaboradorCard({}: IColaborador) {
+export function ColaboradorCard({ logo }: IColaborador) {
   return (
     <>
       <Box
-        width="270px"
-        height={"110px"}
+        width={"20em"}
+        height={"10em"}
         border={" 1px solid #c2c2c2"}
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <Avatar />
+        <img src={logo} alt="" width={"auto"} height={"90%"}/>
       </Box>
     </>
   );

@@ -1,26 +1,31 @@
 .primary-text-thid-section {
   color: #fff;
-  font-family: "Nasalization";
+  font-family: "Roboto", sans-serif;
   font-size: 64px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
 .name-palestrante-third-section {
-  color: #fff;
-  font-family: "Nasalization";
-  font-size: 28px;
+  /* color: #fff; */
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  /* margin-top: 2rem;
+  margin-bottom: 1rem; */
 }
 .text-palestrante-third-section {
   color: #fff;
   text-align: center;
+<<<<<<< HEAD
   font-family: 'Nasalization';
   font-size: 1.2rem;
+=======
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+>>>>>>> fix_input_palestrantes_dados
   font-style: normal;
   font-weight: 400;
   line-height: normal;

@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
-import { Perguntas } from "./components/Perguntas";
+// import { Perguntas } from "./components/Perguntas";
 import { CaccLogo } from "../../../../assets/CaccLogo";
 import "./style.css";
 export function FifthSection() {
   return (
     <>
       <Box height={"auto"} textAlign={"center"}pt="2em">
-        <p
+        {/* <p
           className="primary-text-fifth-section "
           style={{ textAlign: "center", marginBottom: "1em" }}
         >
@@ -15,7 +15,7 @@ export function FifthSection() {
         <Perguntas />
         <Perguntas />
         <Perguntas />
-        <Perguntas />
+        <Perguntas /> */}
 
         <Box
           display="flex"

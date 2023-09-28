@@ -5,10 +5,17 @@ export function SecondSection() {
   return (
     <>
       <Box
+        className="background-second-section"
         display={"flex"}
-        height={{xs: "auto", sm: "auto", md: "100vh", lg: "110vh", xl: "110vh"}}
-        pt={{ xs:"2rem" , sm: "2rem", md: "2rem", lg: "2rem", xl: "4rem"}}
-        pb={{ xs:"2rem", sm: "2rem"}}
+        height={{
+          xs: "auto",
+          sm: "auto",
+          md: "100vh",
+          lg: "110vh",
+          xl: "110vh",
+        }}
+        pt={{ xs: "2rem", sm: "2rem", md: "2rem", lg: "2rem", xl: "4rem" }}
+        pb={{ xs: "2rem", sm: "2rem" }}
         alignItems={"center"}
         justifyContent={"center"}
         flexDirection={"column"}
@@ -28,8 +35,7 @@ export function SecondSection() {
           tecnologia. A IA tem se firmado como um dos campos mais
           revolucionários do século XXI, e o CATI reforça a importância de
           manter todos os informados e engajados nesse domínio em constante
-          crescimento. Durante o evento, os participantes terão a oportunidade
-          de: 1.Palestras por Especialistas
+          crescimento.
         </p>
         <ButtonInscrevaSe />
       </Box>
