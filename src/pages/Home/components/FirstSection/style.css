@@ -16,7 +16,8 @@
 }
 
 .background-first-section {
-  background-image: url('../../../../assets/Cerebro.png');
+  /* background-image: url('../../../../assets/Cerebro.png'); */
+  background-image: url('../../../../assets/cerebro-3.jpg');
   height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
@@ -34,7 +35,7 @@
 }
 @media screen and (max-width: 900px) {
   .background-first-section {
-    background-image: url("../../../../assets/Cerebro-md.png");
+    background-image: url("../../../../assets/CerebroSM.jpg");
     /* background-size: 100% 100%; */
   }
   .text-primary-first-section {
@@ -48,7 +49,7 @@
 
 @media screen and (max-width: 600px) {
   .background-first-section {
-    background-image: url("../../../../assets/Cerebro-sm.png");
+    background-image: url("../../../../assets/CerebroXS.jpg");
     /* background-size: 100% 100%; */
   }
 

@@ -42,7 +42,11 @@
     font-size: 2.7rem;
   }
 }
+
 @media screen and (max-width: 600px) {
+  .background-second-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
+  }
   .second-text-second-section {
     padding: 0px 1rem;
     font-size: 1rem;

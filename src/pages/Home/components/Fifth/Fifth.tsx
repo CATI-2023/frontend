@@ -5,7 +5,12 @@ import "./style.css";
 export function FifthSection() {
   return (
     <>
-      <Box height={"auto"} textAlign={"center"}pt="2em">
+      <Box
+        height={"auto"}
+        textAlign={"center"}
+        // pt="2em"
+        className="background-fifth-section"
+      >
         {/* <p
           className="primary-text-fifth-section "
           style={{ textAlign: "center", marginBottom: "1em" }}
@@ -22,7 +27,7 @@ export function FifthSection() {
           flexDirection="column"
           alignItems="center"
           gap={2}
-          mt="2em"
+          padding="2em 0"
         >
           <p className="second-text-fifth-section">Realização</p>
           <CaccLogo />

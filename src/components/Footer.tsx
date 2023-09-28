@@ -8,7 +8,7 @@ export function Footer() {
       <Box
         bgcolor="white"
         height={"200px"}
-        mt="4em"
+        padding="2rem 0"
         display={"flex"}
         justifyContent={"space-evenly"}
         alignItems={"center"}

@@ -2,26 +2,11 @@ import { Box } from "@mui/material";
 
 interface IColaborador {
   logo?: string;
+  widthPhoto?: string;
+  heightPhoto?: string;
 }
 
-// export function ColaboradorCard({ logo }: IColaborador) {
-//   return (
-//     <>
-//       <Box
-//         width="270px"
-//         height={"110px"}
-//         border={" 1px solid #c2c2c2"}
-//         display={"flex"}
-//         alignItems={"center"}
-//         justifyContent={"center"}
-//       >
-//         <img src={logo} alt="" width={"120px"} height={"60px"}/>
-//       </Box>
-//     </>
-//   );
-// }
-
-export function ColaboradorCard({ logo }: IColaborador) {
+export function ColaboradorCard({ logo, widthPhoto = "auto", heightPhoto = "90%" }: IColaborador) {
   return (
     <>
       <Box
@@ -32,7 +17,7 @@ export function ColaboradorCard({ logo }: IColaborador) {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <img src={logo} alt="" width={"auto"} height={"90%"}/>
+        <img src={logo} alt="" width={widthPhoto} height={heightPhoto}/>
       </Box>
     </>
   );

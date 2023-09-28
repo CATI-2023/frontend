@@ -2,7 +2,6 @@ import { Box, Grid } from "@mui/material";
 import "./style.css";
 // import { Palestrante } from "./components/palestrante";
 import { PalestranteCard } from "./components/palestranteCard";
-import Circuitoipresso from "../../../../assets/CircuitosImpressos.png";
 import FotoDhyego from "../../../../assets/palestrantesPhotos/Dhyego.jpeg";
 import FotoAlessandro from "../../../../assets/palestrantesPhotos/Alessandro.jpeg";
 import FotoRafaelAruca from "../../../../assets/palestrantesPhotos/Rafael_Aruca.jpeg";
@@ -109,11 +108,8 @@ export function ThirdSection() {
         display={"flex"}
         alignItems={"center"}
         flexDirection={"column"}
-        py={"4rem"}
-        style={{
-          background: `url(${Circuitoipresso})  100% / cover no-repeat`,
-          flexShrink: 0,
-        }}
+        p={"4em 0"}
+        className="background-third-section"
       >
         <h3 className="primary-text-second-section">Palestrantes</h3>
         <Grid container>
