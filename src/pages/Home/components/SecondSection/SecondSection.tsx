@@ -35,8 +35,7 @@ export function SecondSection() {
           tecnologia. A IA tem se firmado como um dos campos mais
           revolucionários do século XXI, e o CATI reforça a importância de
           manter todos os informados e engajados nesse domínio em constante
-          crescimento. Durante o evento, os participantes terão a oportunidade
-          de: 1.Palestras por Especialistas
+          crescimento.
         </p>
         <ButtonInscrevaSe />
       </Box>

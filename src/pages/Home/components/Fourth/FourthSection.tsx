@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import "./style.css";
 import { ColaboradorCard } from "./components/Colaborador";
-import JZStore from "./colaboradores/JZ_Store.jpeg";
-import KikoTecnologia from "./colaboradores/KIKO_tecnologia.png";
-import ParadiseOutlet from "./colaboradores/Paradise_Outlet.jpg";
-import ReiCapinhas from "./colaboradores/Rei_das_capinhas.jpg";
-import SteakHouse from "./colaboradores/SL_STEAK_HOUSE.png";
+import JZStore from "../../../../assets/colaboradores/JZ_Store.jpeg";
+import KikoTecnologia from "../../../../assets/colaboradores/KIKO_tecnologia.png";
+import ParadiseOutlet from "../../../../assets/colaboradores/Paradise_Outlet.jpg";
+import ReiCapinhas from "../../../../assets/colaboradores/Rei_das_capinhas.jpg";
+import SteakHouse from "../../../../assets/colaboradores/SL_STEAK_HOUSE.png";
 
 export function FourthSection() {
   return (

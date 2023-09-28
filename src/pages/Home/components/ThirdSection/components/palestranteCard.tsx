@@ -34,12 +34,12 @@ export function PalestranteCard({
       }}
     >
       <CardHeader
-        sx={{ justifyItems: "flex-end" }}
+        sx={{ fontFamily: "Roboto, sans-serif" }}
         avatar={
           <Avatar alt={nome} src={foto} sx={{ height: "8em", width: "8em" }} />
         }
         title={<p className="name-palestrante-third-section">{nome}</p>}
-        subheader={<p>{atuacao}</p>}
+        subheader={<p style={{ fontFamily: "Roboto" }}>{atuacao}</p>}
       />
       <CardContent sx={{ padding: "0 1em" }}>
         <p className="name-palestrante-third-section">{tema}</p>
