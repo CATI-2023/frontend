@@ -5,6 +5,7 @@ import { Box, Button, TextField } from "@mui/material";
 
 export function LoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
+  const year = new Date().getFullYear();
   const navigate = useNavigate();
   const AuthLogin = (event: React.FormEvent) => {
     event.preventDefault();
@@ -33,7 +34,8 @@ export function LoginPage() {
             color={"black"}
             borderRadius={2}
           >
-            <h1>Pagina de Login</h1>
+            <h1>Cati {year}</h1>
+            <p>Seja bem vindo</p>
             <TextField
               required
               label="User"
