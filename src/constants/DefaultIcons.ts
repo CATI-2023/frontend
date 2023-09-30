@@ -5,6 +5,7 @@ import {
   Books,
   PresentationChart,
   QrCode,
+  Lifebuoy,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -13,4 +14,5 @@ export const DefaultsIcons = {
   MiniCursorIcon: Books,
   PalestranteIcon: PresentationChart,
   PresencaIcon: QrCode,
+  ApoiadoresIcon: Lifebuoy
 };
