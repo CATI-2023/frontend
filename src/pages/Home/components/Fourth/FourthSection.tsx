@@ -1,24 +1,33 @@
 import { Box } from "@mui/material";
 import "./style.css";
 import { ColaboradorCard } from "./components/Colaborador";
-import OpenIaLogo from "../../../../assets/OpenAI_Logo1.png"
-import TresCoracoesLogo from "../../../../assets/logo-cafe-3-coracoes.png"
-import SpacexLogo from "../../../../assets/spacex1.png"
-import MicrosoftLogo from "../../../../assets/Microsoft-Logo.png"
-import BombaLogo from "../../../../assets/bomba patch.png"
-import GoogleLogo from "../../../../assets/Google_2015_logo.png"
-import RedBullLogo from "../../../../assets/Red-Bull-Logo.png"
-import SicrediLogo from "../../../../assets/sicredi-logo.svg"
-import AppleLogo from "../../../../assets/apple-logo.png"
-import UbisoftLogo from "../../../../assets/ubisoft-logo-.png"
-import DollyLogo from "../../../../assets/Dolly_logo.png"
-import AlfaLogo from "../../../../assets/6694f1b7-0ee5-42d4-982f-9c4b0f2c3a7.png"
+import JZStore from "../../../../assets/colaboradores/JZ_Store.jpeg";
+import KikoTecnologia from "../../../../assets/colaboradores/KIKO_tecnologia.png";
+import ParadiseOutlet from "../../../../assets/colaboradores/Paradise_Outlet.jpg";
+import ReiCapinhas from "../../../../assets/colaboradores/Rei_das_capinhas.jpg";
+import SteakHouse from "../../../../assets/colaboradores/SL_STEAK_HOUSE.png";
+import Waser from "../../../../assets/colaboradores/waser_tecnologia.jpeg";
+import MercadoConfianca from "../../../../assets/colaboradores/mercado_confianca_.jpeg";
+import CNA from "../../../../assets/colaboradores/CNA.jpeg";
+import JRC from "../../../../assets/colaboradores/JRC.png";
+
+const colaboradores = [
+  { logo: KikoTecnologia, heightPhoto: "auto", widthPhoto: "90%", colaboradorTitle: "KIKO Tecnologia Agrícola" },
+  { logo: JRC, colaboradorTitle: "JRC Assessoria & Consultoria" },
+  { logo: JZStore, colaboradorTitle: "JZ Store" },
+  { logo: ParadiseOutlet, colaboradorTitle: "Paradaise Outlet" },
+  { logo: ReiCapinhas, colaboradorTitle: "Rei das Capinhas Tangará da Serra" },
+  { logo: SteakHouse, colaboradorTitle: "SL Prime Steak House" },
+  { logo: Waser, heightPhoto: "auto", widthPhoto: "90%", colaboradorTitle: "Waser Tecnologia" },
+  { logo: MercadoConfianca, heightPhoto: "auto", widthPhoto: "90%", colaboradorTitle: "Supermercado Confiança." },
+  { logo: CNA, colaboradorTitle: "CNA Barra do Bugres" },
+];
+
 export function FourthSection() {
   return (
     <>
       <Box
         // height={"auto"}
-        pt={"3em"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
@@ -26,46 +35,57 @@ export function FourthSection() {
         py={"2rem"}
         className="background-colaboradores-section"
       >
-        <p className="primary-text-fourth-section">Colaboradores</p>
+        <p className="primary-text-second-section" style={{ margin: "2rem 0" }}>
+          Colaboradores
+        </p>
         <Box
           // display={"grid"}
-          gridTemplateColumns={{ xs: "auto", sm: "auto", md: "auto", lg: "auto auto auto", xl: "auto auto auto"}}
+          gridTemplateColumns={{
+            xs: "auto",
+            sm: "auto",
+            md: "auto",
+            lg: "auto auto auto",
+            xl: "auto auto auto",
+          }}
           bgcolor={"white"}
-          p={"2em"}
+          padding={"2em"}
           borderRadius={"50px"}
-          mt={"1em"}
-          mb="1em"
+          margin={"2em 0"}
           display={{ xs: "none", md: "grid" }}
         >
-          <ColaboradorCard logo={OpenIaLogo} />
-          <ColaboradorCard logo={TresCoracoesLogo}/>
-          <ColaboradorCard logo={SpacexLogo}/>
-          <ColaboradorCard logo={MicrosoftLogo}/>
-          <ColaboradorCard logo={BombaLogo}/>
-          <ColaboradorCard logo={GoogleLogo}/>
-          <ColaboradorCard logo={RedBullLogo} />
-          <ColaboradorCard logo={SicrediLogo} />
-          <ColaboradorCard logo={AppleLogo} />
-          <ColaboradorCard logo={UbisoftLogo} />
-          <ColaboradorCard logo={DollyLogo} />
-          <ColaboradorCard logo={AlfaLogo} />
+          {colaboradores.map((c, idx) => (
+            <ColaboradorCard
+              logo={c.logo}
+              widthPhoto={c.widthPhoto}
+              heightPhoto={c.heightPhoto}
+              key={idx}
+            />
+          ))}
         </Box>
         <Box
           // display={"grid"}
-          gridTemplateColumns={{ xs: "auto", sm: "auto", md: "auto", lg: "auto auto auto", xl: "auto auto auto"}}
+          gridTemplateColumns={{
+            xs: "auto",
+            sm: "auto",
+            md: "auto",
+            lg: "auto auto auto",
+            xl: "auto auto auto",
+          }}
           bgcolor={"white"}
-          p={"2em"}
-          borderRadius={"50px"}
-          mt={"1em"}
-          mb="1em"
+          p={"1em"}
+          borderRadius={"30px"}
+          m={"1em 1em"}
           display={{ xs: "grid", md: "none" }}
         >
-          <ColaboradorCard logo={OpenIaLogo} />
-          <ColaboradorCard logo={TresCoracoesLogo}/>
-          <ColaboradorCard logo={SpacexLogo}/>
-          <ColaboradorCard logo={MicrosoftLogo}/>
-          <ColaboradorCard logo={BombaLogo}/>
-          <ColaboradorCard logo={GoogleLogo}/>
+          {colaboradores.map((c, idx) => (
+            <ColaboradorCard
+              logo={c.logo}
+              widthPhoto={c.widthPhoto}
+              heightPhoto={c.heightPhoto}
+              key={idx}
+              colaboradorTitle={c.colaboradorTitle}
+            />
+          ))}
         </Box>
       </Box>
     </>

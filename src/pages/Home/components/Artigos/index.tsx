@@ -42,7 +42,7 @@ export function ArtigosSection() {
       >
         <p className="primary-text-section">Artigos</p>
         <p className="second-text-second-section">
-          As submissões ao CATI podem ser por memarginio de minicursos, artigos
+          As submissões ao CATI podem ser por meio de minicursos, artigos
           completos ou artigos resumidos, que devem ser submetidos em formato
           exclusivamente digital (arquivo PDF), através do sistema JEMS (
           <a
