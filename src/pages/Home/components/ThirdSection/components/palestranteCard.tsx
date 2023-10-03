@@ -42,7 +42,7 @@ export function PalestranteCard({
         subheader={<p style={{ fontFamily: "Roboto" }}>{atuacao}</p>}
       />
       <CardContent sx={{ padding: "0 1em" }}>
-        <p className="name-palestrante-third-section">{tema}</p>
+        <p className="tema-palestrante-third-section">{tema}</p>
       </CardContent>
       <CardActions>
         {lattes != "" ? (

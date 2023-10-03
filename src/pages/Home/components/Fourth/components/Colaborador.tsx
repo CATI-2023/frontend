@@ -4,9 +4,10 @@ interface IColaborador {
   logo?: string;
   widthPhoto?: string;
   heightPhoto?: string;
+  colaboradorTitle?: string;
 }
 
-export function ColaboradorCard({ logo, widthPhoto = "auto", heightPhoto = "90%" }: IColaborador) {
+export function ColaboradorCard({ logo, widthPhoto = "auto", heightPhoto = "90%", colaboradorTitle="" }: IColaborador) {
   return (
     <>
       <Box
@@ -17,7 +18,7 @@ export function ColaboradorCard({ logo, widthPhoto = "auto", heightPhoto = "90%"
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <img src={logo} alt="" width={widthPhoto} height={heightPhoto}/>
+        <img src={logo} alt={colaboradorTitle} width={widthPhoto} height={heightPhoto}/>
       </Box>
     </>
   );

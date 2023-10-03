@@ -8,15 +8,19 @@ import ReiCapinhas from "../../../../assets/colaboradores/Rei_das_capinhas.jpg";
 import SteakHouse from "../../../../assets/colaboradores/SL_STEAK_HOUSE.png";
 import Waser from "../../../../assets/colaboradores/waser_tecnologia.jpeg";
 import MercadoConfianca from "../../../../assets/colaboradores/mercado_confianca_.jpeg";
+import CNA from "../../../../assets/colaboradores/CNA.jpeg";
+import JRC from "../../../../assets/colaboradores/JRC.png";
 
 const colaboradores = [
-  { logo: KikoTecnologia, heightPhoto: "auto", widthPhoto: "90%" },
-  { logo: JZStore },
-  { logo: ParadiseOutlet },
-  { logo: ReiCapinhas },
-  { logo: SteakHouse },
-  { logo: Waser, heightPhoto: "auto", widthPhoto: "90%" },
-  { logo: MercadoConfianca, heightPhoto: "auto", widthPhoto: "90%" },
+  { logo: KikoTecnologia, heightPhoto: "auto", widthPhoto: "90%", colaboradorTitle: "KIKO Tecnologia Agrícola" },
+  { logo: JRC, colaboradorTitle: "JRC Assessoria & Consultoria" },
+  { logo: JZStore, colaboradorTitle: "JZ Store" },
+  { logo: ParadiseOutlet, colaboradorTitle: "Paradaise Outlet" },
+  { logo: ReiCapinhas, colaboradorTitle: "Rei das Capinhas Tangará da Serra" },
+  { logo: SteakHouse, colaboradorTitle: "SL Prime Steak House" },
+  { logo: Waser, heightPhoto: "auto", widthPhoto: "90%", colaboradorTitle: "Waser Tecnologia" },
+  { logo: MercadoConfianca, heightPhoto: "auto", widthPhoto: "90%", colaboradorTitle: "Supermercado Confiança." },
+  { logo: CNA, colaboradorTitle: "CNA Barra do Bugres" },
 ];
 
 export function FourthSection() {
@@ -79,6 +83,7 @@ export function FourthSection() {
               widthPhoto={c.widthPhoto}
               heightPhoto={c.heightPhoto}
               key={idx}
+              colaboradorTitle={c.colaboradorTitle}
             />
           ))}
         </Box>
