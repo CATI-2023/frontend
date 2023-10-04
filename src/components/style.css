@@ -1,10 +1,22 @@
-.logoFooterSBC {
+.logoFooterSBC{
   height: 9em;
+  width: auto;
 }
 
-/* .logoFooterUnemat {
-  height: em;
-} */
+.logoFooterUnemat {
+  height: 8em;
+  width: auto;
+}
+
+.text-footer-section {
+  color: black;
+  font-family: 'Nasalization';
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
 
 .logoHeader {
   height: 7em;
@@ -23,4 +35,9 @@
   .logoHeader {
     height: 3.5em;
   }
-}
+
+  .logoFooterUnemat {
+    height: 6em;
+    width: auto;
+  }
+  }

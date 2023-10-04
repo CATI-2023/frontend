@@ -64,7 +64,7 @@ export function JogosSection() {
               <p className="second-text-jogos-section">
                 Estão abertas as inscrições para o campeonato de jogos 2023.
               </p>
-              <br></br>
+              {/* <br></br>
               <p
                 style={{
                   borderRadius: "50px",
@@ -76,7 +76,17 @@ export function JogosSection() {
                 }}
               >
                 Inscrições: R$10,00
-              </p>
+              </p> */}
+              <ButtonDefault
+                style={{
+                  margin: "2rem 0",
+                  padding: "1rem 2rem",
+                  width: "80%",
+                  fontSize: "2rem",
+                }}
+                title="Inscreva-se"
+                href="https://forms.gle/5tLfV72vc5hCjXPE7"
+              />
               <br></br>
               <p className="second-text-jogos-section">
                 Se você não tem time, não se preocupe,{" "}
@@ -89,17 +99,6 @@ export function JogosSection() {
                 </a>
                 .
               </p>
-
-              <ButtonDefault
-                style={{
-                  margin: "2rem 0",
-                  padding: "1rem 2rem",
-                  width: "80%",
-                  fontSize: "2rem",
-                }}
-                title="Inscreva-se"
-                href="https://forms.gle/5tLfV72vc5hCjXPE7"
-              />
             </Box>
           </Grid>
           <Grid
