@@ -8,9 +8,10 @@ import { DefaultsIcons } from "../../constants/DefaultIcons";
 
 interface props {
   title: string;
+  typeUser: "User" | "Organização";
 }
 
-export default function DrawerComponent({ title }: props) {
+export default function DrawerComponent({ title, typeUser }: props) {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -63,27 +64,66 @@ export default function DrawerComponent({ title }: props) {
                 title="Dashboard"
                 Icon={DefaultsIcons.DashboarIcon}
                 size={24}
-                route="/dashboard"
+                route={
+                  typeUser === "User"
+                    ? "/dashboard/user/123"
+                    : "/dashboard/org/123"
+                }
               />
               <ListItemDrawer
                 title="Mini Cursos"
                 Icon={DefaultsIcons.MiniCursorIcon}
                 size={24}
-                route="/mini-cursos"
+                route={
+                  typeUser === "User"
+                    ? "/mini-cursos/user/123"
+                    : "/mini-cursos/org/123"
+                }
               />
-              <ListItemDrawer
-                title="Palestras"
-                Icon={DefaultsIcons.PalestranteIcon}
-                size={24}
-                route="/palestras"
-              />
+              {typeUser === "Organização" ? (
+                <ListItemDrawer
+                  title="Palestras"
+                  Icon={DefaultsIcons.PalestranteIcon}
+                  size={24}
+                  route="/palestras/org/123"
+                />
+              ) : null}
               <ListItemDrawer
                 title="Presença"
                 Icon={DefaultsIcons.PresencaIcon}
                 size={24}
-                route="/presenca"
+                route={
+                  typeUser === "User"
+                    ? "/presenca/user/123"
+                    : "/presenca/org/123"
+                }
               />
             </List>
+            {typeUser === "Organização" ? (
+              <ListItemDrawer
+                title="Apoiadores"
+                Icon={DefaultsIcons.ApoiadoresIcon}
+                size={24}
+                route="/apoiadores/org/123"
+              />
+            ) : null}
+            {typeUser === "Organização" ? (
+              <ListItemDrawer
+                title="Participantes"
+                Icon={DefaultsIcons.ParticipantesIcon}
+                size={24}
+                route="/participantes/org/123"
+              />
+            ) : null}
+            {typeUser === "Organização" ? (
+              <ListItemDrawer
+                title="Noticias"
+                Icon={DefaultsIcons.NoticiasIcon}
+                size={24}
+                route="/noticias/org/123"
+              />
+            ) : null}
+
             <Divider />
             <List>
               {/* <ListItemDrawer

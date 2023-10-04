@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../utils/Auth";
+import { login } from "../../../utils/Auth";
 import { Box, Button, TextField } from "@mui/material";
 
-export function LoginPage() {
+export function OrganizacaoLoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
   const navigate = useNavigate();
   const AuthLogin = (event: React.FormEvent) => {
     event.preventDefault();
     if (Login.user === "admin" && Login.password === "admin") {
       login("123");
-      navigate("/dashboard");
+      navigate("/dashboard/org/123");
     }
   };
   return (
@@ -28,7 +28,7 @@ export function LoginPage() {
             justifyContent={"center"}
             flexDirection={"column"}
             gap={2}
-            p={10}
+            p={5}
             bgcolor="white"
             color={"black"}
             borderRadius={2}
