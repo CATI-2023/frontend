@@ -1,0 +1,24 @@
+.button-subscribe-second-section {
+  display: inline-flex;
+  padding: 1em 3em;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 50px;
+  background: #00e0e6;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button-subscribe-second-section:active {
+  background: #00969b;
+}
+
+@media screen and (max-width: 600px) {
+  .button-subscribe-second-section {
+    padding: 1em 3em;
+    font-size: 1.2rem;
+  }
+}

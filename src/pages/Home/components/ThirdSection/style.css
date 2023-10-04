@@ -1,28 +1,60 @@
 .primary-text-thid-section {
   color: #fff;
-  font-family: "Nasalization";
+  font-family: "Roboto", sans-serif;
   font-size: 64px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
 .name-palestrante-third-section {
-  color: #fff;
-  font-family: "Nasalization";
-  font-size: 28px;
+  /* color: #fff; */
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  /* margin-top: 2rem;
+  margin-bottom: 1rem; */
+}
+
+.tema-palestrante-third-section {
+  /* color: #fff; */
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-top: 2em;
-  margin-bottom: 1em;
+  /* margin-top: 2rem;
+  margin-bottom: 1rem; */
 }
+
 .text-palestrante-third-section {
   color: #fff;
   text-align: center;
-  font-family: 'Nasalization';
+  font-family: "Roboto", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 30em;
+  width: 30rem;
+}
+
+.background-third-section {
+  background-image: url("../../../../assets/background-circuit.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+@media screen and (min-width: 1400px) {
+  .name-palestrante-third-section,
+  .tema-palestrante-third-section {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .background-third-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
+  }
 }

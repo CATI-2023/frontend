@@ -1,0 +1,46 @@
+.background-jogos-section {
+  background-image: url("../../../../assets/background-circuit.jpg");
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.second-text-jogos-section {
+  color: #fff;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0px 2rem;
+}
+
+.second-text-jogos-section-link {
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  line-height: normal;
+}
+
+@media screen and (max-width: 1400px) {
+  .second-text-jogos-section {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .second-text-jogos-section {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .second-text-jogos-section {
+    font-size: 1.5rem;
+  }
+  .background-jogos-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
+  }
+}

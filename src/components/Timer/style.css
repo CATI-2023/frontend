@@ -1,21 +1,45 @@
-.Timer-primary-text {
+.timer-primary-text {
   color: #fff;
-  font-size: 28px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
 .timer-tempo-dia-afins {
   color: #fff;
-  font-size: 80px;
+  font-size: 5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
 .timer-tempo-titulo {
   color: #fff;
-  font-size: 20px;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+@media screen and (max-width: 900px) {
+  .timer-primary-text {
+    font-size: 1.5rem;
+  }
+  .timer-tempo-dia-afins {
+    font-size: 2rem;
+  }
+  .timer-tempo-titulo {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .timer-primary-text {
+    font-size: .8rem;
+  }
+  .timer-tempo-dia-afins {
+    font-size: 1.5rem;
+  }
+  .timer-tempo-titulo {
+    font-size: .5rem;
+  }
 }

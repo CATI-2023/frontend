@@ -1,8 +1,16 @@
-.primary-text-fourth-section {
-  color: #fff;
-  font-family: 'Nasalization';
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+.background-colaboradores-section {
+  background-image: url("../../../../assets/background-circuit.jpg");
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .primary-text-fourth-section {
+    font-size: 2.5rem;
+  }
+  .background-colaboradores-section {
+    background-image: url("../../../../assets/CircuitoSM.jpg");
+  }
 }

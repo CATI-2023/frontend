@@ -1,17 +1,25 @@
 import { Box } from "@mui/material";
-import LogoMarcaUnematPreta from "../assets/LogoripoUnemat-Preto 1.png"
+import "./style.css";
+import { LogoMarcaUnemat } from "../assets/logoMarcaUnematPreto";
+import { LogoMarcaSBC } from "../assets/logoMarcaSBC";
+
 export function Footer() {
   return (
     <>
       <Box
-        bgcolor="white"
-        height={"200px"}
-        mt="4em"
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
+          bgcolor="white"
+          height={"230px"}
+          padding="1rem 0"
       >
-        <img src={LogoMarcaUnematPreta} alt="" />
+        <p className="text-footer-section">Apoio</p>
+        <Box
+          display={"flex"}
+          justifyContent={"space-evenly"}
+          alignItems={"center"}
+        >
+          <LogoMarcaUnemat />
+          <LogoMarcaSBC />
+        </Box>
       </Box>
     </>
   );

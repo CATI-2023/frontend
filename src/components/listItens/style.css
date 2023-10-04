@@ -1,0 +1,19 @@
+.item-list-index{
+  font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1400px) {
+  .item-list-index{
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  .item-list-index{
+    font-size: .8rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .item-list-index{
+    font-size: .6rem;
+  }
+}
