@@ -1,10 +1,9 @@
 import { Box, styled } from "@mui/material";
 import { LogoCati } from "../assets/logoMarcaCatiCACC";
-import { LogoMarcaUnemat } from "../assets/logoMarcaUnematNomeCampus";
+// import { CaccLogo } from "../assets/CaccLogo";
 import "./style.css";
 
 export function Header() {
-
   const HeaderBox = styled(Box)(({ theme }) => ({
     padding: "4em",
     display: "flex",
@@ -17,15 +16,14 @@ export function Header() {
     [theme.breakpoints.down("md")]: {
       padding: "2em",
     },
-    [theme.breakpoints.up("lg")]: {
-    },
+    [theme.breakpoints.up("lg")]: {},
   }));
 
   return (
     <>
       <HeaderBox>
         <LogoCati />
-        <LogoMarcaUnemat />
+        {/* <CaccLogo /> */}
       </HeaderBox>
     </>
   );

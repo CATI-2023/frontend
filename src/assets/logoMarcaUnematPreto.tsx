@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import LogoMarcaUnematPreta from "../assets/LogoripoUnemat-Preto 1.png";
+import LogoMarcaUnematPreta from "../assets/LOGO-UNEMAT-PRETO-CAMPUS.png";
 
 export function LogoMarcaUnemat() {
   return (

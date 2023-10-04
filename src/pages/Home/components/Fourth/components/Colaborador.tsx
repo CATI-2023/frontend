@@ -7,7 +7,7 @@ interface IColaborador {
   colaboradorTitle?: string;
 }
 
-export function ColaboradorCard({ logo, widthPhoto = "auto", heightPhoto = "90%", colaboradorTitle="" }: IColaborador) {
+export function ColaboradorCard({ logo, widthPhoto = "auto", heightPhoto = "100%", colaboradorTitle="" }: IColaborador) {
   return (
     <>
       <Box
