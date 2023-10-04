@@ -3,11 +3,11 @@ export function ButtonInscrevaSe() {
   return (
     <>
       {/* <a href="https://eva.faespe.org.br/xivcati/"> */}
-      <a href="#">
+      {/* <a href="#"> */}
         <button className="button-subscribe-second-section">
           INSCREVA-SE AGORA
         </button>
-      </a>
+      {/* </a> */}
     </>
   );
 }
