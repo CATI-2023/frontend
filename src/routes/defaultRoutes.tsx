@@ -13,6 +13,8 @@ import { OrganizacaoMiniCursosPage } from "../pages/orgPages/MiniCursos";
 import { OrganizacaoPresencaPage } from "../pages/orgPages/Presenca";
 import { OrganizacaoLoginPage } from "../pages/Login/UserOrganizacao";
 import { OrganizacaoApoiadoresPage } from "../pages/orgPages/Apoiadores";
+import { OrganizacaoParticipantePage } from "../pages/orgPages/Participantes";
+import { OrganizacaoNoticiasPage } from "../pages/orgPages/Noticias";
 
 export function DefaultRoutes() {
   return (
@@ -42,7 +44,18 @@ export function DefaultRoutes() {
               path="/presenca/org/:id"
               element={<OrganizacaoPresencaPage />}
             />
-            <Route path="/apoiadores/org/123" element={<OrganizacaoApoiadoresPage />}/>
+            <Route
+              path="/apoiadores/org/123"
+              element={<OrganizacaoApoiadoresPage />}
+            />
+            <Route
+              path="/participantes/org/123"
+              element={<OrganizacaoParticipantePage />}
+            />
+            <Route
+              path="/noticias/org/123"
+              element={<OrganizacaoNoticiasPage />}
+            />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
