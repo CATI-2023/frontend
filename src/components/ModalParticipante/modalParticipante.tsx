@@ -42,7 +42,15 @@ export function ModalParticipante({ open, onClose }: SimpleDialogProps) {
       cpf: data?.cpf,
       organizacao: false,
     };
-    await createParticipante(Data);
+    await createParticipante(Data)
+      .then((res) => {
+        res.status === 201
+          ? alert("Participante cadastrado com sucesso")
+          : alert("Erro ao cadastrar participante");
+      })
+      .catch((err) => {
+        alert("Erro ao cadastrar participante"+ err);
+      });
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
