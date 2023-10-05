@@ -4,16 +4,17 @@ import { logout } from "../../utils/Auth";
 
 type Props = {
     title: string;
+    typeUser: "User" | "Organização";
 }
 
 
-export function Navbar( { title }:Props ) {
+export function Navbar( { title, typeUser }:Props ) {
   return (
     <>
       <Box>
         <AppBar position="static">
           <Toolbar>
-            <DrawerComponent title={title} />
+            <DrawerComponent title={title} typeUser={typeUser} />
             <Typography
               variant="h6"
               component="div"
@@ -22,7 +23,7 @@ export function Navbar( { title }:Props ) {
             >
               {title}
             </Typography>
-            <Button color="inherit" onClick={() => {logout()}}>User</Button>
+            <Button color="inherit" onClick={() => {logout()}}>{"Logout"}</Button>
           </Toolbar>
         </AppBar>
       </Box>
