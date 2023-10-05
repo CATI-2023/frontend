@@ -20,7 +20,7 @@ import {
 import { useState } from "react";
 import { createInscricaoEvento } from "../../services/InscricaoEvento";
 import useNotification from "../../hooks/useNotification";
-import { Trash } from "@phosphor-icons/react";
+import { Camera, Trash } from "@phosphor-icons/react";
 
 // Refatorar isso depois
 type EventoResponse = {
@@ -46,7 +46,7 @@ interface Participante {
   senha: string;
   confirmar_senha: string;
   telefone: string;
-  foto_url: string;
+  foto: string;
   tamanho_camiseta: string;
 }
 
@@ -67,7 +67,7 @@ export function InscricaoEventoPage() {
       senha: "",
       confirmar_senha: "",
       telefone: "",
-      foto_url: "",
+      foto: "",
       tamanho_camiseta: "",
     },
     observacoes: "",
@@ -90,18 +90,19 @@ export function InscricaoEventoPage() {
         cpf: inscricao.participante.cpf.trim(),
         email: inscricao.participante.email.trim(),
         senha: inscricao.participante.senha.trim(),
-        foto_url: "",
-        telefone: inscricao.participante.telefone.trim(),
+        foto: "",
+        telfone: inscricao.participante.telefone.trim(),
       }
     }
 
     setSaving(true)
 
-    await createInscricaoEvento(_data).then(res => {
-      console.log(res)
-
+    await createInscricaoEvento(_data).then(() => {
+      showNotification({
+        message: "Inscrição realizada com sucesso",
+        type: "success"
+      })
     }).catch(err => {
-
       showNotification({
         message: err?.response?.data?.message ?? "Erro ao realizar inscrição",
         type: "error"
@@ -117,8 +118,13 @@ export function InscricaoEventoPage() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        // setData({ ...data, foto: reader.result as string });
-        // setData({ ...data, foto: "aaaaaaaa" });
+        setInscricao((prev) => ({
+          ...prev,
+          participante: {
+            ...prev.participante,
+            foto: reader.result as string
+          }
+        }));
       };
       reader.readAsDataURL(file);
     }
@@ -155,21 +161,16 @@ export function InscricaoEventoPage() {
 
             <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
               <Avatar
-                src={inscricao.participante.foto_url}
+                src={inscricao.participante.foto}
                 variant="rounded"
                 sx={{
                   objectFit: "contain",
                   width: 150,
                   height: 150
                 }}
-              >
-                {/* (
-                  <DefaultIcons.DrinkIcon
-                    size={"5rem"}
-                    color={theme.palette.text.primary}
-                  />  */}
-              </Avatar>
+              />
               <Box display="flex" gap={1}>
+
                 <Button
                   variant="outlined"
                   color="info"
@@ -179,41 +180,46 @@ export function InscricaoEventoPage() {
                   }}
                 >
                   {/* <DefaultIcons.CameraIcon size={"1.5rem"} /> */}
-                  <Trash />
+                  <Camera />
                 </Button>
+                <input
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  id="contained-button-file"
+                  type="file"
+                  onChange={(event) => {
+                    if (event.target.files) {
+                      // handleUploadImage(event.target.files[0]);
+                      handleImageUpload(event);
+                    }
+                  }}
+                />
+
                 <Button
                   variant="outlined"
-                  id="contained-button-file"
                   color="primary"
                   onClick={() => {
                     setInscricao((prev) => ({
                       ...prev,
                       participante: {
                         ...prev.participante,
-                        foto_url: ""
+                        foto: ""
                       }
                     }));
                   }}
                 >
-                  {/* <DefaultIcons.DeleteIcon size={"1.5rem"} /> */}
                   <Trash />
                 </Button>
               </Box>
 
             </Box>
-            <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="contained-button-file"
-              onChange={(e) => {
-                handleImageUpload(e);
-              }}
-            />
+
 
             <Box
               display="flex"
               flexDirection="column"
               gap={1}
+              mt={2}
             >
               <TextField
                 fullWidth
