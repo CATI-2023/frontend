@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import usePageTitle from "../../hooks/usePageTitle";
 import {
@@ -56,6 +56,8 @@ export function InscricaoEventoPage() {
   const { id } = useParams();
   const showNotification = useNotification()
 
+  const navigate = useNavigate()
+
   const [saving, setSaving] = useState(false)
 
   const [inscricao, setInscricao] = useState<CreateInscricaoRequest>({
@@ -97,11 +99,21 @@ export function InscricaoEventoPage() {
 
     setSaving(true)
 
-    await createInscricaoEvento(_data).then(() => {
+    await createInscricaoEvento(_data).then((res) => {
+
+      const { participante, token } = res
+
+      localStorage.setItem("accessToken", token)
+
       showNotification({
         message: "Inscrição realizada com sucesso",
         type: "success"
       })
+
+      //Navegar para o portal/administrativo
+      navigate("#")
+
+
     }).catch(err => {
       showNotification({
         message: err?.response?.data?.message ?? "Erro ao realizar inscrição",
