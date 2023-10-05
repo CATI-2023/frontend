@@ -8,6 +8,7 @@ import { MiniCursosPage } from "../pages/MiniCursos";
 import { PalestrasPage } from "../pages/Palestras";
 import { PresencaPage } from "../pages/Presenca";
 import { LoginPage } from "../pages/Login";
+import { InscricaoEventoPage } from "../pages/InscricaoEventoPage";
 
 export function DefaultRoutes() {
   return (
@@ -16,6 +17,8 @@ export function DefaultRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/evento/:id/inscricao" element={<InscricaoEventoPage />} />
+
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<UserPage />} />
             <Route path="/mini-cursos" element={<MiniCursosPage />} />
