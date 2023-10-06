@@ -66,7 +66,7 @@ export function InformacoesEvento({
                   label="Age"
                   // onChange={handleChange}
                 >
-                  {eventosList ? (
+                  {/* {eventosList ? (
                     eventosList.forEach((i) => (
                       <MenuItem value={i.ano} key={i.ano}>
                         {i.ano} - {i.tema}
@@ -74,7 +74,7 @@ export function InformacoesEvento({
                     ))
                   ) : (
                     <MenuItem value={10}></MenuItem>
-                  )}
+                  )} */}
                 </Select>
               </FormControl>
             </Box>
