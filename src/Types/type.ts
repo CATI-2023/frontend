@@ -6,6 +6,7 @@ export type palestras = {
 };
 
 export type participantes = {
+  participante_id?: number,
   nome?: string;
   foto?: string;
   cpf?: string;
@@ -48,10 +49,10 @@ export type noticia = {
   evento_id_reference: number;
 };
 export type inscricaoEvento = {
-  evento_id_reference: number;
-  participante_id_reference: number;
-  observacoes: string;
-  pagamento_id_reference: number;
+  evento_id_reference?: number;
+  participante_id_reference?: number;
+  observacoes?: string;
+  pagamento_id_reference?: number;
 };
 export type inscricaoEventoGet = {
   observacoes: string;
@@ -83,4 +84,9 @@ export type inscricaoEventoGet = {
 export type pagamentos = {
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
   comprovante_base64: string;
+};
+
+export type userLogin = {
+  email: string;
+  senha: string;
 };

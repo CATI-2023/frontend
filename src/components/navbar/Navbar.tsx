@@ -1,14 +1,21 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import DrawerComponent from "../drawer/Drawer";
 import { logout } from "../../utils/Auth";
+import { DefaultsIcons } from "../../constants/DefaultIcons";
 
 type Props = {
-    title: string;
-    typeUser: "User" | "Organização";
-}
+  title: string;
+  typeUser: "User" | "Organização";
+};
 
-
-export function Navbar( { title, typeUser }:Props ) {
+export function Navbar({ title, typeUser }: Props) {
   return (
     <>
       <Box>
@@ -23,7 +30,19 @@ export function Navbar( { title, typeUser }:Props ) {
             >
               {title}
             </Typography>
-            <Button color="inherit" onClick={() => {logout()}}>{"Logout"}</Button>
+            <IconButton
+              onClick={() => {
+                logout();
+              }}
+              color="inherit"
+              size="large"
+              edge="start"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              {"Sair"}
+              <DefaultsIcons.SignOutIcon color="white" />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>

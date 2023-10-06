@@ -1,5 +1,7 @@
 import { useState } from "react";
 import {
+  Alert,
+  Avatar,
   Box,
   Button,
   Dialog,
@@ -10,54 +12,97 @@ import {
 } from "@mui/material";
 import { createParticipante } from "../../services/participantes";
 import { participantes } from "../../Types/type";
+import { photoDefault } from "../../components/photoDefault";
+import {
+  formataCPF,
+  formataTelefone,
+  validaCPF,
+} from "../../constants/function";
 
 export interface SimpleDialogProps {
   open: boolean;
   onClose: () => void;
 }
 export function ModalParticipante({ open, onClose }: SimpleDialogProps) {
+  const [alertWarning, setAlertWarning] = useState(false);
+  const [alertWarningMessage, setAlertWarningMessage] = useState("");
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertSuccessMessage, setAlertSuccessMessage] = useState("");
+
   const [data, setData] = useState<participantes | null>(null);
   const [revalidarSenha, setRevalidarSenha] = useState<string>("");
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onload = () => {
         setData({ ...data, foto: reader.result as string });
         // setData({ ...data, foto: "aaaaaaaa" });
       };
-      reader.readAsDataURL(file);
     }
   };
   const handleClose = () => {
+    handleCleanData();
+    setAlertSuccess(false);
+    setAlertWarning(false);
     onClose();
   };
+
+  const handleCleanData = () => {
+    setData({
+      ...data,
+      nome: "",
+      email: "",
+      telefone: "",
+      foto: photoDefault(),
+      senha: "",
+      cpf: "",
+    });
+  };
+
   async function NewParticipante() {
     const Data = {
       nome: data?.nome,
       email: data?.email,
       telefone: data?.telefone,
-      foto: "sem img",
+      foto: data?.foto ? data?.foto : photoDefault(),
       senha: data?.senha,
       cpf: data?.cpf,
       organizacao: false,
     };
     await createParticipante(Data)
       .then((res) => {
-        res.status === 201
-          ? alert("Participante cadastrado com sucesso")
-          : alert("Erro ao cadastrar participante");
+        if (res.status === 201) {
+          handleCleanData();
+          setAlertSuccess(true);
+          setAlertSuccessMessage("Participante Cadastrado com Sucesso.");
+        } else {
+          setAlertWarning(true);
+          setAlertWarningMessage("");
+        }
       })
       .catch((err) => {
-        alert("Erro ao cadastrar participante"+ err);
+        setAlertWarning(true);
+        setAlertWarningMessage(err.response.data.message);
       });
   }
+  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (revalidarSenha === data?.senha) {
-      NewParticipante();
+
+    if (!validaCPF(data?.cpf as string)) {
+      setAlertWarningMessage("CPF inválido.");
+      setAlertWarning(true);
     } else {
-      alert("Senhas não coincidem");
+      if (revalidarSenha === data?.senha) {
+        NewParticipante();
+        setAlertWarning(false);
+        setAlertWarningMessage("");
+      } else {
+        setAlertWarningMessage("Senhas não conferem.");
+        setAlertWarning(true);
+      }
     }
   };
 
@@ -66,14 +111,42 @@ export function ModalParticipante({ open, onClose }: SimpleDialogProps) {
       <Dialog onClose={handleClose} open={open} sx={{ height: "auto" }}>
         <form onSubmit={handleSubmit}>
           <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-            <DialogTitle>Inscrever-se</DialogTitle>
+            {alertWarning && (
+              <Alert severity="warning" sx={{ margin: "1rem 0" }}>
+                {alertWarningMessage}
+              </Alert>
+            )}
+            {alertSuccess && (
+              <Alert severity="success" sx={{ margin: "1rem 0" }}>
+                {alertSuccessMessage}
+              </Alert>
+            )}
+            <DialogTitle
+              sx={{
+                fontFamily: "Nasalization",
+                fontWeight: "bold",
+                fontSize: "2rem",
+              }}
+            >
+              Inscrever-se
+            </DialogTitle>
             <DialogContent>
-              <Box my={2}>
+              <Box display={"grid"} flexDirection={"row"} gap={2} my={2}>
                 <TextField
+                  required
                   label="Nome"
                   fullWidth
                   onChange={(e) => {
                     setData({ ...data, nome: e.target.value });
+                  }}
+                />
+                <TextField
+                  required
+                  label="Email"
+                  type="email"
+                  fullWidth
+                  onChange={(e) => {
+                    setData({ ...data, email: e.target.value });
                   }}
                 />
               </Box>
@@ -84,37 +157,38 @@ export function ModalParticipante({ open, onClose }: SimpleDialogProps) {
                 my={2}
               >
                 <TextField
-                  label="Email"
-                  type="email"
-                  fullWidth
-                  onChange={(e) => {
-                    setData({ ...data, email: e.target.value });
-                  }}
-                />
-                <TextField
+                  required
                   label="CPF"
+                  value={data?.cpf}
+                  inputProps={{ minLength: 14, maxLength: 14 }}
                   fullWidth
                   onChange={(e) => {
-                    setData({ ...data, cpf: e.target.value });
+                    setData({ ...data, cpf: formataCPF(e.target.value) });
                   }}
                 />
                 <TextField
+                  required
                   label="Telefone"
                   fullWidth
+                  value={data?.telefone}
+                  inputProps={{ minLength: 18, maxLength: 18 }}
                   onChange={(e) => {
-                    setData({ ...data, telefone: e.target.value });
+                    setData({
+                      ...data,
+                      telefone: formataTelefone(e.target.value),
+                    });
                   }}
-                />
+                ></TextField>
                 <TextField
+                  required
                   label="Senha"
                   type="password"
                   fullWidth
+                  inputProps={{ minLength: 8 }}
                   onChange={(e) => {
                     setData({ ...data, senha: e.target.value });
                   }}
                 />
-              </Box>
-              <Box my={2}>
                 <TextField
                   label="Digite novamente a senha"
                   type="password"
@@ -135,7 +209,12 @@ export function ModalParticipante({ open, onClose }: SimpleDialogProps) {
                 }}
                 alignItems={"center"}
               >
+                <Avatar
+                  src={data?.foto}
+                  sx={{ width: "7rem", height: "7rem" }}
+                ></Avatar>
                 <input
+                  style={{ marginLeft: "1rem" }}
                   type="file"
                   placeholder="Foto"
                   accept="image/jpg, image/jpeg, image/png"
@@ -143,13 +222,13 @@ export function ModalParticipante({ open, onClose }: SimpleDialogProps) {
                     handleImageUpload(e);
                   }}
                 />
-                {data?.foto ? (
+                {/* {data?.foto ? (
                   <img
                     src={data?.foto}
                     alt="imagem do participante"
                     height={"120px"}
                   />
-                ) : null}
+                ) : null} */}
               </Box>
             </DialogContent>
             <DialogActions>

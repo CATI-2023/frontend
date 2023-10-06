@@ -7,7 +7,8 @@ import {
   QrCode,
   Lifebuoy,
   User,
-  Newspaper
+  Newspaper,
+  SignOut
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -18,5 +19,6 @@ export const DefaultsIcons = {
   PresencaIcon: QrCode,
   ApoiadoresIcon: Lifebuoy,
   ParticipantesIcon: User,
-  NoticiasIcon: Newspaper
+  NoticiasIcon: Newspaper,
+  SignOutIcon: SignOut
 };
