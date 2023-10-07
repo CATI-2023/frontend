@@ -23,7 +23,7 @@ jobs:
       - name: 🔨 Build Project
         env:
           VITE_DEBUG: true
-          VITE_API_URL=${{ secrets.DEV_VITE_API_URL }}
+          VITE_API_URL: ${{ secrets.DEV_VITE_API_URL }}
 
         run: |
           yarn 
