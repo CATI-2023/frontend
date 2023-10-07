@@ -18,9 +18,10 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import { createInscricaoEvento } from "../../services/InscricaoEvento";
 import useNotification from "../../hooks/useNotification";
 import { Camera, Trash } from "@phosphor-icons/react";
+import { createInscricaoEvento } from "../../services/inscricaoEvento";
+import { formataCPF, formataTelefone, validaCPF } from "../../constants/function";
 
 // Refatorar isso depois
 type EventoResponse = {
@@ -97,7 +98,21 @@ export function InscricaoEventoPage() {
       }
     }
 
-    console.log(_data)
+    if (!validaCPF(_data.participante.cpf)) {
+      showNotification({
+        message: "CPF inválido",
+        type: "error"
+      })
+      return
+    }
+
+    if (_data.participante.senha !== inscricao.participante.confirmar_senha) {
+      showNotification({
+        message: "As senhas não conferem",
+        type: "error"
+      })
+      return
+    }
 
     setSaving(true)
 
@@ -193,7 +208,6 @@ export function InscricaoEventoPage() {
                     input?.click();
                   }}
                 >
-                  {/* <DefaultIcons.CameraIcon size={"1.5rem"} /> */}
                   <Camera />
                 </Button>
                 <input
@@ -203,7 +217,6 @@ export function InscricaoEventoPage() {
                   type="file"
                   onChange={(event) => {
                     if (event.target.files) {
-                      // handleUploadImage(event.target.files[0]);
                       handleImageUpload(event);
                     }
                   }}
@@ -266,7 +279,7 @@ export function InscricaoEventoPage() {
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        cpf: e.target.value
+                        cpf: formataCPF(e.target.value)
                       }
                     })
                   }}
@@ -282,7 +295,7 @@ export function InscricaoEventoPage() {
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        telefone: e.target.value
+                        telefone: formataTelefone(e.target.value)
                       }
                     })
                   }}

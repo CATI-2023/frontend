@@ -6,8 +6,8 @@ export const config = {
   }
 };
 
-const api = axios.create({
+export const apiBase = axios.create({
   baseURL: config.url.API_URL
 });
 
-export default api;
+
