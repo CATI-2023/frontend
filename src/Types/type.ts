@@ -6,6 +6,7 @@ export type palestras = {
 };
 
 export type participantes = {
+  id?: number;
   nome?: string;
   foto?: string;
   cpf?: string;

@@ -3,8 +3,10 @@ import { useState } from "react";
 import { DialogSubmicaoPagamento } from "./components/DialogSubmicaoPagamento";
 interface Props {
     estado: "APROVADO" | "PENDENTE" | "RECUSADO";
+    imgParticipante: string;
+    idParticipante: number ;
 }
-export function ComprovantePagamento({estado}:Props) {
+export function ComprovantePagamento({estado, imgParticipante, idParticipante}:Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleClose = () => {
     setOpen(false);
@@ -12,6 +14,7 @@ export function ComprovantePagamento({estado}:Props) {
   const handleOpen = () => {
     setOpen(true);
   };
+  console.log(idParticipante)
   return (
     <>
       <Box
@@ -20,10 +23,11 @@ export function ComprovantePagamento({estado}:Props) {
         alignItems="center"
         justifyContent="end"
       >
+        <img src={imgParticipante} alt="" height={"100px"} width={"100px"} />
         <Button disabled={estado === "APROVADO"} variant="contained" onClick={handleOpen}>
           Comprovante de pagamento
         </Button>
-        <DialogSubmicaoPagamento open={open} onClose={handleClose} />
+        <DialogSubmicaoPagamento idParticipante={idParticipante} open={open} onClose={handleClose} />
       </Box>
     </>
   );
