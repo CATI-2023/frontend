@@ -93,15 +93,17 @@ export function InscricaoEventoPage() {
         email: inscricao.participante.email.trim(),
         senha: inscricao.participante.senha.trim(),
         foto: "",
-        telfone: inscricao.participante.telefone.trim(),
+        telefone: inscricao.participante.telefone.trim(),
       }
     }
+
+    console.log(_data)
 
     setSaving(true)
 
     await createInscricaoEvento(_data).then((res) => {
 
-      const { participante, token } = res
+      const { token } = res
 
       localStorage.setItem("accessToken", token)
 
@@ -111,7 +113,7 @@ export function InscricaoEventoPage() {
       })
 
       //Navegar para o portal/administrativo
-      navigate("#")
+      navigate("/dashboard/user/")
 
 
     }).catch(err => {
