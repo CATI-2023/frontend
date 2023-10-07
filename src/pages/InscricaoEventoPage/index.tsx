@@ -21,7 +21,7 @@ import { useState } from "react";
 import useNotification from "../../hooks/useNotification";
 import { Camera, Trash } from "@phosphor-icons/react";
 import { createInscricaoEvento } from "../../services/inscricaoEvento";
-import { formataCPF, formataTelefone, validaCPF } from "../../constants/function";
+import { formataCPF, formataCelular, validaCPF } from "../../constants/function";
 
 // Refatorar isso depois
 type EventoResponse = {
@@ -274,6 +274,9 @@ export function InscricaoEventoPage() {
                   label="CPF"
                   value={inscricao.participante.cpf}
                   placeholder="CPF"
+                  inputProps={{
+                    maxLength: 14,
+                  }}
                   onChange={e => {
                     setInscricao({
                       ...inscricao,
@@ -290,12 +293,13 @@ export function InscricaoEventoPage() {
                   fullWidth
                   label="Telefone"
                   placeholder="Telefone"
+                  value={inscricao.participante.telefone}
                   onChange={e => {
                     setInscricao({
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        telefone: formataTelefone(e.target.value)
+                        telefone: formataCelular(e.target.value)
                       }
                     })
                   }}
