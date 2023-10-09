@@ -8,6 +8,7 @@ import { UserMiniCursosPage } from "../pages/userPages/MiniCursos";
 import { OrganizacaoPalestrasPage } from "../pages/orgPages/Palestras";
 import { UserPresencaPage } from "../pages/userPages/Presenca";
 import { LoginPage } from "../pages/Login";
+import { InscricaoEventoPage } from "../pages/InscricaoEventoPage";
 import { OrganizacaoPage } from "../pages/orgPages/Dashboard";
 import { OrganizacaoMiniCursosPage } from "../pages/orgPages/MiniCursos";
 import { OrganizacaoPresencaPage } from "../pages/orgPages/Presenca";
@@ -22,6 +23,8 @@ export function DefaultRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/evento/:id/inscricao" element={<InscricaoEventoPage />} />
+
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard/user/:id" element={<UserPage />} />
             <Route
