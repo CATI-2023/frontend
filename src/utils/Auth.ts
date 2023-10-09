@@ -1,4 +1,4 @@
-const STORAGE_KEY = "como decriptar uma string com sha256 reactTS"
+const STORAGE_KEY = "accessToken"
 
 const isLogged = () => localStorage.getItem(STORAGE_KEY) !== null;
 const login = (token: string) => {
