@@ -3,20 +3,49 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../utils/Auth";
 import { Box, Button, TextField } from "@mui/material";
 import { ModalParticipante } from "../../components/ModalParticipante/modalParticipante";
+import { getAuthUser } from "../../services/auth";
+type auth = {
+  email: string;
+  senha: string
+}
+
+type auth_request ={
+  auth: {
+    token: string;
+    participante: {
+      email:string;
+      foto: string
+      participante_id: number;
+      nome: string;
+      organizacao: boolean;
+    }
+  }
+}
 
 export function LoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
+  const [auth, setAuth] = useState({} as auth_request)
   const navigate = useNavigate();
+   async function getAuth(data: auth){
+    await getAuthUser(data).then((response) => {
+      setAuth(response.data);
+      console.log(response.data)
+    })
+  }
+
+
   const AuthLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    if (Login.user === "user" && Login.password === "user") {
-      login("123");
-      navigate("/dashboard/user/123");
-    }
-    if (Login.user === "org" && Login.password === "org") {
-      login("123");
-      navigate("/dashboard/org/123");
-    }
+      getAuth({email: Login.user, senha:Login.password})
+      console.log(auth)
+      login(auth.auth.token);
+      if(auth.auth.participante.organizacao == true){
+        navigate("/dashboard/org/"+ auth.auth.participante.participante_id);
+      }
+      else{
+        navigate("/dashboard/user/"+auth.auth.participante.participante_id);
+      }
+
   };
 
   const [open, setOpen] = useState(false);

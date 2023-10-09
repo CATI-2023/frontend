@@ -21,7 +21,11 @@ import { useState } from "react";
 import useNotification from "../../hooks/useNotification";
 import { Camera, Trash } from "@phosphor-icons/react";
 import { createInscricaoEvento } from "../../services/inscricaoEvento";
-import { formataCPF, formataCelular, validaCPF } from "../../constants/function";
+import {
+  formataCPF,
+  formataCelular,
+  validaCPF,
+} from "../../constants/function";
 
 // Refatorar isso depois
 type EventoResponse = {
@@ -55,11 +59,11 @@ const TAMANHOS_CAMISETA = ["PP", "P", "M", "G", "GG", "XG"];
 
 export function InscricaoEventoPage() {
   const { id } = useParams();
-  const showNotification = useNotification()
+  const showNotification = useNotification();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [saving, setSaving] = useState(false)
+  const [saving, setSaving] = useState(false);
 
   const [inscricao, setInscricao] = useState<CreateInscricaoRequest>({
     evento_id_reference: 0,
@@ -79,11 +83,11 @@ export function InscricaoEventoPage() {
   const { data } = useFetch<EventoResponse>(id ? `/eventos/${id}` : "");
   // Refatorar
   usePageTitle(`Inscrição CATI ${data?.ano ?? ""} `);
-
+  console.log(data);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!data) return
+    if (!data) return;
 
     const _data = {
       evento_id_reference: data.evento_id,
@@ -93,54 +97,53 @@ export function InscricaoEventoPage() {
         cpf: inscricao.participante.cpf.trim(),
         email: inscricao.participante.email.trim(),
         senha: inscricao.participante.senha.trim(),
-        foto: "",
+        foto: "sem foto",
         telefone: inscricao.participante.telefone.trim(),
-      }
-    }
+        organizacao: false,
+      },
+    };
 
     if (!validaCPF(_data.participante.cpf)) {
       showNotification({
         message: "CPF inválido",
-        type: "error"
-      })
-      return
+        type: "error",
+      });
+      return;
     }
 
     if (_data.participante.senha !== inscricao.participante.confirmar_senha) {
       showNotification({
         message: "As senhas não conferem",
-        type: "error"
-      })
-      return
+        type: "error",
+      });
+      return;
     }
 
-    setSaving(true)
+    setSaving(true);
 
-    await createInscricaoEvento(_data).then((res) => {
+    await createInscricaoEvento(_data)
+      .then((res) => {
+        const { token } = res;
 
-      const { token } = res
+        localStorage.setItem("accessToken", token);
 
-      localStorage.setItem("accessToken", token)
+        showNotification({
+          message: "Inscrição realizada com sucesso",
+          type: "success",
+        });
 
-      showNotification({
-        message: "Inscrição realizada com sucesso",
-        type: "success"
+        //Navegar para o portal/administrativo
+        navigate("/login");
       })
+      .catch((err) => {
+        showNotification({
+          message: err?.response?.data?.message ?? "Erro ao realizar inscrição",
+          type: "error",
+        });
+      });
 
-      //Navegar para o portal/administrativo
-      navigate("/dashboard/user/")
-
-
-    }).catch(err => {
-      showNotification({
-        message: err?.response?.data?.message ?? "Erro ao realizar inscrição",
-        type: "error"
-      })
-    })
-
-    setSaving(false)
+    setSaving(false);
   }
-
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -151,8 +154,8 @@ export function InscricaoEventoPage() {
           ...prev,
           participante: {
             ...prev.participante,
-            foto: reader.result as string
-          }
+            foto: reader.result as string,
+          },
         }));
       };
       reader.readAsDataURL(file);
@@ -160,9 +163,7 @@ export function InscricaoEventoPage() {
   };
 
   return (
-    <Container
-      maxWidth="sm"
-    >
+    <Container maxWidth="sm">
       <Box
         sx={{
           display: "flex",
@@ -178,7 +179,6 @@ export function InscricaoEventoPage() {
           }}
         >
           <form onSubmit={handleSubmit}>
-
             <Divider
               sx={{
                 mt: 2,
@@ -188,23 +188,29 @@ export function InscricaoEventoPage() {
               Dados do participante
             </Divider>
 
-            <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              gap={1}
+            >
               <Avatar
                 src={inscricao.participante.foto}
                 variant="rounded"
                 sx={{
                   objectFit: "contain",
                   width: 150,
-                  height: 150
+                  height: 150,
                 }}
               />
               <Box display="flex" gap={1}>
-
                 <Button
                   variant="outlined"
                   color="info"
                   onClick={() => {
-                    const input = document.getElementById("contained-button-file");
+                    const input = document.getElementById(
+                      "contained-button-file"
+                    );
                     input?.click();
                   }}
                 >
@@ -230,45 +236,35 @@ export function InscricaoEventoPage() {
                       ...prev,
                       participante: {
                         ...prev.participante,
-                        foto: ""
-                      }
+                        foto: "",
+                      },
                     }));
                   }}
                 >
                   <Trash />
                 </Button>
               </Box>
-
             </Box>
 
-
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap={1}
-              mt={2}
-            >
+            <Box display="flex" flexDirection="column" gap={1} mt={2}>
               <TextField
                 fullWidth
                 placeholder="Nome completo"
                 label="Nome completo"
                 required
                 value={inscricao.participante.nome}
-                onChange={e => {
+                onChange={(e) => {
                   setInscricao({
                     ...inscricao,
                     participante: {
                       ...inscricao.participante,
-                      nome: e.target.value
-                    }
-                  })
+                      nome: e.target.value,
+                    },
+                  });
                 }}
                 size="small"
               />
-              <Stack
-                direction="row"
-                spacing={1}
-              >
+              <Stack direction="row" spacing={1}>
                 <TextField
                   fullWidth
                   label="CPF"
@@ -277,14 +273,14 @@ export function InscricaoEventoPage() {
                   inputProps={{
                     maxLength: 14,
                   }}
-                  onChange={e => {
+                  onChange={(e) => {
                     setInscricao({
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        cpf: formataCPF(e.target.value)
-                      }
-                    })
+                        cpf: formataCPF(e.target.value),
+                      },
+                    });
                   }}
                   required
                   size="small"
@@ -294,14 +290,14 @@ export function InscricaoEventoPage() {
                   label="Telefone"
                   placeholder="Telefone"
                   value={inscricao.participante.telefone}
-                  onChange={e => {
+                  onChange={(e) => {
                     setInscricao({
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        telefone: formataCelular(e.target.value)
-                      }
-                    })
+                        telefone: formataCelular(e.target.value),
+                      },
+                    });
                   }}
                   required
                   size="small"
@@ -310,19 +306,22 @@ export function InscricaoEventoPage() {
               <FormControl variant="standard" size="small">
                 <FormLabel>Tamanho da camiseta</FormLabel>
                 <FormGroup row>
-                  {TAMANHOS_CAMISETA.map(tamanho => {
+                  {TAMANHOS_CAMISETA.map((tamanho) => {
                     return (
                       <FormControlLabel
                         control={
                           <Checkbox
-                            checked={inscricao.participante.tamanho_camiseta === tamanho}
+                            checked={
+                              inscricao.participante.tamanho_camiseta ===
+                              tamanho
+                            }
                             onChange={() =>
                               setInscricao({
                                 ...inscricao,
                                 participante: {
                                   ...inscricao.participante,
-                                  tamanho_camiseta: tamanho
-                                }
+                                  tamanho_camiseta: tamanho,
+                                },
                               })
                             }
                             name={tamanho}
@@ -330,7 +329,7 @@ export function InscricaoEventoPage() {
                         }
                         label={tamanho}
                       />
-                    )
+                    );
                   })}
                 </FormGroup>
               </FormControl>
@@ -342,11 +341,7 @@ export function InscricaoEventoPage() {
             >
               Credenciais de acesso
             </Divider>
-            <Box
-              display="flex"
-              flexDirection="column"
-              gap={1}
-            >
+            <Box display="flex" flexDirection="column" gap={1}>
               <TextField
                 fullWidth
                 required
@@ -355,21 +350,18 @@ export function InscricaoEventoPage() {
                 size="small"
                 type="email"
                 value={inscricao.participante.email}
-                onChange={e => {
+                onChange={(e) => {
                   setInscricao({
                     ...inscricao,
                     participante: {
                       ...inscricao.participante,
-                      email: e.target.value
-                    }
-                  })
+                      email: e.target.value,
+                    },
+                  });
                 }}
               />
 
-              <Stack
-                direction="row"
-                spacing={1}
-              >
+              <Stack direction="row" spacing={1}>
                 <TextField
                   label="Senha"
                   placeholder="Senha"
@@ -377,14 +369,14 @@ export function InscricaoEventoPage() {
                   size="small"
                   type="password"
                   value={inscricao.participante.senha}
-                  onChange={e => {
+                  onChange={(e) => {
                     setInscricao({
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        senha: e.target.value
-                      }
-                    })
+                        senha: e.target.value,
+                      },
+                    });
                   }}
                 />
 
@@ -394,17 +386,15 @@ export function InscricaoEventoPage() {
                   required
                   size="small"
                   type="password"
-                  value={
-                    inscricao.participante.confirmar_senha
-                  }
-                  onChange={e => {
+                  value={inscricao.participante.confirmar_senha}
+                  onChange={(e) => {
                     setInscricao({
                       ...inscricao,
                       participante: {
                         ...inscricao.participante,
-                        confirmar_senha: e.target.value
-                      }
-                    })
+                        confirmar_senha: e.target.value,
+                      },
+                    });
                   }}
                 />
               </Stack>
@@ -417,19 +407,20 @@ export function InscricaoEventoPage() {
               color="success"
               sx={{ mt: 3, height: 38 }}
             >
-              {
-                saving ? <CircularProgress size={20}
+              {saving ? (
+                <CircularProgress
+                  size={20}
                   sx={{
                     color: "white",
                   }}
                 />
-
-                  : "Inscrever-se"
-              }
+              ) : (
+                "Inscrever-se"
+              )}
             </Button>
           </form>
         </Card>
       </Box>
-    </Container >
+    </Container>
   );
 }
