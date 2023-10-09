@@ -6,6 +6,7 @@ import { inscricaoEventoGet } from "../../../Types/type";
 // import { getParticipante } from "../../../services/participantes";
 import { useParams } from "react-router-dom";
 import { getInscricaoEvento } from "../../../services/inscricaoEvento";
+import { Navbar } from "../../../components/navbar/Navbar";
 // import { getPagamentos } from "../../../services/pagamentos";
 // import { getPagamentos } from "../../../services/pagamentos";
 
@@ -26,6 +27,7 @@ export function UserPage() {
   return (
     <>
       <Container maxWidth="xl">
+        <Navbar title="Participante" typeUser="User"/>
         <Box display={"flex"} flexDirection={"column"}>
           <InformacoesParticipante
             nome={
