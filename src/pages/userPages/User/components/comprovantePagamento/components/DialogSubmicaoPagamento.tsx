@@ -11,9 +11,10 @@ import { putPagamentos } from "../../../../../../services/pagamentos";
 interface Props {
   open: boolean;
   onClose: () => void;
+  idParticipante: number;
 }
 
-export function DialogSubmicaoPagamento({ open, onClose }: Props) {
+export function DialogSubmicaoPagamento({ open, onClose, idParticipante }: Props) {
   const [comprovantePagamento, setComprovantePagamento] = useState<string>("");
   const handleClose = () => {
     onClose();
@@ -30,9 +31,14 @@ export function DialogSubmicaoPagamento({ open, onClose }: Props) {
     }
   };
   async function updatePagamento() {
-
-    await putPagamentos(1, {status: "PENDENTE", comprovante_base64: comprovantePagamento}).then((response) => {alert(response.status)});
+    await putPagamentos(idParticipante, {
+      status: "PENDENTE",
+      comprovante_base64: String(comprovantePagamento),
+    }).then((response) => {
+      alert(response.status);
+    });
   }
+  console.log(comprovantePagamento);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updatePagamento();
