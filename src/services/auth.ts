@@ -7,5 +7,5 @@ type auth_request = {
 
 export async function getAuthUser(data: auth_request) {
   const response = await apiBase.post(`/auth/`, data);
-  return response;
+  return response.data;
 }

@@ -83,7 +83,6 @@ export function InscricaoEventoPage() {
   const { data } = useFetch<EventoResponse>(id ? `/eventos/${id}` : "");
   // Refatorar
   usePageTitle(`Inscrição CATI ${data?.ano ?? ""} `);
-  console.log(data);
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -94,7 +93,7 @@ export function InscricaoEventoPage() {
       observacoes: `Camiseta tamanho ${inscricao.participante.tamanho_camiseta}`,
       participante: {
         nome: inscricao.participante.nome.trim(),
-        cpf: inscricao.participante.cpf.trim(),
+        cpf: inscricao.participante.cpf.trim().replace(/[^\d]+/g, ""),
         email: inscricao.participante.email.trim(),
         senha: inscricao.participante.senha.trim(),
         foto: "sem foto",

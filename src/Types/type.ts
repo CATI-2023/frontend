@@ -1,3 +1,5 @@
+import { Evento } from "./Evento";
+
 export type palestras = {
   tema: string;
   descricao: string;
@@ -56,16 +58,7 @@ export type inscricaoEvento = {
 };
 export type inscricaoEventoGet = {
   observacoes: string;
-  evento: {
-    evento_id: number;
-    ano: number;
-    tema: string;
-    data_inicio: string;
-    data_fim: string;
-    qtde_vagas: number;
-    banner_base64: string;
-    valor: number;
-  };
+  evento: Evento;
   participante: {
     participante_id: number;
     nome: string;
@@ -85,3 +78,38 @@ export type pagamentos = {
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
   comprovante_base64: string;
 };
+
+
+export type ParticipanteAuth = {
+  participante_id: number
+  nome: string
+  foto: string
+  cpf: string
+  telefone: string
+  organizacao: boolean
+  email: string
+  excluido?: string
+  InscricaoEvento: InscricaoEvento[]
+}
+
+export type InscricaoEvento = {
+  inscricao_evento_id: number
+  observacoes: string
+  evento_id_reference: number
+  participante_id_reference: number
+  pagamento_id_reference: number
+  criado_em: string
+  alterado_em: string
+  excluido?: string
+  pagamento: Pagamento
+  evento: Evento
+}
+
+export type Pagamento = {
+  pagamento_id: number
+  status: "APROVADO" | "PENDENTE" | "RECUSADO"
+  comprovante_base64: string
+  criado_em: string
+  alterado_em: string
+  excluido?: string
+}

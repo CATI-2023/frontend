@@ -3,18 +3,19 @@ import DrawerComponent from "../drawer/Drawer";
 import { logout } from "../../utils/Auth";
 
 type Props = {
-    title: string;
-    typeUser: "User" | "Organização";
-}
+  title: string;
+  typeUser: "User" | "Organização";
+};
 
-
-export function Navbar( { title, typeUser }:Props ) {
+export function Navbar({ title, typeUser }: Props) {
   return (
     <>
       <Box>
         <AppBar position="static">
           <Toolbar>
-            <DrawerComponent title={title} typeUser={typeUser} />
+            {typeUser == "User" ? null : (
+              <DrawerComponent title="user" typeUser="User" />
+            )}
             <Typography
               variant="h6"
               component="div"
@@ -23,7 +24,14 @@ export function Navbar( { title, typeUser }:Props ) {
             >
               {title}
             </Typography>
-            <Button color="inherit" onClick={() => {logout()}}>{"Logout"}</Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                logout();
+              }}
+            >
+              {"Logout"}
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>

@@ -4,9 +4,9 @@ import PrivateRoutes from "./privateRoutes";
 // import { LoginPage } from "../pages/Login";
 import { UserPage } from "../pages/userPages/User";
 import { HomePage } from "../pages/Home";
-import { UserMiniCursosPage } from "../pages/userPages/MiniCursos";
+// import { UserMiniCursosPage } from "../pages/userPages/MiniCursos";
+// import { UserPresencaPage } from "../pages/userPages/Presenca";
 import { OrganizacaoPalestrasPage } from "../pages/orgPages/Palestras";
-import { UserPresencaPage } from "../pages/userPages/Presenca";
 import { LoginPage } from "../pages/Login";
 import { InscricaoEventoPage } from "../pages/InscricaoEventoPage";
 import { OrganizacaoPage } from "../pages/orgPages/Dashboard";
@@ -26,35 +26,30 @@ export function DefaultRoutes() {
           <Route path="/evento/:id/inscricao" element={<InscricaoEventoPage />} />
 
           <Route element={<PrivateRoutes />}>
-            <Route path="/dashboard/user/:id" element={<UserPage />} />
+            <Route path="/dashboard/user/" element={<UserPage />} />
+            <Route path="/dashboard/org/" element={<OrganizacaoPage />} />
             <Route
-              path="/mini-cursos/user/:id"
-              element={<UserMiniCursosPage />}
-            />
-            <Route path="/presenca/user/:id" element={<UserPresencaPage />} />
-            <Route path="/dashboard/org/:id" element={<OrganizacaoPage />} />
-            <Route
-              path="/mini-cursos/org/:id"
+              path="/mini-cursos/org/"
               element={<OrganizacaoMiniCursosPage />}
             />
             <Route
-              path="/palestras/org/:id"
+              path="/palestras/org/"
               element={<OrganizacaoPalestrasPage />}
             />
             <Route
-              path="/presenca/org/:id"
+              path="/presenca/org/"
               element={<OrganizacaoPresencaPage />}
             />
             <Route
-              path="/apoiadores/org/123"
+              path="/apoiadores/org/"
               element={<OrganizacaoApoiadoresPage />}
             />
             <Route
-              path="/participantes/org/123"
+              path="/participantes/org/"
               element={<OrganizacaoParticipantePage />}
             />
             <Route
-              path="/noticias/org/123"
+              path="/noticias/org/"
               element={<OrganizacaoNoticiasPage />}
             />
           </Route>
