@@ -16,7 +16,6 @@ import { useFetch } from "../../../hooks/useFetch";
 import { Clock, NewspaperClipping } from "@phosphor-icons/react";
 import { useState } from "react";
 import { ActionComprovantePagamento } from "./components/ActionComprovantePagamento";
-import { redirect } from "react-router";
 
 export function UserPage() {
   const [openActionComprovantePagamento, setOpenActionComprovantePagamento] =
