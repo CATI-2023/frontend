@@ -1,13 +1,13 @@
 on:
   push:
     branches:
-      - dev
+      - homologacao
 
-name: 🚀 [dev] Build and deploy website on push
+name: 🚀 [homologacao] Build and deploy website on push
 
 jobs:
   web-deploy:
-    name: 🎉 [dev] Deploy
+    name: 🎉 [homologacao] Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_DEV_HOST }}
+          server: ${{ secrets.FTP_HOMOLOGACAO_HOST }}
           username: ${{ secrets.FTP_DEV_USER }}
           password: ${{ secrets.FTP_DEV_PASSWORD }}
           protocol: ftp
