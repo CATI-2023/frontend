@@ -12,7 +12,6 @@ export async function getInscricaoEvento(id_inscricao_evento: number) {
 const baseURL = "/inscricao-eventos";
 
 export async function createInscricaoEvento(inscricao: unknown) {
-    console.log(inscricao)
     const response = await apiBase.post(`${baseURL}/`, inscricao);
 
     return response.data;

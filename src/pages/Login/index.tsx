@@ -12,7 +12,6 @@ export function LoginPage() {
     event.preventDefault();
     await getAuthUser({ email: Login.user, senha: Login.password }).then(
       (auth) => {
-        console.log(auth);
         login(auth.auth.token);
         if (auth.auth.participante.organizacao == true) {
           navigate("/dashboard/org/");
@@ -71,7 +70,7 @@ export function LoginPage() {
               <p>
                 Ainda não se inscreveu?
                 <Button
-                  onClick={() => {navigate("/evento/1/inscricao")}}
+                  onClick={() => { navigate("/evento/1/inscricao") }}
                   variant={"text"}
                   color={"warning"}
                 >

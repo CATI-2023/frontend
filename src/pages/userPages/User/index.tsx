@@ -1,60 +1,150 @@
-import { useEffect, useState } from "react";
-import { Box, Container } from "@mui/material";
-import { ComprovantePagamento } from "./components/comprovantePagamento/comprovantePagamento";
+import { Box, Button, Card, CardMedia, Chip, Container, Divider, Paper, Typography } from "@mui/material";
 import { Navbar } from "../../../components/navbar/Navbar";
-import { getEuParticipante } from "../../../services/participantes";
 import { ParticipanteAuth } from "../../../Types/type";
 import { InformacoesParticipante } from "./components/informacoesParticipante";
+import { useFetch } from "../../../hooks/useFetch";
+import { Clock, NewspaperClipping, } from "@phosphor-icons/react";
+import { useState } from "react";
+import { ActionComprovantePagamento } from "./components/ActionComprovantePagamento";
 
 export function UserPage() {
-  const [participante, setParticipante] = useState<ParticipanteAuth>(
-    {} as ParticipanteAuth
-  );
-  // const id_partipante = useParams();
-  async function ReadParticipante(token: string) {
-    await getEuParticipante(token).then((response) => {
-      setParticipante(response.data);
-      console.log(response.data);
-    });
+  const [openActionComprovantePagamento, setOpenActionComprovantePagamento] = useState(false)
+  const [inscricao, setInscricao] = useState<ParticipanteAuth['InscricaoEvento'][0] | null>(null)
+
+  // Trago o usuário logado (participante) através do access token (abstraído no hook useFetch)
+  // É possível usar o useFetch para qlqr rota, por padrão ele já manda o token no header
+  const { data: participante } = useFetch<ParticipanteAuth>('participantes/eu')
+
+  // Se o participante não existir, retorna um loading
+  if (!participante) {
+    return <h1>Carregando...</h1>
   }
-  console.log(participante);
-  useEffect(() => {
-    ReadParticipante(localStorage.getItem("accessToken")!);
-  }, []);
+
+
   return (
     <>
-      <Container maxWidth="xl">
-        <Navbar title={""} typeUser="User" />
-        <Box display={"flex"} flexDirection={"column"}>
-          <InformacoesParticipante
-            nome={participante?.nome}
-            img_participante={participante?.foto}
-            numero_telefone={participante.telefone}
-          />
-          <ComprovantePagamento
-            idParticipante={
-              participante.InscricaoEvento?.[0].pagamento.pagamento_id
-            }
-            imgParticipante={
-              participante.InscricaoEvento?.[0].pagamento.comprovante_base64
-            }
-            estado={participante.InscricaoEvento?.[0].pagamento.status}
-          />
-        </Box>
-      </Container>
-      {/* <Container maxWidth="xl">
-        <Navbar title="Participante" typeUser="User"/>
-        <Box display={"flex"} flexDirection={"column"}>
-          <InformacoesParticipante
-            nome={
-              participante.participante?.nome != undefined
-                ? participante.participante?.nome
-                : "Carregando dados"
-            }
-          />
-          
-        </Box>
-      </Container> */}
+      <Navbar title={""} typeUser="User" />
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        marginTop={"1rem"}
+        mb={10}
+      >
+        <Container maxWidth="md">
+          <Paper
+            sx={{
+              p: 4
+            }}
+          >
+            <InformacoesParticipante
+              participante={participante}
+            />
+          </Paper>
+          <Box>
+            <Typography my={4}>
+              Minhas inscrições
+            </Typography>
+
+            {participante.InscricaoEvento?.map((inscricao) => {
+              const evento = inscricao.evento
+              const pagamento = inscricao.pagamento
+              return (
+                <Card
+                  sx={{
+                    maxWidth: 345,
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="194"
+                    image={evento.banner_base64 || "https://via.placeholder.com/200x194.png?text=Banner+do+evento"}
+                    alt={"Banner do evento"}
+                  />
+                  <Divider />
+                  <Box
+                    p={2}
+                  >
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      textAlign="left"
+                      mb={1}
+                    >
+                      {evento.tema}
+                    </Typography>
+                    <Box
+                      display={"flex"}
+                      alignItems={"center"}
+                      gap={1}
+                    >
+                      <Clock fontSize="1rem" weight="duotone" />
+                      <Typography
+                        variant="caption"
+                      >
+                        {new Date(evento.data_inicio).toLocaleDateString("pt-BR", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric"
+                        })}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Divider />
+                  <Box
+                    display={"flex"}
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                    gap={2}
+                    py={2}
+                    px={1}
+                  >
+                    <Chip
+                      label={
+                        pagamento.status === "APROVADO" ? "Pagamento aprovado" :
+                          pagamento.status === "PENDENTE" ? "Pagamento pendente" :
+                            "Pagamento recusado"
+                      }
+                      color={
+                        // Refatorar
+                        pagamento.status === "APROVADO" ? "success" :
+                          pagamento.status === "PENDENTE" ? "warning" :
+                            "error"
+                      }
+                    />
+                    <Button
+                      disabled={pagamento.status === "APROVADO"}
+                      startIcon={<NewspaperClipping />}
+                      color="primary"
+                      size="small"
+                      sx={{
+                        textTransform: "none"
+                      }}
+                      onClick={() => {
+                        setInscricao(inscricao)
+                        setOpenActionComprovantePagamento(true)
+                      }}
+
+                    >
+                      Enviar comprovante
+                    </Button>
+                  </Box>
+                </Card>
+              )
+            })}
+          </Box>
+
+        </Container>
+      </Box>
+      <ActionComprovantePagamento
+        open={openActionComprovantePagamento}
+        onClose={() => setOpenActionComprovantePagamento(false)}
+        inscricao={inscricao}
+      />
     </>
   );
 }

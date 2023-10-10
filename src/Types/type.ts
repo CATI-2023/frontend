@@ -1,3 +1,5 @@
+import { Evento } from "./Evento";
+
 export type palestras = {
   tema: string;
   descricao: string;
@@ -56,16 +58,7 @@ export type inscricaoEvento = {
 };
 export type inscricaoEventoGet = {
   observacoes: string;
-  evento: {
-    evento_id: number;
-    ano: number;
-    tema: string;
-    data_inicio: string;
-    data_fim: string;
-    qtde_vagas: number;
-    banner_base64: string;
-    valor: number;
-  };
+  evento: Evento;
   participante: {
     participante_id: number;
     nome: string;
@@ -109,6 +102,7 @@ export type InscricaoEvento = {
   alterado_em: string
   excluido?: string
   pagamento: Pagamento
+  evento: Evento
 }
 
 export type Pagamento = {
@@ -117,5 +111,5 @@ export type Pagamento = {
   comprovante_base64: string
   criado_em: string
   alterado_em: string
-  excluido?: string 
+  excluido?: string
 }

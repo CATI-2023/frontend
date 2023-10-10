@@ -1,37 +1,79 @@
-import { Avatar, Box, Button } from "@mui/material";
+import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { ParticipanteAuth } from "../../../../Types/type";
+import { formataCPF, formataTelefone } from "../../../../constants/function";
+import { Edit } from "@mui/icons-material";
 
 interface InformacoesParticipanteProps {
-  nome?: string;
-  img_participante?: string;
-  numero_telefone?: string;
+  participante: ParticipanteAuth
 }
 
 export function InformacoesParticipante({
-  nome,
-  numero_telefone,
-  img_participante,
+  participante
 }: InformacoesParticipanteProps) {
+
   return (
-    <>
-      <Box display={"flex"} alignItems={"center"} flexDirection={{xs: "column", sm: "column", md: "column", lg: "row", xl: "row"}} justifyContent={"space-between"} m={2}>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"start"}
-          gap={2}
+    <Box
+      flex={1}
+      width={1}
+      display={"flex"}
+      alignItems={"center"}
+      justifyContent={"start"}
+      gap={2}
+    >
+      <Avatar
+        sx={{ height: "100px", width: "100px" }}
+        src={participante.foto}
+        alt=""
+      />
+      <Box
+        flex={1}
+        mx={2}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <Stack>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            lineHeight={1}
+          >
+            Bem vindo de volta,
+          </Typography>
+          <Typography
+            lineHeight={1}
+
+            variant="h6" fontWeight="bold">{participante.nome}</Typography>
+        </Stack>
+        <Divider sx={{ my: 1, fontSize: "0.675rem", color: "text.secondary" }} textAlign="left">Dados pessoais</Divider>
+        <Typography
+          variant="subtitle1"
+          lineHeight={1.5}
         >
-          <Avatar
-            sx={{ height: "100px", width: "100px" }}
-            src={img_participante}
-            alt=""
-          />
-          <Box display={"flex"} flexDirection={"column"}>
-            <p>Bem vindo: <span style={{fontSize: "10px"}}>{nome}</span></p>
-            <p>telefone: <span style={{fontSize: "10px"}}>{numero_telefone}</span></p>
-          </Box>
+          E-mail: {participante.email}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          lineHeight={1.5}
+        >
+          CPF: {formataCPF(participante.cpf)}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          lineHeight={1.5}
+        >
+          Telefone: {formataTelefone(participante.telefone)}
+        </Typography>
+        <Box>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2 }}
+            startIcon={<Edit />}
+          >
+            Alterar dados
+          </Button>
         </Box>
-        <Button variant="contained">Alterar dados</Button>
       </Box>
-    </>
+    </Box>
   );
 }
