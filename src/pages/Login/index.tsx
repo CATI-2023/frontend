@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../utils/Auth";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
 import { getAuthUser } from "../../services/auth";
 import useNotification from "../../hooks/useNotification";
+import { DefaultsIcons } from "../../constants/DefaultIcons";
 
 export function LoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
@@ -48,6 +49,20 @@ export function LoginPage() {
           px={{ xs: 2, sm: 2, md: 6, lg: 10, xl: 10 }}
           py={{ xs: 2, sm: 2, md: 6, lg: 10, xl: 10 }}
         >
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+            variant={"contained"}
+            color={"info"}
+            sx={{
+              fontFamily: "Nasalization, sans-serif",
+              margin: {xs: "0 0 1rem 0", md: "-2rem 0 2rem 0"},
+            }}
+          >
+            <IconButton color="inherit" sx={{padding: "0"}}><DefaultsIcons.BackIcon/></IconButton>
+            Página Inicial
+          </Button>
           <form onSubmit={AuthLogin}>
             <Box
               display={"flex"}
@@ -98,7 +113,6 @@ export function LoginPage() {
                   Inscreva-se aqui
                 </Button>
               </p>
-              {/* <ModalParticipante open={open} onClose={handleClose} /> */}
             </Box>
           </form>
         </Box>

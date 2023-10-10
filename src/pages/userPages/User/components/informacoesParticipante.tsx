@@ -63,7 +63,7 @@ export function InformacoesParticipante({
         >
           Telefone: {formataTelefone(participante.telefone)}
         </Typography>
-        <Box>
+        {/* <Box>
           <Button
             variant="contained"
             color="primary"
@@ -72,7 +72,7 @@ export function InformacoesParticipante({
           >
             Alterar dados
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
