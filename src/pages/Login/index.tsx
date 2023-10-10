@@ -9,11 +9,11 @@ type auth = {
   senha: string
 }
 
-type auth_request ={
+type auth_request = {
   auth: {
     token: string;
     participante: {
-      email:string;
+      email: string;
       foto: string
       participante_id: number;
       nome: string;
@@ -26,7 +26,8 @@ export function LoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
   const [auth, setAuth] = useState({} as auth_request)
   const navigate = useNavigate();
-   async function getAuth(data: auth){
+
+  async function getAuth(data: auth) {
     await getAuthUser(data).then((response) => {
       setAuth(response.data);
       console.log(response.data)
@@ -36,15 +37,19 @@ export function LoginPage() {
 
   const AuthLogin = (event: React.FormEvent) => {
     event.preventDefault();
-      getAuth({email: Login.user, senha:Login.password})
-      console.log(auth)
-      login(auth.auth.token);
-      if(auth.auth.participante.organizacao == true){
-        navigate("/dashboard/org/"+ auth.auth.participante.participante_id);
-      }
-      else{
-        navigate("/dashboard/user/"+auth.auth.participante.participante_id);
-      }
+    getAuth({ email: Login.user, senha: Login.password })
+
+    console.log(auth)
+
+    login(auth.auth.token);
+
+
+    if (auth.auth.participante.organizacao == true) {
+      navigate("/dashboard/org/");
+    }
+    else {
+      navigate("/dashboard/user/");
+    }
 
   };
 
