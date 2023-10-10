@@ -39,12 +39,13 @@ export function DialogSubmicaoPagamento({ open, onClose, idParticipante }: Props
   async function updatePagamento() {
     await putPagamentos(idParticipante, {
       status: "PENDENTE",
-      comprovante_base64: String(comprovantePagamento),
+      comprovante_base64: comprovantePagamento,
     }).then(() => {
       showNotification({
         message: "Comprovante enviado com sucesso",
         type: "success"
       })
+      handleClose;
     }).catch(() => {
       showNotification({
         message: "Erro ao enviar comprovante",

@@ -1,6 +1,7 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import DrawerComponent from "../drawer/Drawer";
 import { logout } from "../../utils/Auth";
+import { DefaultsIcons } from "../../constants/DefaultIcons";
 
 type Props = {
   title: string;
@@ -30,7 +31,7 @@ export function Navbar({ title, typeUser }: Props) {
                 logout();
               }}
             >
-              {"Logout"}
+              {"Sair"} <IconButton color="inherit"><DefaultsIcons.LogOff /></IconButton>
             </Button>
           </Toolbar>
         </AppBar>

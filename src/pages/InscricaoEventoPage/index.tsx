@@ -96,7 +96,7 @@ export function InscricaoEventoPage() {
         cpf: inscricao.participante.cpf.trim().replace(/[^\d]+/g, ""),
         email: inscricao.participante.email.trim(),
         senha: inscricao.participante.senha.trim(),
-        foto: "sem foto",
+        foto: inscricao.participante.foto,
         telefone: inscricao.participante.telefone.trim(),
         organizacao: false,
       },

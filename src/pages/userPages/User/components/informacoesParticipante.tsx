@@ -1,7 +1,7 @@
-import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Stack, Typography } from "@mui/material";
 import { ParticipanteAuth } from "../../../../Types/type";
 import { formataCPF, formataTelefone } from "../../../../constants/function";
-import { Edit } from "@mui/icons-material";
+// import { Edit } from "@mui/icons-material";
 
 interface InformacoesParticipanteProps {
   participante: ParticipanteAuth
@@ -63,7 +63,7 @@ export function InformacoesParticipante({
         >
           Telefone: {formataTelefone(participante.telefone)}
         </Typography>
-        <Box>
+        {/* <Box>
           <Button
             variant="contained"
             color="primary"
@@ -72,7 +72,7 @@ export function InformacoesParticipante({
           >
             Alterar dados
           </Button>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

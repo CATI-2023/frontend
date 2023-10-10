@@ -1,33 +1,41 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { InscricaoEvento } from "../../../../Types/type";
 import { useState } from "react";
 import { DialogSubmicaoPagamento } from "./DialogSubmicaoPagamento";
 
 interface Props {
   open: boolean;
-  onClose(): void
-  inscricao: InscricaoEvento | null
+  onClose(): void;
+  inscricao: InscricaoEvento | null;
 }
 
-export function ActionComprovantePagamento({ open, onClose, inscricao }: Props) {
-
-  const [openActionComprovantePagamento, setOpenActionComprovantePagamento] = useState(false)
+export function ActionComprovantePagamento({
+  open,
+  onClose,
+  inscricao,
+}: Props) {
+  const [openActionComprovantePagamento, setOpenActionComprovantePagamento] =
+    useState(false);
 
   if (!inscricao) {
-    return null
+    return null;
   }
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>
-        Anexar comprovante de pagamento
-      </DialogTitle>
+      <DialogTitle>Anexar comprovante de pagamento</DialogTitle>
       <DialogContent>
-        <Typography
-          variant="body2"
-          textAlign="center"
-        >
-          Para confirmar sua inscrição, é necessário enviar o comprovante de pagamento.
+        <Typography variant="body2" textAlign="center">
+          Para confirmar sua inscrição, é necessário enviar o comprovante de
+          pagamento.
         </Typography>
         <Box
           display={"flex"}
@@ -37,7 +45,6 @@ export function ActionComprovantePagamento({ open, onClose, inscricao }: Props) 
           gap={2}
           mt={3}
         >
-
           <img
             src={
               inscricao.pagamento.comprovante_base64 ||
@@ -52,9 +59,9 @@ export function ActionComprovantePagamento({ open, onClose, inscricao }: Props) 
           />
           <Button
             disabled={inscricao.pagamento.status === "APROVADO"}
-            // variant="contained"
+            variant="contained"
             onClick={() => {
-              setOpenActionComprovantePagamento(true)
+              setOpenActionComprovantePagamento(true);
             }}
           >
             Enviar comprovante
@@ -66,11 +73,7 @@ export function ActionComprovantePagamento({ open, onClose, inscricao }: Props) 
           p: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={onClose}
-        >
+        <Button variant="outlined" color="info" onClick={onClose}>
           Fechar
         </Button>
       </DialogActions>
@@ -79,10 +82,10 @@ export function ActionComprovantePagamento({ open, onClose, inscricao }: Props) 
         idParticipante={inscricao.pagamento_id_reference}
         open={openActionComprovantePagamento}
         onClose={() => {
-          setOpenActionComprovantePagamento(false)
-
+          setOpenActionComprovantePagamento(false);
+          onClose();
         }}
       />
     </Dialog>
-  )
+  );
 }
