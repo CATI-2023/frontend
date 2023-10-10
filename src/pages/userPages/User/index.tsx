@@ -16,6 +16,7 @@ import { useFetch } from "../../../hooks/useFetch";
 import { Clock, NewspaperClipping } from "@phosphor-icons/react";
 import { useState } from "react";
 import { ActionComprovantePagamento } from "./components/ActionComprovantePagamento";
+import { redirect } from "react-router";
 
 export function UserPage() {
   const [openActionComprovantePagamento, setOpenActionComprovantePagamento] =
@@ -104,7 +105,16 @@ export function UserPage() {
                       </Typography>
                     </Box>
                   </Box>
-                  <Divider />
+                  <Divider
+                    sx={{
+                      my: 1,
+                      fontSize: "0.675rem",
+                      color: "text.secondary",
+                    }}
+                    textAlign="left"
+                  >
+                    Pagamento
+                  </Divider>
                   <Box
                     display={"flex"}
                     flexDirection={"column"}
@@ -113,6 +123,14 @@ export function UserPage() {
                     py={2}
                     px={1}
                   >
+                    <Button
+                      color="info"
+                      variant="contained"
+                      size="small"
+                      href="https://mpago.la/2DkGmXA"
+                    >
+                      Clique aqui para realizar o pagamento
+                    </Button>
                     <Chip
                       label={
                         pagamento.status === "APROVADO"
@@ -146,8 +164,19 @@ export function UserPage() {
                       Enviar comprovante
                     </Button>
                   </Box>
-                  <Divider />
-                  <Typography padding={"1rem"} textAlign={"center"}>Obs.: {inscricao.observacoes}</Typography>
+                  <Divider
+                    sx={{
+                      my: 1,
+                      fontSize: "0.675rem",
+                      color: "text.secondary",
+                    }}
+                    textAlign="left"
+                  >
+                    Observações
+                  </Divider>
+                  <Typography padding={"1rem"} textAlign={"center"}>
+                    {inscricao.observacoes}
+                  </Typography>
                   <Divider />
                 </Card>
               );
