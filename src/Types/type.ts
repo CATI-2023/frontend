@@ -85,3 +85,37 @@ export type pagamentos = {
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
   comprovante_base64: string;
 };
+
+
+export type ParticipanteAuth = {
+  participante_id: number
+  nome: string
+  foto: string
+  cpf: string
+  telefone: string
+  organizacao: boolean
+  email: string
+  excluido?: string
+  InscricaoEvento: InscricaoEvento[]
+}
+
+export type InscricaoEvento = {
+  inscricao_evento_id: number
+  observacoes: string
+  evento_id_reference: number
+  participante_id_reference: number
+  pagamento_id_reference: number
+  criado_em: string
+  alterado_em: string
+  excluido?: string
+  pagamento: Pagamento
+}
+
+export type Pagamento = {
+  pagamento_id: number
+  status: "APROVADO" | "PENDENTE" | "RECUSADO"
+  comprovante_base64: string
+  criado_em: string
+  alterado_em: string
+  excluido?: string 
+}

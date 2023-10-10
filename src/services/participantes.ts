@@ -1,6 +1,15 @@
 import { participantes } from "../Types/type";
 import { apiBase } from "./api";
 
+
+export async function getEuParticipante(token:string){
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+  const response = await apiBase.get("/participantes/eu", config);
+  return response;
+}
+
 export async function getParticipantes() {
   const response = await apiBase.get("/participantes");
   return response;
