@@ -8,7 +8,7 @@ export function useFetch<Data = unknown, Error = unknown>(url: string) {
       const response = await apiBase.get(url, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("tokenAccess")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
 
