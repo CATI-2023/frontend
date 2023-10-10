@@ -4,7 +4,7 @@ import "./style.css";
 import { PalestranteCard } from "./components/palestranteCard";
 import FotoDhyego from "../../../../assets/palestrantesPhotos/Dhyego.jpeg";
 import FotoAlessandro from "../../../../assets/palestrantesPhotos/Alessandro.jpeg";
-import FotoRafaelAruca from "../../../../assets/palestrantesPhotos/Rafael_Aruca.jpeg";
+import FotoJoatham from "../../../../assets/palestrantesPhotos/Joatham.jpg";
 import FotoNathan from "../../../../assets/palestrantesPhotos/Nathan_Turra.jpeg";
 import FotoKembolle from "../../../../assets/palestrantesPhotos/kembolle.jpeg";
 import FotoRicardoGermano from "../../../../assets/palestrantesPhotos/Ricardo-Germano.jpeg";
@@ -91,11 +91,11 @@ const palestrantes = [
   },
   {
     atuacao:
-      "Diretor Executivo de Inovação da UFSCar e Representante Institucional da UFSCar no CNPq no Programa DAÍ - Doutorado Acadêmico para Inovação",
-    nome: "Rafael Vidal Aroca",
-    tema: "Tema da Palestra sendo definido",
-    foto: FotoRafaelAruca,
-    lattes: "http://lattes.cnpq.br/9262228584082064",
+      "Gerente de Segurança - IFTO / Analista de Segurança - 4linux / Mestre em Sistemas e Computação / Ethical Hacker / Forensic Investigator",
+    nome: "Joatham Pedro",
+    tema: "Investigação Forense Potencializada por IA: Desvendando Casos Periciais",
+    foto: FotoJoatham,
+    lattes: "http://lattes.cnpq.br/5005535261910787",
     linkedin: "",
   },
 ];

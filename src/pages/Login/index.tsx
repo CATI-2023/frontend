@@ -3,23 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../utils/Auth";
 import { Box, Button, TextField } from "@mui/material";
 import { getAuthUser } from "../../services/auth";
+import useNotification from "../../hooks/useNotification";
 
 export function LoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
   const navigate = useNavigate();
+  const showNotification = useNotification();
 
   async function AuthLogin(event: React.FormEvent) {
     event.preventDefault();
-    await getAuthUser({ email: Login.user, senha: Login.password }).then(
-      (auth) => {
+    await getAuthUser({ email: Login.user, senha: Login.password })
+      .then((auth) => {
         login(auth.auth.token);
         if (auth.auth.participante.organizacao == true) {
           navigate("/dashboard/org/");
         } else {
           navigate("/dashboard/user/");
         }
-      }
-    );
+        showNotification({
+          message: "Login realizado com sucesso.",
+          type: "success",
+        });
+      })
+      .catch((err) => {
+        showNotification({
+          message: err?.response?.data?.message ?? "Erro ao realizar login.",
+          type: "error",
+        });
+      });
   }
 
   return (
@@ -50,7 +61,7 @@ export function LoginPage() {
               <TextField
                 required
                 fullWidth
-                label="User"
+                label="Email"
                 onChange={(e) => {
                   setLogin({ ...Login, user: e.target.value });
                 }}
@@ -58,21 +69,31 @@ export function LoginPage() {
               <TextField
                 required
                 fullWidth
-                label="Password"
+                label="Senha"
                 type="password"
                 onChange={(e) => {
                   setLogin({ ...Login, password: e.target.value });
                 }}
               />
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ fontFamily: "Nasalization, sans-serif" }}
+              >
                 Acessar
               </Button>
-              <p>
+              <p style={{ textAlign: "center" }}>
                 Ainda não se inscreveu?
                 <Button
-                  onClick={() => { navigate("/evento/1/inscricao") }}
-                  variant={"text"}
+                  onClick={() => {
+                    navigate("/evento/1/inscricao");
+                  }}
+                  variant={"contained"}
                   color={"warning"}
+                  sx={{
+                    fontFamily: "Nasalization, sans-serif",
+                    margin: { md: "0 1rem", xs: ".5rem 0" },
+                  }}
                 >
                   Inscreva-se aqui
                 </Button>
