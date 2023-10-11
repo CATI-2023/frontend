@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./privateRoutes";
 // import { LoginPage } from "../pages/Login";
 import { UserPage } from "../pages/userPages/User";
@@ -53,7 +53,7 @@ export function DefaultRoutes() {
               element={<OrganizacaoNoticiasPage />}
             />
           </Route>
-          <Route path="*" element={<Navigate to="/" />} />
+          {/* <Route path="*" element={<Navigate to="/" />} /> */}
         </Routes>
       </Suspense>
     </BrowserRouter>
