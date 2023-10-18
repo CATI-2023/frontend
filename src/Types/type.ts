@@ -20,9 +20,18 @@ export type participantes = {
 export type presenca = {
   participante_id_reference: number;
 };
-export type apoiadores = {
-  nome: string;
+export type patrocinadores = {
+  patrocinador_id?: number;
+  evento_id_reference?: number;
+  razao_social: string;
+  nivel: "OURO" | "PRATA" | "BRONZE";
+  banner_base64: string;
+  email: string;
+  telefone: string;
 };
+
+export type apoiadores = { patrocinadores: patrocinadores[] };
+
 export type evento = {
   ano: number;
   tema: string;
@@ -30,7 +39,11 @@ export type evento = {
   data_Fim: string;
   qtde_vagas: number;
   banner_url: string;
+  evento_id?: number;
 };
+
+export type eventos = {eventos: evento[]}
+
 export type mini_curso = {
   titulo: string;
   valor: number;
@@ -79,37 +92,36 @@ export type pagamentos = {
   comprovante_base64: string;
 };
 
-
 export type ParticipanteAuth = {
-  participante_id: number
-  nome: string
-  foto: string
-  cpf: string
-  telefone: string
-  organizacao: boolean
-  email: string
-  excluido?: string
-  InscricaoEvento: InscricaoEvento[]
-}
+  participante_id: number;
+  nome: string;
+  foto: string;
+  cpf: string;
+  telefone: string;
+  organizacao: boolean;
+  email: string;
+  excluido?: string;
+  InscricaoEvento: InscricaoEvento[];
+};
 
 export type InscricaoEvento = {
-  inscricao_evento_id: number
-  observacoes: string
-  evento_id_reference: number
-  participante_id_reference: number
-  pagamento_id_reference: number
-  criado_em: string
-  alterado_em: string
-  excluido?: string
-  pagamento: Pagamento
-  evento: Evento
-}
+  inscricao_evento_id: number;
+  observacoes: string;
+  evento_id_reference: number;
+  participante_id_reference: number;
+  pagamento_id_reference: number;
+  criado_em: string;
+  alterado_em: string;
+  excluido?: string;
+  pagamento: Pagamento;
+  evento: Evento;
+};
 
 export type Pagamento = {
-  pagamento_id: number
-  status: "APROVADO" | "PENDENTE" | "RECUSADO"
-  comprovante_base64: string
-  criado_em: string
-  alterado_em: string
-  excluido?: string
-}
+  pagamento_id: number;
+  status: "APROVADO" | "PENDENTE" | "RECUSADO";
+  comprovante_base64: string;
+  criado_em: string;
+  alterado_em: string;
+  excluido?: string;
+};

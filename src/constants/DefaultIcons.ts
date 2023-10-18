@@ -8,7 +8,11 @@ import {
   Lifebuoy,
   User,
   Newspaper,
-  SignOut
+  SignOut,
+  Pencil,
+  Plus,
+  DotsThree,
+  Trash,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -20,5 +24,9 @@ export const DefaultsIcons = {
   ApoiadoresIcon: Lifebuoy,
   ParticipantesIcon: User,
   NoticiasIcon: Newspaper,
-  LogOff: SignOut
+  LogOff: SignOut,
+  EditIcon: Pencil,
+  AdiconarIcon: Plus,
+  DotsIcon: DotsThree,
+  ApagarIcon: Trash,
 };

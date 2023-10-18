@@ -8,10 +8,10 @@ import { DefaultsIcons } from "../../constants/DefaultIcons";
 
 interface props {
   title: string;
-  typeUser: "User" | "Organização";
+  typeUser?: "User" | "Organização";
 }
 
-export default function DrawerComponent({ title, typeUser }: props) {
+export default function DrawerComponent({ title }: props) {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -64,65 +64,45 @@ export default function DrawerComponent({ title, typeUser }: props) {
                 title="Dashboard"
                 Icon={DefaultsIcons.DashboarIcon}
                 size={24}
-                route={
-                  typeUser === "User"
-                    ? "/dashboard/user/123"
-                    : "/dashboard/org/123"
-                }
+                route="/dashboard/org/"
               />
               <ListItemDrawer
                 title="Mini Cursos"
                 Icon={DefaultsIcons.MiniCursorIcon}
                 size={24}
-                route={
-                  typeUser === "User"
-                    ? "/mini-cursos/user/123"
-                    : "/mini-cursos/org/123"
-                }
+                route="/mini-cursos/org/"
               />
-              {typeUser === "Organização" ? (
-                <ListItemDrawer
-                  title="Palestras"
-                  Icon={DefaultsIcons.PalestranteIcon}
-                  size={24}
-                  route="/palestras/org/123"
-                />
-              ) : null}
+              <ListItemDrawer
+                title="Palestras"
+                Icon={DefaultsIcons.PalestranteIcon}
+                size={24}
+                route="/palestras/org"
+              />
               <ListItemDrawer
                 title="Presença"
                 Icon={DefaultsIcons.PresencaIcon}
                 size={24}
-                route={
-                  typeUser === "User"
-                    ? "/presenca/user/123"
-                    : "/presenca/org/123"
-                }
+                route={"/presenca/org/"}
               />
             </List>
-            {typeUser === "Organização" ? (
-              <ListItemDrawer
-                title="Apoiadores"
-                Icon={DefaultsIcons.ApoiadoresIcon}
-                size={24}
-                route="/apoiadores/org/123"
-              />
-            ) : null}
-            {typeUser === "Organização" ? (
-              <ListItemDrawer
-                title="Participantes"
-                Icon={DefaultsIcons.ParticipantesIcon}
-                size={24}
-                route="/participantes/org/123"
-              />
-            ) : null}
-            {typeUser === "Organização" ? (
-              <ListItemDrawer
-                title="Noticias"
-                Icon={DefaultsIcons.NoticiasIcon}
-                size={24}
-                route="/noticias/org/123"
-              />
-            ) : null}
+            <ListItemDrawer
+              title="Apoiadores"
+              Icon={DefaultsIcons.ApoiadoresIcon}
+              size={24}
+              route="/apoiadores/org/"
+            />
+            <ListItemDrawer
+              title="Participantes"
+              Icon={DefaultsIcons.ParticipantesIcon}
+              size={24}
+              route="/participantes/org/"
+            />
+            <ListItemDrawer
+              title="Noticias"
+              Icon={DefaultsIcons.NoticiasIcon}
+              size={24}
+              route="/noticias/org/"
+            />
 
             <Divider />
             <List>

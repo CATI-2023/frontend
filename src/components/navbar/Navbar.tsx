@@ -15,7 +15,7 @@ export function Navbar({ title, typeUser }: Props) {
         <AppBar position="static">
           <Toolbar>
             {typeUser == "User" ? null : (
-              <DrawerComponent title="user" typeUser="User" />
+              <DrawerComponent title={title} typeUser={typeUser} />
             )}
             <Typography
               variant="h6"
