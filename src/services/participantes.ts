@@ -1,39 +1,81 @@
 import { participantes } from "../Types/type";
 import { apiBase } from "./api";
 
-
-export async function getEuParticipante(token:string){
+export async function getEuParticipante() {
   const config = {
-    headers: { Authorization: `Bearer ${token}` }
-  }
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
   const response = await apiBase.get("/participantes/eu", config);
   return response;
 }
 
-export async function getParticipantes() {
-  const response = await apiBase.get("/participantes");
+export async function getParticipantes(_page: Number) {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  const response = await apiBase.get("/participantes?page=" + _page, config);
   return response;
 }
 
 export async function getParticipante(id_participante: number) {
-  const response = await apiBase.get("/participantes/" + id_participante);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  const response = await apiBase.get(
+    "/participantes/" + id_participante,
+    config
+  );
   return response;
 }
 
 export async function createParticipante(data: participantes) {
-  const response = await apiBase.post("/participantes", data);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  const response = await apiBase.post("/participantes", data, config);
   return response;
 }
 
 export async function updateParticipante(
-  id_participante: number,
+  id_participante: number | undefined,
   data: participantes
 ) {
-  const response = await apiBase.put("/participantes/" + id_participante, data);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  const response = await apiBase.put(
+    "/participantes/" + id_participante,
+    data,
+    config
+  );
   return response;
 }
 
 export async function deleteParticipante(id_participante: number) {
-  const response = await apiBase.delete("/participantes/" + id_participante);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  const response = await apiBase.delete(
+    "/participantes/" + id_participante,
+    config
+  );
   return response;
 }
