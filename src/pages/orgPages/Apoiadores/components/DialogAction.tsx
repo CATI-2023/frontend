@@ -120,14 +120,6 @@ export function DialogActionsPatrocinadores({
         title: "Erro ao criar",
       });
     }
-    console.log(
-      patrocinador.evento_id_reference,
-      patrocinador.razao_social,
-      patrocinador.telefone,
-      patrocinador.nivel,
-      patrocinador.email,
-      patrocinador.banner_base64
-    );
   }
 
   const handleSubmit = (event: React.FormEvent) => {

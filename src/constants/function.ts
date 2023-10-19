@@ -1,3 +1,5 @@
+
+
 export function formataCelular(v: string): string {
   let r = v.replace(/\D/g, "");
   r = r.replace(/^0/, "");
@@ -82,4 +84,13 @@ export function validaCPF(cpf: string) {
   if (resto == 10 || resto == 11) resto = 0;
   if (resto != parseInt(cpf.substring(10, 11))) return false;
   return true;
+}
+
+export function formataData(data: string) {
+  const dataFormatada = data.slice(0,10).split("-").reverse().join("/")
+  return dataFormatada;
+}
+export function formataMoeda(valor: number) {
+  const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor)
+  return valorFormatado;
 }
