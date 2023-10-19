@@ -8,7 +8,12 @@ export type palestras = {
 };
 
 export type participantes = {
-  id?: number;
+  participantes: participante[];
+};
+
+
+export type participante = {
+  participante_id?: number;
   nome?: string;
   foto?: string;
   cpf?: string;
@@ -29,7 +34,6 @@ export type patrocinadores = {
   email: string;
   telefone: string;
 };
-
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
 export type evento = {
@@ -41,18 +45,29 @@ export type evento = {
   banner_url: string;
   evento_id?: number;
 };
-
 export type eventos = {eventos: evento[]}
+
+export type miniCursos = {
+  minicursos: mini_curso[];
+};
 
 export type mini_curso = {
   titulo: string;
-  valor: number;
+  valor: number ;
   descricao: string;
   qtde_vagas: number;
-  data: string;
-  evento_id_reference: number;
-  ministrante_participante_id_reference: number;
+  data: string ;
+  evento_id_reference?: number;
+  ministrante_participante_id_reference?: number;
+  ministrante? : ministrante;
+  minicurso_id?: number;
 };
+
+export type ministrante = {
+  nome?: string,
+  participante_id?: number
+}
+
 export type noticia = {
   texto: string;
   titutlo: string;
@@ -125,3 +140,4 @@ export type Pagamento = {
   alterado_em: string;
   excluido?: string;
 };
+
