@@ -49,7 +49,6 @@ export function ListaApoiadores() {
         setApoiadores(res.patrocinadores);
       })
       .catch((err) => {
-        console.log(err);
         showNotification({
           message:
             err?.response?.data?.message ??

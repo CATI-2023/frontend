@@ -14,6 +14,7 @@ import { OrganizacaoMiniCursosPage } from "../pages/orgPages/MiniCursos";
 import { OrganizacaoPresencaPage } from "../pages/orgPages/Presenca";
 import { OrganizacaoApoiadoresPage } from "../pages/orgPages/Apoiadores";
 import { OrganizacaoParticipantePage } from "../pages/orgPages/Participantes";
+import { OrganizacaoInscricaoEventoPage } from "../pages/orgPages/InscricaoEvento";
 import { OrganizacaoNoticiasPage } from "../pages/orgPages/Noticias";
 
 export function DefaultRoutes() {
@@ -23,7 +24,10 @@ export function DefaultRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/evento/:id/inscricao" element={<InscricaoEventoPage />} />
+          <Route
+            path="/evento/:id/inscricao"
+            element={<InscricaoEventoPage />}
+          />
 
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard/user/" element={<UserPage />} />
@@ -47,6 +51,10 @@ export function DefaultRoutes() {
             <Route
               path="/participantes/org/"
               element={<OrganizacaoParticipantePage />}
+            />
+            <Route
+              path="/inscricao-evento/org/"
+              element={<OrganizacaoInscricaoEventoPage />}
             />
             <Route
               path="/noticias/org/"

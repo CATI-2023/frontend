@@ -1,5 +1,3 @@
-import { Evento } from "./Evento";
-
 export type palestras = {
   tema: string;
   descricao: string;
@@ -12,7 +10,7 @@ export type participantesList = { participantes: participantes[] };
 export type participantes = {
   participante_id?: number;
   nome: string;
-  foto: string;
+  foto?: string;
   cpf: string;
   telefone: string;
   email: string;
@@ -36,12 +34,13 @@ export type patrocinadores = {
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
 export type evento = {
-  ano: number;
-  tema: string;
-  data_Inicio: string;
-  data_Fim: string;
-  qtde_vagas: number;
-  banner_url: string;
+  ano?: number;
+  tema?: string;
+  data_inicio: string;
+  data_fim?: string;
+  qtde_vagas?: number;
+  banner_base64?: string;
+  valor?: number;
   evento_id?: number;
 };
 export type eventos = {eventos: evento[]}
@@ -78,26 +77,24 @@ export type noticia = {
   evento_id_reference: number;
 };
 export type inscricaoEvento = {
-  evento_id_reference: number;
-  participante_id_reference: number;
-  observacoes: string;
-  pagamento_id_reference: number;
+  evento_id_reference?: number;
+  participante_id_reference?: number;
+  observacoes?: string;
+  pagamento_id_reference?: number;
 };
+
 export type inscricaoEventoGet = {
-  observacoes: string;
-  evento: Evento;
-  participante: {
-    participante_id: number;
-    nome: string;
-    cpf: string;
-    telefone: string;
-    email: string;
-    organizacao: boolean;
-  };
-  pagamento: {
-    pagamento_id: number;
-    status: "APROVADO" | "PENDENTE" | "RECUSADO";
-    comprovante_base64: string;
+  inscricao_evento_id?: number;
+  observacoes?: string;
+  evento_id_reference?: number;
+  evento?: evento;
+  participante_id_reference?: number;
+  participante?: participantes;
+  pagamento_id_reference?: number;
+  pagamento?: {
+    pagamento_id?: number;
+    status?: "APROVADO" | "PENDENTE" | "RECUSADO";
+    comprovante_base64?: string;
   };
 };
 
@@ -128,7 +125,7 @@ export type InscricaoEvento = {
   alterado_em: string;
   excluido?: string;
   pagamento: Pagamento;
-  evento: Evento;
+  evento: evento;
 };
 
 export type Pagamento = {
