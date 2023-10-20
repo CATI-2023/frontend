@@ -1,16 +1,17 @@
 import {
   Box,
   Button,
+  Checkbox,
   IconButton,
   Pagination,
   Paper,
-  Switch,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import { participantes, participantesList } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
@@ -27,13 +28,15 @@ export function ListaParticipantes() {
   const [participantesList, setParticipantes] =
     useState<participantesList | null>(null);
 
-  const [pagination, setPagination] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [busca, setBusca] = useState<string>("*");
 
   async function getParticipantesList() {
-    getParticipantes(pagination)
+    getParticipantes(page, busca)
       .then((res) => {
-        setTotalPages(Math.floor(res.data.participantes.total / 10));
+        if (res.data.participantes.total > 0)
+          setTotalPages(Math.floor(res.data.participantes.total / 10));
         setParticipantes(res.data.participantes);
       })
       .catch((err) =>
@@ -47,7 +50,7 @@ export function ListaParticipantes() {
 
   useEffect(() => {
     getParticipantesList();
-  }, []);
+  }, [page, busca]);
 
   const [open, setOpen] = useState(false);
 
@@ -72,15 +75,6 @@ export function ListaParticipantes() {
       organizacao: false,
     });
     setOpen(false);
-  };
-
-  const handleChangePage = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    event.preventDefault();
-    setPagination(value);
-    getParticipantesList();
   };
 
   const handleDeleteParticipante = async (
@@ -129,6 +123,19 @@ export function ListaParticipantes() {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell align="center" colSpan={6}>
+                  <TextField
+                    label="Informe sua busca"
+                    fullWidth
+                    onChange={(e) => {
+                      setBusca(
+                        e.target.value.length > 2 ? e.target.value : "*"
+                      );
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+              <TableRow>
                 <TableCell align="center">
                   <b>Nome</b>
                 </TableCell>
@@ -167,7 +174,12 @@ export function ListaParticipantes() {
                           {participante.email}
                         </TableCell>
                         <TableCell align="center">
-                          <Switch checked={participante.organizacao} disabled />
+                          <Checkbox
+                            disabled
+                            defaultChecked={participante.organizacao}
+                            sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+                          />
+                          {/* <Switch checked={participante.organizacao} disabled /> */}
                         </TableCell>
                         <TableCell align="center">
                           <IconButton
@@ -197,8 +209,11 @@ export function ListaParticipantes() {
           </Table>
           <Pagination
             count={totalPages}
-            page={pagination}
-            onChange={handleChangePage}
+            page={page}
+            onChange={(e, value) => {
+              e.preventDefault();
+              setPage(value);
+            }}
           />
         </TableContainer>
       </Box>

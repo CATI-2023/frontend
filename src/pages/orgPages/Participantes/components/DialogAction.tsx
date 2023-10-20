@@ -7,7 +7,10 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  FormControlLabel,
+  FormGroup,
   Stack,
+  Switch,
   TextField,
 } from "@mui/material";
 import { participantes } from "../../../../Types/type";
@@ -272,6 +275,31 @@ export function DialogActionsParticipantes({
                     required
                     size="small"
                   />
+                </Stack>
+                <Divider
+                  sx={{
+                    my: 2,
+                  }}
+                >
+                  Organização
+                </Divider>{" "}
+                <Stack spacing={2}>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={participante.organizacao}
+                          onChange={(e) => {
+                            setParticipante({
+                              ...participante,
+                              organizacao: e.target.checked,
+                            });
+                          }}
+                        />
+                      }
+                      label="Participante tem acesso de organização "
+                    />
+                  </FormGroup>
                 </Stack>
               </Box>
               <Divider

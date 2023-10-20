@@ -12,14 +12,18 @@ export async function getEuParticipante() {
   return response;
 }
 
-export async function getParticipantes(_page: Number) {
+export async function getParticipantes(_page: Number, _busca: string) {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
-  const response = await apiBase.get("/participantes?page=" + _page, config);
+
+  var url = "/participantes?busca=" + (_busca == "*" ? "" : _busca);
+  if (_page) url += "&page=" + _page;
+
+  const response = await apiBase.get(url, config);
   return response;
 }
 
