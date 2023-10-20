@@ -13,6 +13,7 @@ import {
   DotsThree,
   Trash,
   Handshake,
+  PencilLine,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -23,6 +24,7 @@ export const DefaultsIcons = {
   PresencaIcon: QrCode,
   ApoiadoresIcon: Handshake,
   ParticipantesIcon: User,
+  InscricaoEventoIcon: PencilLine,
   NoticiasIcon: Newspaper,
   LogOff: SignOut,
   EditIcon: Pencil,
