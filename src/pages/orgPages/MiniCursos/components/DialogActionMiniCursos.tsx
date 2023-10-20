@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import {
   mini_curso,
-  participante,
+  participantesList,
   participantes,
 } from "../../../../Types/type";
 import { useFetch } from "../../../../hooks/useFetch";
@@ -30,7 +30,7 @@ interface props {
 }
 
 export function DialogActionMiniCursos({ open, onClose, Data }: props) {
-  const { data: ministrantes } = useFetch<participantes>("participantes");
+  const { data: ministrantes } = useFetch<participantesList>("participantes");
   const [mini_curso, setMini_curso] = useState<mini_curso>({
     data: "",
     descricao: "",
@@ -208,7 +208,7 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
                     fullWidth
                   >
                     {ministrantes?.participantes?.map(
-                      (minitrante: participante) => (
+                      (minitrante: participantes) => (
                         <MenuItem value={minitrante.participante_id}>
                           {minitrante.nome + " - " + minitrante.participante_id}
                         </MenuItem>
