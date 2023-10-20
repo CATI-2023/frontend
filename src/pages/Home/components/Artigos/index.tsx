@@ -17,11 +17,11 @@ import { ArrowUp } from "../../../../assets/ArrowUp";
 
 export function ArtigosSection() {
   let datasImportantes = [
-    "Registro de artigo completo: até 18/10/2023",
-    "Submissão de arquivo do artigo completo: até 22/10/2023",
-    "Registro de artigo resumido: até 18/10/2023",
-    "Submissão de arquivo do artigo resumido: até 22/10/2023",
-    "Registro de minicurso: até 18/10/2023",
+    "Registro de artigo completo: até 20/10/2023",
+    "Submissão de arquivo do artigo completo: até 24/10/2023",
+    "Registro de artigo resumido: até 20/10/2023",
+    "Submissão de arquivo do artigo resumido: até 24/10/2023",
+    "Registro de minicurso: até 20/10/2023",
     "Submissão de arquivo do minicurso: até 24/10/2023",
     "Notificação dos autores (artigos completos, artigos resumidos e minicursos): até 31/10/2023",
     "Envio da versão final dos artigos (completos e resumidos) e minicursos aprovados: até 05/11/2023",
