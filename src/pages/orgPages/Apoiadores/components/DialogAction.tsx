@@ -1,10 +1,12 @@
 import {
+  Avatar,
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   FormControl,
   FormLabel,
   MenuItem,
@@ -19,6 +21,8 @@ import {
 } from "../../../../services/apoiadores";
 import useNotification from "../../../../hooks/useNotification";
 import { getEventos } from "../../../../services/evento";
+import { Camera, Trash } from "@phosphor-icons/react";
+import { formataCelular } from "../../../../constants/function";
 
 type Nivel = "BRONZE" | "PRATA" | "OURO";
 
@@ -28,13 +32,13 @@ interface props {
   title: string;
   Data?: patrocinadores | null;
 }
+
 export function DialogActionsPatrocinadores({
   open,
   onClose,
   title,
   Data,
 }: props) {
-  // const [data: eventos] = useFetch<Evento>("evento")
   const [patrocinador, setPatrocinador] = useState<patrocinadores>({
     razao_social: "",
     telefone: "",
@@ -42,8 +46,11 @@ export function DialogActionsPatrocinadores({
     email: "",
     banner_base64: "",
   });
+
   const [eventos, setEventos] = useState<eventos | null>(null);
+
   const showNotification = useNotification();
+
   async function getEvents() {
     await getEventos()
       .then((res) => {
@@ -51,6 +58,7 @@ export function DialogActionsPatrocinadores({
       })
       .catch((err) => console.log(err));
   }
+
   async function updatePatrocinador() {
     const data_ = {
       evento_id_reference: Data?.evento_id_reference,
@@ -60,11 +68,12 @@ export function DialogActionsPatrocinadores({
       email: patrocinador.email,
       banner_base64: patrocinador.banner_base64,
     };
+
     await updateApoiadores(Data?.patrocinador_id, data_)
-      .then((res) => {
+      .then(() => {
         showNotification({
           type: "success",
-          message: "Patrocinador atualizado com sucesso." + res,
+          message: "Colaborador atualizado com sucesso.",
           title: "Sucesso ao atualizar",
         }),
           window.location.reload();
@@ -72,12 +81,14 @@ export function DialogActionsPatrocinadores({
       .catch((err) =>
         showNotification({
           type: "error",
-          message: "Erro ao atualizar patrocinador." + err,
+          message:
+            "Erro ao atualizar Colaborador. " + err?.response?.data?.message,
           title: "Erro ao atualizar",
         })
       );
     onClose();
   }
+
   async function CreatePatrocinador() {
     const data_ = {
       evento_id_reference: patrocinador.evento_id_reference,
@@ -87,20 +98,13 @@ export function DialogActionsPatrocinadores({
       email: patrocinador.email,
       banner_base64: patrocinador.banner_base64,
     };
-    // const data_ = {
-    //   evento_id_reference: 1,
-    //   razao_social: "teste 5",
-    //   telefone: "3361-0000",
-    //   nivel: "OURO",
-    //   email: "teste5@apoiadores.com",
-    //   banner_base64: "",
-    // }
+
     if (patrocinador.evento_id_reference != undefined) {
       await postApoiadores(data_)
-        .then((res) => {
+        .then(() => {
           showNotification({
             type: "success",
-            message: "Patrocinador criado com sucesso." + res,
+            message: "Colaborador criado com sucesso.",
             title: "Sucesso ao criar",
           });
           window.location.reload();
@@ -108,19 +112,33 @@ export function DialogActionsPatrocinadores({
         .catch((err) => {
           showNotification({
             type: "error",
-            message: "Erro ao criar patrocinador." + err,
-            title: "Erro ao criar",
+            message:
+              "Erro ao cadastrar Colaborador. " + err?.response?.data?.message,
+            title: "Erro ao atualizar",
           });
         });
-        
     } else {
       showNotification({
-        type: "error",
-        message: "Por favor selecione um evento.",
-        title: "Erro ao criar",
+        type: "warning",
+        message: "Selecione um evento",
+        title: "Evento não selecionado",
       });
     }
   }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPatrocinador((prev) => ({
+          ...prev,
+          banner_base64: reader.result as string,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -134,7 +152,7 @@ export function DialogActionsPatrocinadores({
       getEvents();
     }
   }, [Data]);
-  console.log(patrocinador.evento_id_reference);
+
   return (
     <>
       <Dialog open={open} onClose={onClose} maxWidth="lg">
@@ -153,7 +171,9 @@ export function DialogActionsPatrocinadores({
               <Box display={"flex"} flexDirection={"column"} gap={2} py={2}>
                 <TextField
                   required
+                  size="small"
                   label="Razão social"
+                  placeholder="Razão social"
                   value={patrocinador.razao_social}
                   onChange={(e) => {
                     setPatrocinador({
@@ -167,11 +187,12 @@ export function DialogActionsPatrocinadores({
                   required
                   label="Telefone"
                   fullWidth
+                  size="small"
                   value={patrocinador.telefone}
                   onChange={(e) => {
                     setPatrocinador({
                       ...patrocinador,
-                      telefone: e.target.value,
+                      telefone: formataCelular(e.target.value),
                     });
                   }}
                 />
@@ -179,6 +200,7 @@ export function DialogActionsPatrocinadores({
                   <FormLabel sx={{ fontSize: "14px" }}>Nivel</FormLabel>
                   <Select
                     required
+                    size="small"
                     value={
                       patrocinador.nivel == undefined
                         ? "BRONZE"
@@ -195,34 +217,41 @@ export function DialogActionsPatrocinadores({
                     <MenuItem value={"BRONZE"}>Bronze</MenuItem>
                     <MenuItem value={"PRATA"}>Prata</MenuItem>
                     <MenuItem value={"OURO"}>Ouro</MenuItem>
-                  </Select>{" "}
+                  </Select>
                 </FormControl>
                 <FormControl>
-                  {!Data ? (
-                    <>
-                      <FormLabel>Evento</FormLabel>
-                      <Select
-                        required
-                        onChange={(e) => {
-                          setPatrocinador({
-                            ...patrocinador,
-                            evento_id_reference: Number(e.target.value),
-                          });
-                        }}
+                  <FormLabel>Evento</FormLabel>
+                  <Select
+                    required
+                    value={
+                      Data
+                        ? String(patrocinador.evento_id_reference)
+                        : undefined
+                    }
+                    size="small"
+                    onChange={(e) => {
+                      setPatrocinador({
+                        ...patrocinador,
+                        evento_id_reference: Number(e.target.value),
+                      });
+                    }}
+                  >
+                    {eventos?.eventos.map((evento) => (
+                      <MenuItem
+                        value={String(evento.evento_id)}
+                        key={evento.evento_id}
                       >
-                        {eventos?.eventos.map((evento) => (
-                          <MenuItem value={String(evento.evento_id)}>
-                            {evento.tema} - {evento.ano}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </>
-                  ) : null}
+                        {evento.tema} - {evento.ano}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
                 <TextField
                   required
                   label="Email"
+                  type="email"
                   fullWidth
+                  size="small"
                   value={patrocinador.email}
                   onChange={(e) => {
                     setPatrocinador({
@@ -231,17 +260,68 @@ export function DialogActionsPatrocinadores({
                     });
                   }}
                 />
-                <TextField
-                  label="Banner"
-                  fullWidth
-                  value={patrocinador.banner_base64}
-                  onChange={(e) => {
-                    setPatrocinador({
-                      ...patrocinador,
-                      banner_base64: e.target.value,
-                    });
+                <Divider
+                  sx={{
+                    mt: 2,
+                    mb: 2,
                   }}
-                />
+                >
+                  Banner de divulgação
+                </Divider>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Avatar
+                    src={patrocinador.banner_base64}
+                    variant="rounded"
+                    sx={{
+                      objectFit: "contain",
+                      width: 150,
+                      height: 150,
+                    }}
+                  />
+                  <Box display="flex" gap={1}>
+                    <Button
+                      variant="outlined"
+                      color="info"
+                      onClick={() => {
+                        const input = document.getElementById(
+                          "contained-button-file"
+                        );
+                        input?.click();
+                      }}
+                    >
+                      <Camera />
+                    </Button>
+                    <input
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      id="contained-button-file"
+                      type="file"
+                      onChange={(event) => {
+                        if (event.target.files) {
+                          handleImageUpload(event);
+                        }
+                      }}
+                    />
+
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => {
+                        setPatrocinador((prev) => ({
+                          ...prev,
+                          banner_base64: "",
+                        }));
+                      }}
+                    >
+                      <Trash />
+                    </Button>
+                  </Box>
+                </Box>
               </Box>
               <DialogActions>
                 <Box

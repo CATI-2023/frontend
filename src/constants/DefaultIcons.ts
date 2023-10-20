@@ -5,7 +5,6 @@ import {
   Books,
   PresentationChart,
   QrCode,
-  Lifebuoy,
   User,
   Newspaper,
   SignOut,
@@ -13,6 +12,7 @@ import {
   Plus,
   DotsThree,
   Trash,
+  Handshake,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -21,7 +21,7 @@ export const DefaultsIcons = {
   MiniCursorIcon: Books,
   PalestranteIcon: PresentationChart,
   PresencaIcon: QrCode,
-  ApoiadoresIcon: Lifebuoy,
+  ApoiadoresIcon: Handshake,
   ParticipantesIcon: User,
   NoticiasIcon: Newspaper,
   LogOff: SignOut,

@@ -86,7 +86,7 @@ export default function DrawerComponent({ title }: props) {
               />
             </List>
             <ListItemDrawer
-              title="Apoiadores"
+              title="Colaboradores"
               Icon={DefaultsIcons.ApoiadoresIcon}
               size={24}
               route="/apoiadores/org/"

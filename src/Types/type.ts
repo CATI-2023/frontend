@@ -7,24 +7,23 @@ export type palestras = {
   evento_id_reference: number;
 };
 
+export type participantesList = { participantes: participantes[] };
+
 export type participantes = {
-  participantes: participante[];
-};
-
-
-export type participante = {
   participante_id?: number;
-  nome?: string;
-  foto?: string;
-  cpf?: string;
-  telefone?: string;
-  email?: string;
+  nome: string;
+  foto: string;
+  cpf: string;
+  telefone: string;
+  email: string;
   senha?: string;
-  organizacao?: boolean;
+  organizacao: boolean;
 };
+
 export type presenca = {
   participante_id_reference: number;
 };
+
 export type patrocinadores = {
   patrocinador_id?: number;
   evento_id_reference?: number;
