@@ -29,7 +29,7 @@ import { getEventos } from "../../../../services/evento";
 import { getParticipantes } from "../../../../services/participantes";
 import {
   updateInscricaoEvento,
-  createInscricaoEvento,
+  createInscricaoEventoOrg,
 } from "../../../../services/inscricaoEvento";
 
 type Status = "APROVADO" | "PENDENTE" | "RECUSADO";
@@ -167,7 +167,7 @@ export function DialogActionsInscricoesEvento({
       observacoes: inscricaoEvento?.observacoes,
     };
     if (eventoSelected != undefined && participanteSelected != undefined) {
-      await createInscricaoEvento(data_)
+      await createInscricaoEventoOrg(data_)
         .then(() => {
           showNotification({
             type: "success",
