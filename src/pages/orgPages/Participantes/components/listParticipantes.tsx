@@ -38,7 +38,7 @@ export function ListaParticipantes() {
     getParticipantes(page, busca)
       .then((res) => {
         if (res.data.participantes.total > 0){
-          setTotalPages(Math.floor(res.data.participantes.total / 10));
+          setTotalPages(Math.ceil(res.data.participantes.total / 10));
           setTotalRows(res.data.participantes.total);
         }
         setParticipantes(res.data.participantes);

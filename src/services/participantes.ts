@@ -21,7 +21,7 @@ export async function getParticipantes(_page: Number, _busca: string) {
   };
 
   var url = "/participantes?busca=" + (_busca == "*" ? "" : _busca);
-  if (_page) url += "&page=" + _page;
+  if (_page) url += "&page=" + + (Number(_page) > 0 ? _page : "");
 
   const response = await apiBase.get(url, config);
   return response;
