@@ -14,6 +14,7 @@ import {
   Trash,
   Handshake,
   PencilLine,
+  FilePdf,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -31,4 +32,5 @@ export const DefaultsIcons = {
   AdiconarIcon: Plus,
   DotsIcon: DotsThree,
   ApagarIcon: Trash,
+  ExportPdfIcon: FilePdf
 };

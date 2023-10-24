@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import { participantes, participantesList } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
@@ -30,13 +31,16 @@ export function ListaParticipantes() {
 
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalRows, setTotalRows] = useState<number>(0);
   const [busca, setBusca] = useState<string>("*");
 
   async function getParticipantesList() {
     getParticipantes(page, busca)
       .then((res) => {
-        if (res.data.participantes.total > 0)
+        if (res.data.participantes.total > 0){
           setTotalPages(Math.floor(res.data.participantes.total / 10));
+          setTotalRows(res.data.participantes.total);
+        }
         setParticipantes(res.data.participantes);
       })
       .catch((err) =>
@@ -207,6 +211,10 @@ export function ListaParticipantes() {
                 : null}
             </TableBody>
           </Table>
+          <Typography margin={"1rem 0 0 1rem"}>
+            {"Total de registros: "}
+            {totalRows}
+          </Typography>
           <Pagination
             count={totalPages}
             page={page}
