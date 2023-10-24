@@ -20,8 +20,8 @@ import {
 import { useFetch } from "../../../../hooks/useFetch";
 import { postMiniCurso, putMiniCurso } from "../../../../services/miniCursos";
 import useNotification from "../../../../hooks/useNotification";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 interface props {
   open: boolean;
@@ -157,7 +157,7 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
                   }}
                   fullWidth
                 />
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     views={["year", "month", "day"]}
                     onChange={(event) => {
@@ -169,7 +169,7 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
                       }
                     }}
                   />
-                </LocalizationProvider>
+                </LocalizationProvider> */}
                 <TextField
                   type="number"
                   label="Valor"
