@@ -10,7 +10,7 @@ export async function getInscricaoEventos(_page: Number, _busca: string) {
   };
 
   var url = "/inscricao-eventos?busca=" + (_busca == "*" ? "" : _busca);
-  if (_page) url += "&page=" + _page;
+  if (_page) url += "&page=" + (Number(_page) > 0 ? _page : "");
   const res = await apiBase.get(url, config);
   return res;
 }

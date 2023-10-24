@@ -112,7 +112,7 @@ export function DialogActionsInscricoesEvento({
   // const list: participanteOption[];
 
   async function getParticipantesList() {
-    await getParticipantes(1, "")
+    await getParticipantes(0, "")
       .then((res) => {
         setParticipantes(res.data.participantes.participantes);
       })
@@ -136,7 +136,7 @@ export function DialogActionsInscricoesEvento({
       },
       observacoes: inscricaoEvento?.observacoes,
     };
-    console.log(data_);
+    
     await updateInscricaoEvento(Data?.inscricao_evento_id, data_)
       .then(() => {
         showNotification({
