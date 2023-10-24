@@ -35,6 +35,18 @@ export async function createInscricaoEvento(data: inscricaoEvento) {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
+  const response = await apiBase.post("/inscricao-eventos", data, config);
+
+  return response.data;
+}
+
+export async function createInscricaoEventoOrg(data: inscricaoEvento) {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
   const response = await apiBase.post("/inscricao-eventos/org", data, config);
 
   return response.data;
