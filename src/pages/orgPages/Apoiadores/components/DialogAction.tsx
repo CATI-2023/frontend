@@ -56,7 +56,14 @@ export function DialogActionsPatrocinadores({
       .then((res) => {
         setEventos(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        showNotification({
+          type: "error",
+          message:
+            "Erro obter lista de eventos. " + err?.response?.data?.message,
+          title: "Erro ao obter lista",
+        })
+      );
   }
 
   async function updatePatrocinador() {

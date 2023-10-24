@@ -11,6 +11,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import { apoiadores, patrocinadores } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
@@ -26,6 +27,7 @@ export function ListaApoiadores() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalRows, setTotalRows] = useState<number>(0);
   const [busca, setBusca] = useState<string>("*");
 
   const [selectedApoiador, setSelectedApoiador] =
@@ -42,10 +44,12 @@ export function ListaApoiadores() {
   async function getPatrocinadores() {
     getApoiadores(page, busca)
       .then((res) => {
-        if (res.patrocinadores.patrocinadores.total > 0)
+        if (res.patrocinadores.total > 0) {
           setTotalPages(
-            Math.floor(res.patrocinadores.patrocinadores.total / 10)
+            Math.ceil(res.patrocinadores.total / 10)
           );
+          setTotalRows(res.patrocinadores.total);
+        }
         setApoiadores(res.patrocinadores);
       })
       .catch((err) => {
@@ -186,6 +190,10 @@ export function ListaApoiadores() {
                 : null}
             </TableBody>
           </Table>
+          <Typography margin={"1rem 0 0 1rem"}>
+            {"Total de registros: "}
+            {totalRows}
+          </Typography>
           <Pagination
             count={totalPages}
             page={page}

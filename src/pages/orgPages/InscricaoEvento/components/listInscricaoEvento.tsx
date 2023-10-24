@@ -52,7 +52,7 @@ export function ListaInscricaoEvento() {
     getInscricaoEventos(page, busca)
       .then((res) => {
         if (res.data.inscricaoEventos.total > 0) {
-          setTotalPages(Math.floor(res.data.inscricaoEventos.total / 10));
+          setTotalPages(Math.ceil(res.data.inscricaoEventos.total / 10));
           setTotalRows(res.data.inscricaoEventos.total);
         }
         setInscricaoEventoList(res.data.inscricaoEventos.inscricaoEventos);
@@ -83,28 +83,58 @@ export function ListaInscricaoEvento() {
       ["Evento", "Participante - CPF", "Participante - Nome", "Pagamento"],
     ];
 
-    inscricaoEventoList?.forEach((i) => {
-      let list = [];
-      list.push(i.evento?.ano + " - " + i.evento?.tema);
-      list.push(i.participante?.cpf + "");
-      list.push(i.participante?.nome + "");
-      list.push(i.pagamento?.status + "");
-      body.push(list);
-    });
+    getInscricaoEventos(0, busca)
+      .then((res) => {
+        if (res.data.inscricaoEventos.total > 0) {
+          setTotalRows(res.data.inscricaoEventos.total);
+          var listaInscricoes: inscricaoEventoGet[] =
+            res.data.inscricaoEventos.inscricaoEventos;
+          listaInscricoes.forEach((i) => {
+            let list = [];
+            list.push(i.evento?.ano + " - " + i.evento?.tema);
+            list.push(i.participante?.cpf + "");
+            list.push(i.participante?.nome + "");
+            list.push(i.pagamento?.status + "");
+            body.push(list);
+          });
 
-    doc.setLineWidth(2);
-    doc.addImage(BannerCati, "png", 20, 20, 570, 70, "bannerCati", "NONE", 0);
-    doc.text("Lista de Inscrições", 230, 120);
-    doc.setFontSize(12);
-    doc.text("Total de registros: " + totalRows, 40, 140);
-    autoTable(doc, {
-      body: body,
-      startY: 150,
-      theme: "grid",
-    });
+          doc.setLineWidth(2);
+          doc.addImage(
+            BannerCati,
+            "png",
+            20,
+            20,
+            570,
+            70,
+            "bannerCati",
+            "NONE",
+            0
+          );
+          doc.text("Lista de Inscrições", 230, 120);
+          doc.setFontSize(12);
+          doc.text("Total de registros: " + totalRows, 40, 140);
+          autoTable(doc, {
+            body: body,
+            startY: 150,
+            theme: "grid",
+          });
 
-    // doc.save('lista.pdf');
-    window.open(doc.output("bloburl"));
+          window.open(doc.output("bloburl"));
+        } else {
+          showNotification({
+            message: "Nenhuma inscrição encontrada.",
+            type: "warning",
+          });
+        }
+      })
+      .catch((err) => {
+        showNotification({
+          message:
+            err?.response?.data?.message ??
+            "Erro ao carregar a lista de Inscições de Eventos.",
+          type: "error",
+        });
+      });
   };
 
   const handleDeleteInscricaoEvento = async (
