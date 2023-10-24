@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import { inscricaoEventoGet } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
@@ -22,11 +23,15 @@ import {
   deleteInscricaoEvento,
 } from "../../../../services/inscricaoEvento";
 import useNotification from "../../../../hooks/useNotification";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import BannerCati from "../../../../assets/BANNER-CATI-23.png";
 
 export function ListaInscricaoEvento() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [totalRows, setTotalRows] = useState<number>(0);
   const [busca, setBusca] = useState<string>("*");
 
   const [selectedInscricaoEvento, setSelectedInscricaoEvento] =
@@ -46,8 +51,10 @@ export function ListaInscricaoEvento() {
   async function getInscricaoEventosList() {
     getInscricaoEventos(page, busca)
       .then((res) => {
-        if (res.data.inscricaoEventos.total > 0)
+        if (res.data.inscricaoEventos.total > 0) {
           setTotalPages(Math.floor(res.data.inscricaoEventos.total / 10));
+          setTotalRows(res.data.inscricaoEventos.total);
+        }
         setInscricaoEventoList(res.data.inscricaoEventos.inscricaoEventos);
       })
       .catch((err) => {
@@ -67,6 +74,37 @@ export function ListaInscricaoEvento() {
   const handleClose = () => {
     setSelectedInscricaoEvento(null);
     setOpen(false);
+  };
+
+  const ListaPDF = () => {
+    var doc = new jsPDF("p", "pt", "letter");
+
+    var body = [
+      ["Evento", "Participante - CPF", "Participante - Nome", "Pagamento"],
+    ];
+
+    inscricaoEventoList?.forEach((i) => {
+      let list = [];
+      list.push(i.evento?.ano + " - " + i.evento?.tema);
+      list.push(i.participante?.cpf + "");
+      list.push(i.participante?.nome + "");
+      list.push(i.pagamento?.status + "");
+      body.push(list);
+    });
+
+    doc.setLineWidth(2);
+    doc.addImage(BannerCati, "png", 20, 20, 570, 70, "bannerCati", "NONE", 0);
+    doc.text("Lista de Inscrições", 230, 120);
+    doc.setFontSize(12);
+    doc.text("Total de registros: " + totalRows, 40, 140);
+    autoTable(doc, {
+      body: body,
+      startY: 150,
+      theme: "grid",
+    });
+
+    // doc.save('lista.pdf');
+    window.open(doc.output("bloburl"));
   };
 
   const handleDeleteInscricaoEvento = async (
@@ -100,19 +138,32 @@ export function ListaInscricaoEvento() {
         alignItems={"end"}
         gap={2}
       >
-        <Button
-          variant="contained"
-          sx={{ display: "flex", gap: 2 }}
-          onClick={() => {
-            setSelectedInscricaoEvento(null);
-            handleOpen(null);
-          }}
-        >
-          <DefaultsIcons.AdiconarIcon size={26} />
-          Adiconar Inscrição
-        </Button>
+        <Box display={"flex"} flexDirection={"row"} alignItems={"end"} gap={2}>
+          <Button
+            variant="contained"
+            sx={{ display: "flex", gap: 2 }}
+            onClick={() => {
+              setSelectedInscricaoEvento(null);
+              handleOpen(null);
+            }}
+          >
+            <DefaultsIcons.AdiconarIcon size={26} />
+            Adiconar Inscrição
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ display: "flex", gap: 2 }}
+            onClick={() => {
+              ListaPDF();
+            }}
+            color="secondary"
+          >
+            <DefaultsIcons.ExportPdfIcon size={26} />
+            Exportar para PDF
+          </Button>
+        </Box>
         <TableContainer component={Paper}>
-          <Table>
+          <Table id={"participante-table"}>
             <TableHead>
               <TableRow>
                 <TableCell align="center" colSpan={4}>
@@ -196,6 +247,10 @@ export function ListaInscricaoEvento() {
                 : null}
             </TableBody>
           </Table>
+          <Typography margin={"1rem 0 0 1rem"}>
+            {"Total de registros: "}
+            {totalRows}
+          </Typography>
           <Pagination
             count={totalPages}
             page={page}
@@ -203,7 +258,7 @@ export function ListaInscricaoEvento() {
               e.preventDefault();
               setPage(value);
             }}
-          />{" "}
+          />
         </TableContainer>
       </Box>
       <DialogActionsInscricoesEvento
