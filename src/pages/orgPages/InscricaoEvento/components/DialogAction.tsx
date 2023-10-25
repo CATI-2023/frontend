@@ -95,9 +95,9 @@ export function DialogActionsInscricoesEvento({
   };
 
   async function getEvents() {
-    await getEventos()
+    await getEventos(0, "*")
       .then((res) => {
-        setEventos(res.data.eventos);
+        setEventos(res.data.eventos.eventos);
       })
       .catch((err) =>
         showNotification({
