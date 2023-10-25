@@ -38,7 +38,7 @@ export type evento = {
   ano?: number;
   tema?: string;
   data_inicio: string;
-  data_fim?: string;
+  data_fim: string;
   qtde_vagas?: number;
   banner_base64?: string;
   valor?: number;
