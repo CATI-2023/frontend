@@ -52,7 +52,7 @@ export function DialogActionsPatrocinadores({
   const showNotification = useNotification();
 
   async function getEvents() {
-    await getEventos()
+    await getEventos(0, "*")
       .then((res) => {
         setEventos(res.data);
       })
