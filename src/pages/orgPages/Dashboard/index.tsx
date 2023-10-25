@@ -2,8 +2,6 @@ import {
   Card,
   Container,
   Grid,
-  ListItem,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";

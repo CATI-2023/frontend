@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   IconButton,
   Pagination,
   Paper,
