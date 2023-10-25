@@ -59,32 +59,36 @@ export default function DrawerComponent({ title }: props) {
               </IconButton>
               <Typography textAlign={"center"}>{title}</Typography>
             </Box>
-            <List>
-              <ListItemDrawer
-                title="Dashboard"
-                Icon={DefaultsIcons.DashboarIcon}
-                size={24}
-                route="/dashboard/org/"
-              />
-              <ListItemDrawer
-                title="Mini Cursos"
-                Icon={DefaultsIcons.MiniCursorIcon}
-                size={24}
-                route="/mini-cursos/org/"
-              />
-              <ListItemDrawer
-                title="Palestras"
-                Icon={DefaultsIcons.PalestranteIcon}
-                size={24}
-                route="/palestras/org"
-              />
-              <ListItemDrawer
-                title="Presença"
-                Icon={DefaultsIcons.PresencaIcon}
-                size={24}
-                route={"/presenca/org/"}
-              />
-            </List>
+            <ListItemDrawer
+              title="Dashboard"
+              Icon={DefaultsIcons.DashboarIcon}
+              size={24}
+              route="/dashboard/org/"
+            />
+            <ListItemDrawer
+              title="Eventos"
+              Icon={DefaultsIcons.EventosIcon}
+              size={24}
+              route="/eventos/org/"
+            />
+            <ListItemDrawer
+              title="Mini Cursos"
+              Icon={DefaultsIcons.MiniCursorIcon}
+              size={24}
+              route="/mini-cursos/org/"
+            />
+            <ListItemDrawer
+              title="Palestras"
+              Icon={DefaultsIcons.PalestranteIcon}
+              size={24}
+              route="/palestras/org"
+            />
+            <ListItemDrawer
+              title="Presença"
+              Icon={DefaultsIcons.PresencaIcon}
+              size={24}
+              route={"/presenca/org/"}
+            />
             <ListItemDrawer
               title="Colaboradores"
               Icon={DefaultsIcons.ApoiadoresIcon}
