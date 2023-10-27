@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   IconButton,
   Pagination,
   Paper,
@@ -13,87 +14,90 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { apoiadores, patrocinadores } from "../../../../Types/type";
+import { participante, participantesList } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
-import { DialogActionsPatrocinadores } from "./DialogAction";
-import { useState, useEffect } from "react";
+import { DialogActionsParticipantes } from "./DialogAction";
+import { useEffect, useState } from "react";
 import {
-  deleteApoiadores,
-  getApoiadores,
-} from "../../../../services/apoiadores";
+  deleteParticipante,
+  getParticipantes,
+} from "../../../../services/participantes";
 import useNotification from "../../../../hooks/useNotification";
+import { formataCPF, formataCelular } from "../../../../constants/function";
 
-export function ListaApoiadores() {
-  const [open, setOpen] = useState(false);
+export function ListaParticipantes() {
+  const [participantesList, setParticipantes] =
+    useState<participantesList | null>(null);
+
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [busca, setBusca] = useState<string>("*");
 
-  const [selectedApoiador, setSelectedApoiador] =
-    useState<patrocinadores | null>(null);
-
-  const showNotification = useNotification();
-
-  const handleOpen = (patrocinador: patrocinadores | null) => {
-    setSelectedApoiador(patrocinador);
-    setOpen(true);
-  };
-
-  const [apoiadores, setApoiadores] = useState<apoiadores | null>(null);
-  async function getPatrocinadores() {
-    getApoiadores(page, busca)
+  async function getParticipantesList() {
+    getParticipantes(page, busca)
       .then((res) => {
-        if (res.patrocinadores.total > 0) {
-          setTotalPages(
-            Math.ceil(res.patrocinadores.total / 10)
-          );
-          setTotalRows(res.patrocinadores.total);
+        if (res.data.participantes.total > 0){
+          setTotalPages(Math.ceil(res.data.participantes.total / 10));
+          setTotalRows(res.data.participantes.total);
         }
-        setApoiadores(res.patrocinadores);
+        setParticipantes(res.data.participantes);
       })
-      .catch((err) => {
+      .catch((err) =>
         showNotification({
           message:
-            err?.response?.data?.message ??
-            "Erro ao carregar a lista de colaboradores.",
+            err?.response?.data?.message ?? "Erro ao carregar participantes.",
           type: "error",
-        });
-      });
+        })
+      );
   }
 
   useEffect(() => {
-    getPatrocinadores();
+    getParticipantesList();
   }, [page, busca]);
 
+  const [open, setOpen] = useState(false);
+
+  const [selectedParticipante, setSelectedParticipante] =
+    useState<participante | null>(null);
+
+  const showNotification = useNotification();
+
+  const handleOpen = (participante: participante | null) => {
+    setSelectedParticipante(participante);
+    setOpen(true);
+  };
   const handleClose = () => {
-    setSelectedApoiador({
-      razao_social: "",
+    setSelectedParticipante({
+      participante_id: 0,
+      nome: "",
+      foto: "",
+      cpf: "",
       telefone: "",
-      nivel: "BRONZE",
       email: "",
-      banner_base64: "",
+      senha: "",
+      organizacao: false,
     });
     setOpen(false);
   };
 
-  const handleDeletePatrocinador = async (
-    id_patrocinador: number | undefined
+  const handleDeleteParticipante = async (
+    participante_id: number | undefined
   ) => {
-    if (id_patrocinador != undefined) {
-      await deleteApoiadores(id_patrocinador)
+    if (participante_id != undefined) {
+      await deleteParticipante(participante_id)
         .then((res) => {
           showNotification({
-            message: "Colaborador removido com sucessor" + res,
+            message: "Participante removido com sucesso " + res,
             type: "success",
-            title: "Colaborador removido",
+            title: "Participante removido",
           });
         })
         .catch((err) => {
           showNotification({
-            message: "Erro ao remover o colaborador" + err,
+            message: "Erro ao remover o Participante " + err,
             type: "error",
-            title: "Colaborador não removido",
+            title: "Participante não removido",
           });
         });
       window.location.reload();
@@ -112,18 +116,18 @@ export function ListaApoiadores() {
           variant="contained"
           sx={{ display: "flex", gap: 2 }}
           onClick={() => {
-            setSelectedApoiador(null);
+            setSelectedParticipante(null);
             handleOpen(null);
           }}
         >
           <DefaultsIcons.AdiconarIcon size={26} />
-          Adiconar colaborador
+          Adiconar Participante
         </Button>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center" colSpan={5}>
+                <TableCell align="center" colSpan={6}>
                   <TextField
                     label="Informe sua busca"
                     fullWidth
@@ -137,16 +141,19 @@ export function ListaApoiadores() {
               </TableRow>
               <TableRow>
                 <TableCell align="center">
-                  <b>Razão Social</b>
+                  <b>Nome</b>
+                </TableCell>
+                <TableCell align="center">
+                  <b>CPF</b>
                 </TableCell>
                 <TableCell align="center">
                   <b>Telefone</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Nível</b>
+                  <b>Email</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Evento</b>
+                  <b>Organização</b>
                 </TableCell>
                 <TableCell align="center">
                   <b>Ações</b>
@@ -154,27 +161,35 @@ export function ListaApoiadores() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {apoiadores != null
-                ? apoiadores.patrocinadores.map(
-                    (patrocinador: patrocinadores) => (
-                      <TableRow key={patrocinador.patrocinador_id}>
+              {participantesList != null
+                ? participantesList.participantes.map(
+                    (participante: participante) => (
+                      <TableRow key={participante.participante_id}>
                         <TableCell align="center">
-                          {patrocinador.razao_social}
+                          {participante.nome}
                         </TableCell>
                         <TableCell align="center">
-                          {patrocinador.telefone}
+                          {formataCPF(participante.cpf ?? "")}
                         </TableCell>
                         <TableCell align="center">
-                          {patrocinador.nivel}
+                          {formataCelular(participante.telefone ?? "")}
                         </TableCell>
                         <TableCell align="center">
-                          {patrocinador.evento?.ano}{"-"}{patrocinador.evento?.tema}
+                          {participante.email}
+                        </TableCell>
+                        <TableCell align="center">
+                          <Checkbox
+                            disabled
+                            defaultChecked={participante.organizacao}
+                            sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+                          />
+                          {/* <Switch checked={participante.organizacao} disabled /> */}
                         </TableCell>
                         <TableCell align="center">
                           <IconButton
                             color="inherit"
                             onClick={() => {
-                              handleOpen(patrocinador);
+                              handleOpen(participante);
                             }}
                           >
                             <DefaultsIcons.EditIcon />
@@ -182,8 +197,8 @@ export function ListaApoiadores() {
                           <IconButton
                             color="error"
                             onClick={() => {
-                              handleDeletePatrocinador(
-                                patrocinador?.patrocinador_id
+                              handleDeleteParticipante(
+                                participante?.participante_id
                               );
                             }}
                           >
@@ -210,11 +225,11 @@ export function ListaApoiadores() {
           />
         </TableContainer>
       </Box>
-      <DialogActionsPatrocinadores
-        Data={selectedApoiador}
+      <DialogActionsParticipantes
+        Data={selectedParticipante}
         open={open}
         onClose={handleClose}
-        title="colaborador"
+        title="participante"
       />
     </>
   );

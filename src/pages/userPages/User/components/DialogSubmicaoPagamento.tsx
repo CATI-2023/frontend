@@ -22,6 +22,7 @@ export function DialogSubmicaoPagamento({ open, onClose, idParticipante }: Props
   const [comprovantePagamento, setComprovantePagamento] = useState<string>("");
 
   const handleClose = () => {
+    window.location.reload();
     onClose();
   };
 

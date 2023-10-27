@@ -5,7 +5,6 @@ import {
   Books,
   PresentationChart,
   QrCode,
-  Lifebuoy,
   User,
   Newspaper,
   SignOut,
@@ -13,6 +12,10 @@ import {
   Plus,
   DotsThree,
   Trash,
+  Handshake,
+  PencilLine,
+  FilePdf,
+  CalendarCheck
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -21,12 +24,15 @@ export const DefaultsIcons = {
   MiniCursorIcon: Books,
   PalestranteIcon: PresentationChart,
   PresencaIcon: QrCode,
-  ApoiadoresIcon: Lifebuoy,
+  ApoiadoresIcon: Handshake,
   ParticipantesIcon: User,
+  InscricaoEventoIcon: PencilLine,
   NoticiasIcon: Newspaper,
   LogOff: SignOut,
   EditIcon: Pencil,
   AdiconarIcon: Plus,
   DotsIcon: DotsThree,
   ApagarIcon: Trash,
+  ExportPdfIcon: FilePdf,
+  EventosIcon: CalendarCheck,
 };

@@ -1,5 +1,3 @@
-import { Evento } from "./Evento";
-
 export type palestras = {
   tema: string;
   descricao: string;
@@ -7,14 +5,11 @@ export type palestras = {
   evento_id_reference: number;
 };
 
-export type participantes = {
-  participantes: participante[];
-};
-
+export type participantesList = { participantes: participante[] };
 
 export type participante = {
   participante_id?: number;
-  nome?: string;
+  nome: string;
   foto?: string;
   cpf?: string;
   telefone?: string;
@@ -22,9 +17,11 @@ export type participante = {
   senha?: string;
   organizacao?: boolean;
 };
+
 export type presenca = {
   participante_id_reference: number;
 };
+
 export type patrocinadores = {
   patrocinador_id?: number;
   evento_id_reference?: number;
@@ -33,40 +30,44 @@ export type patrocinadores = {
   banner_base64: string;
   email: string;
   telefone: string;
+  evento?: evento;
 };
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
 export type evento = {
-  ano: number;
-  tema: string;
-  data_Inicio: string;
-  data_Fim: string;
-  qtde_vagas: number;
-  banner_url: string;
+  ano?: number;
+  tema?: string;
+  data_inicio: string;
+  data_fim: string;
+  qtde_vagas?: number;
+  banner_base64?: string;
+  valor?: number;
   evento_id?: number;
 };
-export type eventos = {eventos: evento[]}
+
+export type eventos = { eventos: evento[] };
 
 export type miniCursos = {
-  minicursos: mini_curso[];
+  minicursos: minicurso[];
 };
 
-export type mini_curso = {
+export type minicurso = {
   titulo: string;
-  valor: number ;
+  valor: number;
   descricao: string;
   qtde_vagas: number;
-  data: string ;
+  data: string;
   evento_id_reference?: number;
   ministrante_participante_id_reference?: number;
-  ministrante? : ministrante;
+  ministrante?: participante;
+  evento?: evento;
   minicurso_id?: number;
 };
 
 export type ministrante = {
-  nome?: string,
-  participante_id?: number
-}
+  nome?: string;
+  participante_id?: number;
+};
 
 export type noticia = {
   texto: string;
@@ -79,26 +80,24 @@ export type noticia = {
   evento_id_reference: number;
 };
 export type inscricaoEvento = {
-  evento_id_reference: number;
-  participante_id_reference: number;
-  observacoes: string;
-  pagamento_id_reference: number;
+  evento_id_reference?: number;
+  participante_id_reference?: number;
+  observacoes?: string;
+  pagamento_id_reference?: number;
 };
+
 export type inscricaoEventoGet = {
-  observacoes: string;
-  evento: Evento;
-  participante: {
-    participante_id: number;
-    nome: string;
-    cpf: string;
-    telefone: string;
-    email: string;
-    organizacao: boolean;
-  };
-  pagamento: {
-    pagamento_id: number;
-    status: "APROVADO" | "PENDENTE" | "RECUSADO";
-    comprovante_base64: string;
+  inscricao_evento_id?: number;
+  observacoes?: string;
+  evento_id_reference?: number;
+  evento?: evento;
+  participante_id_reference?: number;
+  participante?: participante;
+  pagamento_id_reference?: number;
+  pagamento?: {
+    pagamento_id?: number;
+    status?: "APROVADO" | "PENDENTE" | "RECUSADO";
+    comprovante_base64?: string;
   };
 };
 
@@ -129,7 +128,7 @@ export type InscricaoEvento = {
   alterado_em: string;
   excluido?: string;
   pagamento: Pagamento;
-  evento: Evento;
+  evento: evento;
 };
 
 export type Pagamento = {
@@ -140,4 +139,3 @@ export type Pagamento = {
   alterado_em: string;
   excluido?: string;
 };
-

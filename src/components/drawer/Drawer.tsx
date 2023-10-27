@@ -59,34 +59,38 @@ export default function DrawerComponent({ title }: props) {
               </IconButton>
               <Typography textAlign={"center"}>{title}</Typography>
             </Box>
-            <List>
-              <ListItemDrawer
-                title="Dashboard"
-                Icon={DefaultsIcons.DashboarIcon}
-                size={24}
-                route="/dashboard/org/"
-              />
-              <ListItemDrawer
-                title="Mini Cursos"
-                Icon={DefaultsIcons.MiniCursorIcon}
-                size={24}
-                route="/mini-cursos/org/"
-              />
-              <ListItemDrawer
-                title="Palestras"
-                Icon={DefaultsIcons.PalestranteIcon}
-                size={24}
-                route="/palestras/org"
-              />
-              <ListItemDrawer
-                title="Presença"
-                Icon={DefaultsIcons.PresencaIcon}
-                size={24}
-                route={"/presenca/org/"}
-              />
-            </List>
             <ListItemDrawer
-              title="Apoiadores"
+              title="Dashboard"
+              Icon={DefaultsIcons.DashboarIcon}
+              size={24}
+              route="/dashboard/org/"
+            />
+            <ListItemDrawer
+              title="Eventos"
+              Icon={DefaultsIcons.EventosIcon}
+              size={24}
+              route="/eventos/org/"
+            />
+            <ListItemDrawer
+              title="Minicursos"
+              Icon={DefaultsIcons.MiniCursorIcon}
+              size={24}
+              route="/mini-cursos/org/"
+            />
+            <ListItemDrawer
+              title="Palestras"
+              Icon={DefaultsIcons.PalestranteIcon}
+              size={24}
+              route="/palestras/org"
+            />
+            <ListItemDrawer
+              title="Presença"
+              Icon={DefaultsIcons.PresencaIcon}
+              size={24}
+              route={"/presenca/org/"}
+            />
+            <ListItemDrawer
+              title="Colaboradores"
               Icon={DefaultsIcons.ApoiadoresIcon}
               size={24}
               route="/apoiadores/org/"
@@ -96,6 +100,12 @@ export default function DrawerComponent({ title }: props) {
               Icon={DefaultsIcons.ParticipantesIcon}
               size={24}
               route="/participantes/org/"
+            />
+            <ListItemDrawer
+              title="Inscrições de Eventos"
+              Icon={DefaultsIcons.InscricaoEventoIcon}
+              size={24}
+              route="/inscricao-evento/org/"
             />
             <ListItemDrawer
               title="Noticias"
