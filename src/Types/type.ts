@@ -5,17 +5,17 @@ export type palestras = {
   evento_id_reference: number;
 };
 
-export type participantesList = { participantes: participantes[] };
+export type participantesList = { participantes: participante[] };
 
-export type participantes = {
+export type participante = {
   participante_id?: number;
   nome: string;
   foto?: string;
-  cpf: string;
-  telefone: string;
-  email: string;
+  cpf?: string;
+  telefone?: string;
+  email?: string;
   senha?: string;
-  organizacao: boolean;
+  organizacao?: boolean;
 };
 
 export type presenca = {
@@ -30,6 +30,7 @@ export type patrocinadores = {
   banner_base64: string;
   email: string;
   telefone: string;
+  evento?: evento;
 };
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
@@ -43,28 +44,34 @@ export type evento = {
   valor?: number;
   evento_id?: number;
 };
+<<<<<<< HEAD
 export type eventos = {eventos: evento[]}
+=======
+
+export type eventos = { eventos: evento[] };
+>>>>>>> fix-crud-minicursos
 
 export type miniCursos = {
-  minicursos: mini_curso[];
+  minicursos: minicurso[];
 };
 
-export type mini_curso = {
+export type minicurso = {
   titulo: string;
-  valor: number ;
+  valor: number;
   descricao: string;
   qtde_vagas: number;
-  data: string ;
+  data: string;
   evento_id_reference?: number;
   ministrante_participante_id_reference?: number;
-  ministrante? : ministrante;
+  ministrante?: participante;
+  evento?: evento;
   minicurso_id?: number;
 };
 
 export type ministrante = {
-  nome?: string,
-  participante_id?: number
-}
+  nome?: string;
+  participante_id?: number;
+};
 
 export type noticia = {
   texto: string;
@@ -89,7 +96,7 @@ export type inscricaoEventoGet = {
   evento_id_reference?: number;
   evento?: evento;
   participante_id_reference?: number;
-  participante?: participantes;
+  participante?: participante;
   pagamento_id_reference?: number;
   pagamento?: {
     pagamento_id?: number;
@@ -136,4 +143,3 @@ export type Pagamento = {
   alterado_em: string;
   excluido?: string;
 };
-

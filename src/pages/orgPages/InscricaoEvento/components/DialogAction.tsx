@@ -21,7 +21,7 @@ import {
 import {
   evento,
   inscricaoEventoGet,
-  participantes,
+  participante,
 } from "../../../../Types/type";
 import { useEffect, useState } from "react";
 import useNotification from "../../../../hooks/useNotification";
@@ -76,7 +76,7 @@ export function DialogActionsInscricoesEvento({
     },
   });
   const [eventos, setEventos] = useState<evento[]>([]);
-  const [participantes, setParticipantes] = useState<participantes[]>([]);
+  const [participantes, setParticipantes] = useState<participante[]>([]);
   const [statusPagamento, setStatusPagamento] = useState<Status>("PENDENTE");
   const [openDialogComprovante, setOpenDialogComprovante] = useState(false);
 
@@ -85,7 +85,7 @@ export function DialogActionsInscricoesEvento({
     undefined
   );
   const [participanteSelected, setParticipanteSeletected] = useState<
-    participantes | undefined
+    participante | undefined
   >(undefined);
 
   const showNotification = useNotification();
@@ -237,11 +237,11 @@ export function DialogActionsInscricoesEvento({
                     fullWidth
                     size="small"
                     options={participantes}
-                    getOptionLabel={(option: participantes) => option.nome}
+                    getOptionLabel={(option: participante) => option.nome}
                     renderInput={(params) => (
                       <TextField {...params} label="Selecione o participante" />
                     )}
-                    onChange={(event: any, value: participantes | null) => {
+                    onChange={(event: any, value: participante | null) => {
                       event.preventDefault();
                       setParticipanteSeletected(value ? value : undefined);
                     }}

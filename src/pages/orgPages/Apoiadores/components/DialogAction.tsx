@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Avatar,
   Box,
   Button,
@@ -13,7 +14,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { eventos, patrocinadores } from "../../../../Types/type";
+import { evento, patrocinadores } from "../../../../Types/type";
 import { useEffect, useState } from "react";
 import {
   postApoiadores,
@@ -45,9 +46,22 @@ export function DialogActionsPatrocinadores({
     nivel: "BRONZE",
     email: "",
     banner_base64: "",
+    evento: {
+      evento_id: 0,
+      ano: 0,
+      tema: "",
+      data_inicio: "",
+      data_fim: "",
+      qtde_vagas: 0,
+      banner_base64: "",
+      valor: 0,
+    },
   });
 
-  const [eventos, setEventos] = useState<eventos | null>(null);
+  const [eventos, setEventos] = useState<evento[]>([]);
+  const [eventoSelected, setEventoSelected] = useState<evento | undefined>(
+    undefined
+  );
 
   const showNotification = useNotification();
 
@@ -74,6 +88,7 @@ export function DialogActionsPatrocinadores({
       nivel: patrocinador.nivel,
       email: patrocinador.email,
       banner_base64: patrocinador.banner_base64,
+      evento: eventoSelected,
     };
 
     await updateApoiadores(Data?.patrocinador_id, data_)
@@ -98,15 +113,16 @@ export function DialogActionsPatrocinadores({
 
   async function CreatePatrocinador() {
     const data_ = {
-      evento_id_reference: patrocinador.evento_id_reference,
+      evento_id_reference: eventoSelected?.evento_id,
       razao_social: patrocinador.razao_social,
       telefone: patrocinador.telefone,
       nivel: patrocinador.nivel,
       email: patrocinador.email,
       banner_base64: patrocinador.banner_base64,
+      evento: eventoSelected,
     };
 
-    if (patrocinador.evento_id_reference != undefined) {
+    if (eventoSelected != undefined) {
       await postApoiadores(data_)
         .then(() => {
           showNotification({
@@ -127,8 +143,8 @@ export function DialogActionsPatrocinadores({
     } else {
       showNotification({
         type: "warning",
-        message: "Selecione um evento",
-        title: "Evento não selecionado",
+        message: "Selecione um evento.",
+        title: "Evento não selecionado.",
       });
     }
   }
@@ -155,6 +171,7 @@ export function DialogActionsPatrocinadores({
   useEffect(() => {
     if (Data) {
       setPatrocinador(Data);
+      setEventoSelected(Data?.evento);
     } else {
       getEvents();
     }
@@ -227,31 +244,24 @@ export function DialogActionsPatrocinadores({
                   </Select>
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Evento</FormLabel>
-                  <Select
-                    required
-                    value={
-                      Data
-                        ? String(patrocinador.evento_id_reference)
-                        : undefined
-                    }
+                  <Autocomplete
+                    value={Data ? patrocinador.evento : eventoSelected}
+                    disablePortal
+                    readOnly={Data ? true : false}
+                    fullWidth
                     size="small"
-                    onChange={(e) => {
-                      setPatrocinador({
-                        ...patrocinador,
-                        evento_id_reference: Number(e.target.value),
-                      });
+                    options={eventos}
+                    getOptionLabel={(option: evento) =>
+                      option.ano + " - " + option.tema
+                    }
+                    renderInput={(params) => (
+                      <TextField {...params} label="Selecione o evento" />
+                    )}
+                    onChange={(event: any, value: evento | null) => {
+                      event.preventDefault();
+                      setEventoSelected(value ? value : undefined);
                     }}
-                  >
-                    {eventos?.eventos.map((evento) => (
-                      <MenuItem
-                        value={String(evento.evento_id)}
-                        key={evento.evento_id}
-                      >
-                        {evento.tema} - {evento.ano}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  />
                 </FormControl>
                 <TextField
                   required

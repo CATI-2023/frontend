@@ -13,7 +13,7 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import { participantes } from "../../../../Types/type";
+import { participante } from "../../../../Types/type";
 import { useEffect, useState } from "react";
 import {
   createParticipante,
@@ -31,7 +31,7 @@ interface props {
   open: boolean;
   onClose: () => void;
   title: string;
-  Data?: participantes | null;
+  Data?: participante | null;
 }
 export function DialogActionsParticipantes({
   open,
@@ -40,7 +40,7 @@ export function DialogActionsParticipantes({
   Data,
 }: props) {
   // const [data: eventos] = useFetch<Evento>("evento")
-  const [participante, setParticipante] = useState<participantes>({
+  const [participante, setParticipante] = useState<participante>({
     nome: "",
     foto: "",
     cpf: "",
@@ -54,11 +54,11 @@ export function DialogActionsParticipantes({
   const showNotification = useNotification();
 
   const data = {
-    nome: participante.nome.trim(),
+    nome: participante.nome?.trim(),
     foto: participante.foto,
-    cpf: participante.cpf.trim().replace(/[^\d]+/g, ""),
-    telefone: participante.telefone.trim().replace(/[^\d]+/g, ""),
-    email: participante.email.trim(),
+    cpf: participante.cpf?.trim().replace(/[^\d]+/g, ""),
+    telefone: participante.telefone?.trim().replace(/[^\d]+/g, ""),
+    email: participante.email?.trim(),
     senha: participante.senha?.trim(),
     organizacao: participante.organizacao,
   };
@@ -106,7 +106,7 @@ export function DialogActionsParticipantes({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!validaCPF(participante.cpf)) {
+    if (!participante.cpf || !validaCPF(participante?.cpf)) {
       showNotification({
         message: "CPF inválido",
         type: "error",
