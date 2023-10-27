@@ -15,6 +15,9 @@ import { useEffect, useState } from "react";
 import { postEvento, putEvento } from "../../../../services/evento";
 import useNotification from "../../../../hooks/useNotification";
 import { Camera, Trash } from "@phosphor-icons/react";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import ptBR from "date-fns/locale/pt-BR";
 
 interface props {
   open: boolean;
@@ -233,36 +236,46 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
                   size="small"
                 />
                 <Stack direction="row" spacing={1}>
-                  <TextField
-                    fullWidth
-                    label="Data de início"
-                    value={evento.data_inicio.replace("Z", "")}
-                    placeholder="Data de início"
-                    required
-                    type="datetime-local"
-                    size="small"
-                    onChange={(e) => {
-                      setEvento({
-                        ...evento,
-                        data_inicio: e.target.value,
-                      });
-                    }}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Data de fim"
-                    value={evento.data_fim.replace("Z", "")}
-                    placeholder="Data de fim"
-                    type="datetime-local"
-                    required
-                    size="small"
-                    onChange={(e) => {
-                      setEvento({
-                        ...evento,
-                        data_fim: e.target.value,
-                      });
-                    }}
-                  />
+                  <LocalizationProvider
+                    dateAdapter={AdapterDateFns}
+                    adapterLocale={ptBR}
+                  >
+                    <DatePicker
+                      label="Data de início"
+                      views={["day", "month", "year"]}
+                      value={new Date(evento.data_inicio)}
+                      onChange={(event) => {
+                        if (typeof event === "string") {
+                          setEvento({ ...evento, data_inicio: event });
+                        } else if (event instanceof Date) {
+                          setEvento({
+                            ...evento,
+                            data_inicio: event.toISOString(),
+                          });
+                        }
+                      }}
+                    />
+                  </LocalizationProvider>
+                  <LocalizationProvider
+                    dateAdapter={AdapterDateFns}
+                    adapterLocale={ptBR}
+                  >
+                    <DatePicker
+                      label="Data fim"
+                      views={["day", "month", "year"]}
+                      value={new Date(evento.data_fim)}
+                      onChange={(event) => {
+                        if (typeof event === "string") {
+                          setEvento({ ...evento, data_fim: event });
+                        } else if (event instanceof Date) {
+                          setEvento({
+                            ...evento,
+                            data_fim: event.toISOString(),
+                          });
+                        }
+                      }}
+                    />
+                  </LocalizationProvider>
                 </Stack>
                 <Stack direction="row" spacing={1}>
                   <TextField

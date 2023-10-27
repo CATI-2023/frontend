@@ -72,7 +72,7 @@ export default function DrawerComponent({ title }: props) {
               route="/eventos/org/"
             />
             <ListItemDrawer
-              title="Mini Cursos"
+              title="Minicursos"
               Icon={DefaultsIcons.MiniCursorIcon}
               size={24}
               route="/mini-cursos/org/"

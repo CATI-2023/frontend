@@ -1,4 +1,4 @@
-import { participantes } from "../Types/type";
+import { participante } from "../Types/type";
 import { apiBase } from "./api";
 
 export async function getEuParticipante() {
@@ -41,7 +41,7 @@ export async function getParticipante(id_participante: number) {
   return response;
 }
 
-export async function createParticipante(data: participantes) {
+export async function createParticipante(data: participante) {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export async function createParticipante(data: participantes) {
 
 export async function updateParticipante(
   id_participante: number | undefined,
-  data: participantes
+  data: participante
 ) {
   const config = {
     headers: {

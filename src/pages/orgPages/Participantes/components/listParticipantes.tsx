@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { participantes, participantesList } from "../../../../Types/type";
+import { participante, participantesList } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsParticipantes } from "./DialogAction";
 import { useEffect, useState } from "react";
@@ -59,11 +59,11 @@ export function ListaParticipantes() {
   const [open, setOpen] = useState(false);
 
   const [selectedParticipante, setSelectedParticipante] =
-    useState<participantes | null>(null);
+    useState<participante | null>(null);
 
   const showNotification = useNotification();
 
-  const handleOpen = (participante: participantes | null) => {
+  const handleOpen = (participante: participante | null) => {
     setSelectedParticipante(participante);
     setOpen(true);
   };
@@ -163,16 +163,16 @@ export function ListaParticipantes() {
             <TableBody>
               {participantesList != null
                 ? participantesList.participantes.map(
-                    (participante: participantes) => (
+                    (participante: participante) => (
                       <TableRow key={participante.participante_id}>
                         <TableCell align="center">
                           {participante.nome}
                         </TableCell>
                         <TableCell align="center">
-                          {formataCPF(participante.cpf)}
+                          {formataCPF(participante.cpf ?? "")}
                         </TableCell>
                         <TableCell align="center">
-                          {formataCelular(participante.telefone)}
+                          {formataCelular(participante.telefone ?? "")}
                         </TableCell>
                         <TableCell align="center">
                           {participante.email}

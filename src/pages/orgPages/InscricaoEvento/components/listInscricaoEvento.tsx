@@ -151,7 +151,8 @@ export function ListaInscricaoEvento() {
         })
         .catch((err) => {
           showNotification({
-            message: "Erro ao remover inscrição. " + err,
+            message:
+              "Erro ao remover inscrição. " + err?.response?.data?.message,
             type: "error",
             title: "Inscrição não removida",
           });
@@ -274,7 +275,7 @@ export function ListaInscricaoEvento() {
                       </TableCell>
                     </TableRow>
                   ))
-                : null}
+                : "Carregando..."}
             </TableBody>
           </Table>
           <Typography margin={"1rem 0 0 1rem"}>

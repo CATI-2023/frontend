@@ -123,7 +123,7 @@ export function ListaApoiadores() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center" colSpan={4}>
+                <TableCell align="center" colSpan={5}>
                   <TextField
                     label="Informe sua busca"
                     fullWidth
@@ -146,6 +146,9 @@ export function ListaApoiadores() {
                   <b>Nível</b>
                 </TableCell>
                 <TableCell align="center">
+                  <b>Evento</b>
+                </TableCell>
+                <TableCell align="center">
                   <b>Ações</b>
                 </TableCell>
               </TableRow>
@@ -163,6 +166,9 @@ export function ListaApoiadores() {
                         </TableCell>
                         <TableCell align="center">
                           {patrocinador.nivel}
+                        </TableCell>
+                        <TableCell align="center">
+                          {patrocinador.evento?.ano}{"-"}{patrocinador.evento?.tema}
                         </TableCell>
                         <TableCell align="center">
                           <IconButton
@@ -201,7 +207,7 @@ export function ListaApoiadores() {
               e.preventDefault();
               setPage(value);
             }}
-          />{" "}
+          />
         </TableContainer>
       </Box>
       <DialogActionsPatrocinadores
