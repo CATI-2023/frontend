@@ -17,11 +17,8 @@
     "@mui/x-date-pickers": "^6.16.2",
     "@phosphor-icons/react": "^2.0.10",
     "axios": "^1.4.0",
-<<<<<<< HEAD
-=======
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.10",
->>>>>>> fix-crud-minicursos
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.7.0",
     "qr-scanner": "^1.4.2",
