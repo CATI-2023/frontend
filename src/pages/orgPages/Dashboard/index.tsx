@@ -80,7 +80,7 @@ export function OrganizacaoPage() {
             <WidgetDashboard
               title="Minicursos"
               Icon={DefaultsIcons.MiniCursorIcon}
-              route=""
+              route="/mini-cursos/org/"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
