@@ -44,12 +44,8 @@ export type evento = {
   valor?: number;
   evento_id?: number;
 };
-<<<<<<< HEAD
-export type eventos = {eventos: evento[]}
-=======
 
 export type eventos = { eventos: evento[] };
->>>>>>> fix-crud-minicursos
 
 export type miniCursos = {
   minicursos: minicurso[];
