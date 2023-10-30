@@ -147,7 +147,7 @@ export function OrganizacaoPage() {
             <WidgetDashboard
               title="Registro de Presença"
               Icon={DefaultsIcons.PresencaIcon}
-              route=""
+              route="/presenca/org/"
             />
           </Grid>
         </Grid>

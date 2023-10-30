@@ -17,7 +17,7 @@ const palestrantes = [
   {
     atuacao: "Professor Associado do Departamento de Computação - UFSC",
     nome: "Alexandre Leopoldo Gonçalves",
-    tema: "Tema da Palestra sendo definido",
+    tema: "Uma Introdução sobre Retrieval Augmented Generation",
     foto: FotoAlexandre,
     lattes: "http://lattes.cnpq.br/5138758521691630",
     linkedin: "",
@@ -25,7 +25,7 @@ const palestrantes = [
   {
     atuacao: "Professor Efetivo - UNEMAT",
     nome: "Luciano Wolski",
-    tema: "Tema da Palestra sendo definido",
+    tema: "Modelo de Classificação de Patentes",
     foto: FotoLuciano,
     lattes: "http://lattes.cnpq.br/1030012611007949",
     linkedin: "",
@@ -66,7 +66,7 @@ const palestrantes = [
   {
     atuacao: "Especialista técnico em redes na LogLab",
     nome: "Ricardo Alexandre Germano de Assis",
-    tema: "Tema da Palestra sendo definido",
+    tema: "Qual o papel da inteligência artificial (IA) na segurança cibernética",
     foto: FotoRicardoGermano,
     lattes: "",
     linkedin:
@@ -75,7 +75,7 @@ const palestrantes = [
   {
     atuacao: "Assessor Especial - Ministério Público Do Estado De Mato Grosso",
     nome: "Kembolle Amilkar de Oliveira",
-    tema: "Tema da Palestra sendo definido",
+    tema: "Reflexos da IA na cibersegurança",
     foto: FotoKembolle,
     lattes: "http://lattes.cnpq.br/5682787427593454",
     linkedin: "https://www.linkedin.com/in/kembolle/",

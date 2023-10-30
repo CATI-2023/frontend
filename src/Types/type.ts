@@ -18,8 +18,11 @@ export type participante = {
   organizacao?: boolean;
 };
 
-export type presenca = {
-  participante_id_reference: number;
+export type frequencia = {
+  frequencia_id?: number;
+  inscricao_evento_id_reference?: number;
+  inscricao_evento?: inscricaoEventoGet;
+  data?: string;
 };
 
 export type patrocinadores = {
