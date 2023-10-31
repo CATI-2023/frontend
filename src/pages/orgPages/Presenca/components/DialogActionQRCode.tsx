@@ -31,7 +31,16 @@ export function DialogActionsQRCode({ openQRCode, onCloseQRCode }: props) {
   async function getParticipante(inscricao_evento_id: number) {
     await getInscricaoEvento(inscricao_evento_id)
       .then((res) => {
-        setParticipante(res.data);
+        if (res.data) {
+          setParticipante(res.data);
+        } else {
+          showNotification({
+            type: "warning",
+            message: "Participante não encontrado",
+          });
+          setResultRead("");
+          onCloseQRCode();
+        }
       })
       .catch((err) =>
         showNotification({
@@ -54,7 +63,6 @@ export function DialogActionsQRCode({ openQRCode, onCloseQRCode }: props) {
         showNotification({
           type: "success",
           message: "Frequência criada com sucesso.",
-          title: "Sucesso ao criar",
         });
         window.location.reload();
       })
@@ -63,10 +71,15 @@ export function DialogActionsQRCode({ openQRCode, onCloseQRCode }: props) {
           type: "error",
           message:
             "Erro ao cadastrar Frequência. " + err?.response?.data?.message,
-          title: "Erro ao atualizar",
         });
       });
   }
+
+  const HandleCloseQRCode = (event: React.FormEvent) => {
+    event.preventDefault();
+    setResultRead("");
+    onCloseQRCode();
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -76,6 +89,9 @@ export function DialogActionsQRCode({ openQRCode, onCloseQRCode }: props) {
   useEffect(() => {
     if (resultRead && resultRead !== null) {
       getParticipante(Number(resultRead?.split("-")[2]));
+    } else {
+      setParticipante(null);
+      setResultRead("");
     }
   }, [resultRead]);
 
@@ -155,7 +171,7 @@ export function DialogActionsQRCode({ openQRCode, onCloseQRCode }: props) {
                   <Button
                     variant="contained"
                     color="error"
-                    onClick={onCloseQRCode}
+                    onClick={HandleCloseQRCode}
                   >
                     Cancelar
                   </Button>

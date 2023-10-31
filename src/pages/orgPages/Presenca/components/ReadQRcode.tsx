@@ -19,7 +19,6 @@ export function QrScannerComponent({ setResultRead }: props) {
         showNotification({
           type: "error",
           message: "QR Code inválido.",
-          title: "Erro ao ler QR Code",
         });
       }
     });
