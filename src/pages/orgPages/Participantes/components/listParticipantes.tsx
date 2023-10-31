@@ -120,8 +120,8 @@ export function ListaParticipantes() {
             handleOpen(null);
           }}
         >
-          <DefaultsIcons.AdiconarIcon size={26} />
-          Adiconar Participante
+          <DefaultsIcons.AdicionarIcon size={26} />
+          Adicionar Participante
         </Button>
         <TableContainer component={Paper}>
           <Table>

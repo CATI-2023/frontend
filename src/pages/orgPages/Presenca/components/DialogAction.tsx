@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  Avatar,
   Box,
   Button,
   Dialog,
@@ -184,6 +185,23 @@ export function DialogActionsPresenca({ open, onClose, title, Data }: props) {
                 {Data ? (
                   <>
                     <FormControl>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        gap={1}
+                        marginBottom={"1rem"}
+                      >
+                        <Avatar
+                          src={inscricaoEventoSelected?.participante?.foto}
+                          variant="rounded"
+                          sx={{
+                            objectFit: "contain",
+                            width: 250,
+                            height: 250,
+                          }}
+                        />
+                      </Box>
                       <TextField
                         fullWidth
                         placeholder="Evento"
@@ -209,6 +227,25 @@ export function DialogActionsPresenca({ open, onClose, title, Data }: props) {
                   </>
                 ) : (
                   <>
+                    <FormControl>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        gap={1}
+                        marginBottom={"1rem"}
+                      >
+                        <Avatar
+                          src={inscricaoEventoSelected?.participante?.foto}
+                          variant="rounded"
+                          sx={{
+                            objectFit: "contain",
+                            width: 250,
+                            height: 250,
+                          }}
+                        />
+                      </Box>
+                    </FormControl>
                     <FormControl>
                       <Autocomplete
                         value={eventoSelected}
@@ -275,6 +312,7 @@ export function DialogActionsPresenca({ open, onClose, title, Data }: props) {
                       label="Data"
                       views={["day", "month", "year", "hours", "minutes"]}
                       timezone="America/Cuiaba"
+                      defaultValue={new Date()}
                       value={new Date(presenca.data ?? "")}
                       onChange={(event) => {
                         if (typeof event === "string") {

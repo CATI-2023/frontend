@@ -146,7 +146,6 @@ export function ListaPresencas() {
         }
       })
       .catch((err) => {
-        console.log(err)
         showNotification({
           message:
             err?.response?.data?.message ??
@@ -195,7 +194,7 @@ export function ListaPresencas() {
               handleOpen(null);
             }}
           >
-            <DefaultsIcons.AdiconarIcon size={26} />
+            <DefaultsIcons.AdicionarIcon size={26} />
             Adicionar Presença
           </Button>
           <Button
@@ -316,7 +315,7 @@ export function ListaPresencas() {
         onClose={handleClose}
         title="Presença"
       />
-      <DialogActionsQRCode open={openQRCode} onClose={handleCloseQRCode} />
+      <DialogActionsQRCode openQRCode={openQRCode} onCloseQRCode={handleCloseQRCode} />
     </>
   );
 }

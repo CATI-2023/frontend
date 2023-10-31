@@ -84,7 +84,7 @@ export default function DrawerComponent({ title }: props) {
               route="/palestras/org"
             />
             <ListItemDrawer
-              title="Presença"
+              title="Registro de Frequência"
               Icon={DefaultsIcons.PresencaIcon}
               size={24}
               route={"/presenca/org/"}

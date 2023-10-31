@@ -4,7 +4,7 @@ import { ListaPresencas } from "./components/listPresencas";
 export function OrganizacaoPresencaPage() {
   return (
     <>
-      <Navbar title="Presença" typeUser="Organização" />
+      <Navbar title="Registro de Frequência" typeUser="Organização" />
       <Container maxWidth="lg">
         <ListaPresencas />
       </Container>
