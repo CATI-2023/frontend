@@ -2,16 +2,19 @@ import { Box } from "@mui/material";
 import "./style.css";
 import { ColaboradorCard } from "./components/Colaborador";
 import CNA from "../../../../assets/colaboradores/CNA.png";
+import CoelhoMachado from "../../../../assets/colaboradores/COELHO-E-MACHADO.png";
 import FENIX from "../../../../assets/colaboradores/FENIX.png";
 import FLORINDO from "../../../../assets/colaboradores/FLORINDO-AGROPECUARIA.png";
 import JRC from "../../../../assets/colaboradores/JRC.png";
 import JZStore from "../../../../assets/colaboradores/JZ_STORE.png";
-import KikoTecnologia from "../../../../assets/colaboradores/KIKO_tecnologia.png";
+import KikoTecnologia from "../../../../assets/colaboradores/KIKO.png";
 import MercadoConfianca from "../../../../assets/colaboradores/mercado_confianca.png";
 import OMEGA from "../../../../assets/colaboradores/OMEGA-SISTEMAS.png";
 import ParadiseOutlet from "../../../../assets/colaboradores/Paradise-Outlet.png";
+import QUALITY from "../../../../assets/colaboradores/QUALITY.png";
 import ReiCapinhas from "../../../../assets/colaboradores/Rei_das_capinhas.png";
 import SteakHouse from "../../../../assets/colaboradores/SL_STEAK_HOUSE.png";
+import SLS from "../../../../assets/colaboradores/SLS-ADVOGADOS.png";
 import TGASistemas from "../../../../assets/colaboradores/TGA-SISTEMAS.png";
 import TOPInformatica from "../../../../assets/colaboradores/TOP-INFORMATICA.png";
 import Waser from "../../../../assets/colaboradores/waser_tecnologia.png";
@@ -25,16 +28,19 @@ const colaboradores = [
   },
   { logo: TGASistemas, colaboradorTitle: "TGA Sistemas" },
   { logo: OMEGA, colaboradorTitle: "OMEGA Sistemas" },
-  { logo: FLORINDO, colaboradorTitle: "Florindo Agro" },
+  { logo: QUALITY, colaboradorTitle: "QUALITY Tecnologia" },
   { logo: JRC, colaboradorTitle: "JRC Assessoria & Consultoria" },
+  { logo: SLS, colaboradorTitle: "SLS Advogados" },
+  { logo: FLORINDO, colaboradorTitle: "Florindo Agro" },
+  { logo: CoelhoMachado, colaboradorTitle: "Coelho & Machado - Agropecuária" },
   { logo: TOPInformatica, colaboradorTitle: "TOP Informática" },
   { logo: Waser, colaboradorTitle: "Waser Tecnologia" },
   { logo: FENIX, colaboradorTitle: "Academia Fênix" },
+  { logo: SteakHouse, colaboradorTitle: "SL Prime Steak House" },
+  { logo: MercadoConfianca, colaboradorTitle: "Supermercado Confiança." },
   { logo: JZStore, colaboradorTitle: "JZ Store" },
   { logo: ParadiseOutlet, colaboradorTitle: "Paradaise Outlet" },
   { logo: ReiCapinhas, colaboradorTitle: "Rei das Capinhas Tangará da Serra" },
-  { logo: SteakHouse, colaboradorTitle: "SL Prime Steak House" },
-  { logo: MercadoConfianca, colaboradorTitle: "Supermercado Confiança." },
   { logo: CNA, colaboradorTitle: "CNA Barra do Bugres" },
 ];
 
