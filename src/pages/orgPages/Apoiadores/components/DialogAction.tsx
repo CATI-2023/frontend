@@ -66,9 +66,9 @@ export function DialogActionsPatrocinadores({
   const showNotification = useNotification();
 
   async function getEvents() {
-    await getEventos(0, "*")
+    await getEventos(0, "")
       .then((res) => {
-        setEventos(res.data);
+        setEventos(res.data.eventos.eventos);
       })
       .catch((err) =>
         showNotification({
@@ -172,9 +172,8 @@ export function DialogActionsPatrocinadores({
     if (Data) {
       setPatrocinador(Data);
       setEventoSelected(Data?.evento);
-    } else {
-      getEvents();
     }
+    getEvents();
   }, [Data]);
 
   return (
@@ -245,9 +244,8 @@ export function DialogActionsPatrocinadores({
                 </FormControl>
                 <FormControl>
                   <Autocomplete
-                    value={Data ? patrocinador.evento : eventoSelected}
+                    value={eventoSelected}
                     disablePortal
-                    readOnly={Data ? true : false}
                     fullWidth
                     size="small"
                     options={eventos}

@@ -26,6 +26,7 @@ import useNotification from "../../../../hooks/useNotification";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import BannerCati from "../../../../assets/BANNER-CATI-23.png";
+import QRCode from "qrcode";
 
 export function ListaInscricaoEvento() {
   const [open, setOpen] = useState(false);
@@ -137,6 +138,102 @@ export function ListaInscricaoEvento() {
       });
   };
 
+  type Cracha = {
+    inscricao_evento_id: number | undefined;
+    participante_nome: string | undefined;
+    qrcode: string;
+  };
+
+  async function getQrCodes(list: inscricaoEventoGet[]) {
+    var listCracha: Cracha[] = [];
+    list.forEach((i) => {
+      var c: Cracha = {
+        inscricao_evento_id: i.inscricao_evento_id,
+        participante_nome: i.participante?.nome,
+        qrcode: "",
+      };
+      QRCode.toDataURL("cati2023-participante-" + i.inscricao_evento_id).then(
+        (url) => {
+          c.qrcode = url;
+          listCracha.push(c);
+        }
+      );
+    });
+    return listCracha;
+  }
+
+  const ListaCrachasPDF = () => {
+    var doc = new jsPDF("p", "pt", "letter");
+
+    getInscricaoEventos(0, busca)
+      .then((res) => {
+        if (res.data.inscricaoEventos.total > 0) {
+          setTotalRows(res.data.inscricaoEventos.total);
+          var listaInscricoes: inscricaoEventoGet[] =
+            res.data.inscricaoEventos.inscricaoEventos;
+          doc.setLineWidth(2);
+          doc.addImage(
+            BannerCati,
+            "PNG",
+            20,
+            20,
+            570,
+            70,
+            "bannerCati",
+            "NONE",
+            0
+          );
+          doc.text("Lista de Inscrições", 230, 120);
+          doc.setFontSize(12);
+          doc.text("Total de registros: " + totalRows, 40, 140);
+          getQrCodes(listaInscricoes)
+            .then((l) => {
+              l.forEach((i) => {
+                doc.addPage();
+                doc.text("Participante: " + i.participante_nome, 230, 120);
+                doc.text("Inscrição: " + i.inscricao_evento_id, 230, 150);
+                var width = doc.internal.pageSize.getWidth() / 2;
+                var height = doc.internal.pageSize.getHeight() / 2;
+                var img = new Image();
+                img.src = i.qrcode;
+                doc.addImage(
+                  img,
+                  "PNG",
+                  width / 2,
+                  height / 2,
+                  width,
+                  height,
+                  "qrCode",
+                  "NONE",
+                  0
+                );
+              });
+              window.open(doc.output("bloburl"));
+            })
+            .catch(() => {
+              showNotification({
+                message: "Erro ao carregar lista de crachás.",
+                type: "error",
+              });
+              window.location.reload();
+            });
+        } else {
+          showNotification({
+            message: "Nenhuma inscrição encontrada.",
+            type: "warning",
+          });
+        }
+      })
+      .catch((err) => {
+        showNotification({
+          message:
+            err?.response?.data?.message ??
+            "Erro ao carregar a lista de Inscições de Eventos.",
+          type: "error",
+        });
+      });
+  };
+
   const handleDeleteInscricaoEvento = async (
     id_inscricao_evento: number | undefined
   ) => {
@@ -178,8 +275,8 @@ export function ListaInscricaoEvento() {
               handleOpen(null);
             }}
           >
-            <DefaultsIcons.AdiconarIcon size={26} />
-            Adiconar Inscrição
+            <DefaultsIcons.AdicionarIcon size={26} />
+            Adicionar Inscrição
           </Button>
           <Button
             variant="contained"
@@ -191,6 +288,17 @@ export function ListaInscricaoEvento() {
           >
             <DefaultsIcons.ExportPdfIcon size={26} />
             Exportar para PDF
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ display: "flex", gap: 2 }}
+            onClick={() => {
+              ListaCrachasPDF();
+            }}
+            color="info"
+          >
+            <DefaultsIcons.CrachasIcon size={26} />
+            Exportar Lista de Crachás
           </Button>
         </Box>
         <TableContainer component={Paper}>

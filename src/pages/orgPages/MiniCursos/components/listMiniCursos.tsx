@@ -115,7 +115,7 @@ export function ListMiniCursos() {
             handleOpen(null);
           }}
         >
-          <DefaultsIcons.AdiconarIcon size={26} /> Adicionar minicurso
+          <DefaultsIcons.AdicionarIcon size={26} /> Adicionar minicurso
         </Button>
         <TableContainer component={Paper}>
           <Table>
