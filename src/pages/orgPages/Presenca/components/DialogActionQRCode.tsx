@@ -92,7 +92,7 @@ export function DialogActionsQRCode({ openQRCode, onCloseQRCode }: props) {
           <DialogTitle>Leitura de QRCode</DialogTitle>
           {!resultRead || resultRead == null ? (
             <>
-              <DialogContent sx={{ width: "100%" }}>
+              <DialogContent sx={{ width: "100%", textAlign: "center" }}>
                 <QrScannerComponent setResultRead={setResultRead} />
               </DialogContent>
             </>
