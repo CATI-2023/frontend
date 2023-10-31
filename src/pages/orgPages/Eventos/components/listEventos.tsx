@@ -111,8 +111,8 @@ export function ListaEventos() {
             handleOpen(null);
           }}
         >
-          <DefaultsIcons.AdiconarIcon size={26} />
-          Adiconar Evento
+          <DefaultsIcons.AdicionarIcon size={26} />
+          Adicionar Evento
         </Button>
         <TableContainer component={Paper}>
           <Table>

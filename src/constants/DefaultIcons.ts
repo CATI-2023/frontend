@@ -15,7 +15,8 @@ import {
   Handshake,
   PencilLine,
   FilePdf,
-  CalendarCheck
+  CalendarCheck,
+  UserFocus
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -30,9 +31,10 @@ export const DefaultsIcons = {
   NoticiasIcon: Newspaper,
   LogOff: SignOut,
   EditIcon: Pencil,
-  AdiconarIcon: Plus,
+  AdicionarIcon: Plus,
   DotsIcon: DotsThree,
   ApagarIcon: Trash,
   ExportPdfIcon: FilePdf,
   EventosIcon: CalendarCheck,
+  CrachasIcon: UserFocus
 };

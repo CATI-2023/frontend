@@ -1,27 +1,9 @@
-import {
-  Card,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Card, Container, Grid, Stack, Typography } from "@mui/material";
 import { Navbar } from "../../../components/navbar/Navbar";
 import WidgetDashboard from "./components/widget-dashboard";
 import { DefaultsIcons } from "../../../constants/DefaultIcons";
 
-// import { apiBase } from "../../../services/api";
-// import { useEffect } from "react";
 export function OrganizacaoPage() {
-  // async function hello() {
-  //   const response = apiBase.get("/participantes")
-  //   return response
-  // }
-
-  // useEffect(() => {
-  //   hello().then((response) => {
-  //     console.log(response)
-  //   })
-  // }, [])
   return (
     <>
       <Navbar title="Dashboard" typeUser="Organização" />
@@ -36,14 +18,14 @@ export function OrganizacaoPage() {
             mt: 4,
             mb: 4,
             backgroundColor: "#1976d27a",
-            color: "#fff"
+            color: "#fff",
           }}
           alignItems={"center"}
           alignContent={"center"}
           justifyContent={"center"}
           justifyItems={"center"}
         >
-          <Typography sx={{fontSize: "1.5rem", textAlign: "center" }}>
+          <Typography sx={{ fontSize: "1.5rem", textAlign: "center" }}>
             Cadastros gerais
           </Typography>
         </Card>
@@ -110,14 +92,14 @@ export function OrganizacaoPage() {
             mt: 4,
             mb: 4,
             backgroundColor: "#1976d27a",
-            color: "#fff"
+            color: "#fff",
           }}
           alignItems={"center"}
           alignContent={"center"}
           justifyContent={"center"}
           justifyItems={"center"}
         >
-          <Typography sx={{fontSize: "1.5rem", textAlign: "center" }}>
+          <Typography sx={{ fontSize: "1.5rem", textAlign: "center" }}>
             Inscrições e registro de presença
           </Typography>
         </Card>
@@ -145,9 +127,9 @@ export function OrganizacaoPage() {
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <WidgetDashboard
-              title="Registro de Presença"
+              title="Registro de Frequência"
               Icon={DefaultsIcons.PresencaIcon}
-              route=""
+              route="/presenca/org/"
             />
           </Grid>
         </Grid>

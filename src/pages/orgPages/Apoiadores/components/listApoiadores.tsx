@@ -116,8 +116,8 @@ export function ListaApoiadores() {
             handleOpen(null);
           }}
         >
-          <DefaultsIcons.AdiconarIcon size={26} />
-          Adiconar colaborador
+          <DefaultsIcons.AdicionarIcon size={26} />
+          Adicionar colaborador
         </Button>
         <TableContainer component={Paper}>
           <Table>
