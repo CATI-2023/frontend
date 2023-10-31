@@ -182,10 +182,10 @@ export function ListaPresencas() {
         my={4}
         display={"flex"}
         flexDirection={"column"}
-        alignItems={"end"}
+        alignItems={{md: "end", xs: "center"}}
         gap={2}
       >
-        <Box display={"flex"} flexDirection={"row"} alignItems={"end"} gap={2}>
+        <Box display={"flex"} flexDirection={{md: "row", xs: "column"}} alignItems={{md: "end", xs: "center"}} gap={2}>
           <Button
             variant="contained"
             sx={{ display: "flex", gap: 2 }}
