@@ -24,6 +24,9 @@ import {
 } from "../../../../services/participantes";
 import useNotification from "../../../../hooks/useNotification";
 import { formataCPF, formataCelular } from "../../../../constants/function";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import BannerCati from "../../../../assets/BANNER-CATI-23.png";
 
 export function ListaParticipantes() {
   const [participantesList, setParticipantes] =
@@ -37,7 +40,7 @@ export function ListaParticipantes() {
   async function getParticipantesList() {
     getParticipantes(page, busca)
       .then((res) => {
-        if (res.data.participantes.total > 0){
+        if (res.data.participantes.total > 0) {
           setTotalPages(Math.ceil(res.data.participantes.total / 10));
           setTotalRows(res.data.participantes.total);
         }
@@ -103,26 +106,105 @@ export function ListaParticipantes() {
       window.location.reload();
     }
   };
+
+  const ListaPDF = () => {
+    var doc = new jsPDF("p", "pt", "letter");
+
+    var body = [["Nome", "CPF", "Telefone", "Email", "Organização"]];
+
+    getParticipantes(0, busca)
+      .then((res) => {
+        if (res.data.participantes.total > 0) {
+          setTotalRows(res.data.participantes.total);
+          var listParticipantes: participante[] = res.data.participantes.participantes;
+          listParticipantes.forEach((i) => {
+            let list = [];
+            list.push(i.nome + "");
+            list.push(formataCPF(i.cpf ?? "") );
+            list.push(formataCelular(i.telefone ?? ""));
+            list.push(i.email + "");
+            list.push(i.organizacao ? "Sim" : "Não");
+            body.push(list);
+          });
+
+          doc.setLineWidth(2);
+          doc.addImage(
+            BannerCati,
+            "png",
+            20,
+            20,
+            570,
+            70,
+            "bannerCati",
+            "NONE",
+            0
+          );
+          doc.text("Lista de Inscrições", 230, 120);
+          doc.setFontSize(12);
+          doc.text("Total de registros: " + totalRows, 40, 140);
+          autoTable(doc, {
+            body: body,
+            startY: 150,
+            theme: "grid",
+          });
+
+          window.open(doc.output("bloburl"));
+        } else {
+          showNotification({
+            message: "Nenhum participante encontrado.",
+            type: "warning",
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        showNotification({
+          message:
+            err?.response?.data?.message ??
+            "Erro ao carregar a lista participantes.",
+          type: "error",
+        });
+      });
+  };
+
   return (
     <>
       <Box
         my={4}
         display={"flex"}
         flexDirection={"column"}
-        alignItems={"end"}
+        alignItems={{ md: "end", xs: "center" }}
         gap={2}
       >
-        <Button
-          variant="contained"
-          sx={{ display: "flex", gap: 2 }}
-          onClick={() => {
-            setSelectedParticipante(null);
-            handleOpen(null);
-          }}
+        <Box
+          display={"flex"}
+          flexDirection={{ md: "row", xs: "column" }}
+          alignItems={{ md: "end", xs: "center" }}
+          gap={2}
         >
-          <DefaultsIcons.AdicionarIcon size={26} />
-          Adicionar Participante
-        </Button>
+          <Button
+            variant="contained"
+            sx={{ display: "flex", gap: 2 }}
+            onClick={() => {
+              setSelectedParticipante(null);
+              handleOpen(null);
+            }}
+          >
+            <DefaultsIcons.AdicionarIcon size={26} />
+            Adicionar Participante
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ display: "flex", gap: 2 }}
+            onClick={() => {
+              ListaPDF();
+            }}
+            color="secondary"
+          >
+            <DefaultsIcons.ExportPdfIcon size={26} />
+            Exportar para PDF
+          </Button>
+        </Box>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
