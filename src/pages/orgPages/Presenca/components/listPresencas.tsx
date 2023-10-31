@@ -85,15 +85,18 @@ export function ListaPresencas() {
   };
 
   const handleCloseQRCode = () => {
+    setSelectedPresenca({
+      data: "",
+      inscricao_evento_id_reference: 0,
+      inscricao_evento: undefined,
+    });
     setOpenQRCode(false);
   };
 
   const ListaPDF = () => {
     var doc = new jsPDF("p", "pt", "letter");
 
-    var body = [
-      ["Evento", "Participante - Nome", "Data"],
-    ];
+    var body = [["Evento", "Participante - Nome", "Data"]];
 
     getFrequencias(0, busca)
       .then((res) => {
@@ -102,7 +105,11 @@ export function ListaPresencas() {
           var listaPresencas: frequencia[] = res.data.frequencia.frequencias;
           listaPresencas.forEach((i) => {
             let list = [];
-            list.push(i.inscricao_evento?.evento?.ano + " - " + i.inscricao_evento?.evento?.tema);
+            list.push(
+              i.inscricao_evento?.evento?.ano +
+                " - " +
+                i.inscricao_evento?.evento?.tema
+            );
             list.push(i.inscricao_evento?.participante?.nome + "");
             list.push(
               new Date(i.data ?? "").toLocaleDateString("pt-BR", {
@@ -182,10 +189,15 @@ export function ListaPresencas() {
         my={4}
         display={"flex"}
         flexDirection={"column"}
-        alignItems={{md: "end", xs: "center"}}
+        alignItems={{ md: "end", xs: "center" }}
         gap={2}
       >
-        <Box display={"flex"} flexDirection={{md: "row", xs: "column"}} alignItems={{md: "end", xs: "center"}} gap={2}>
+        <Box
+          display={"flex"}
+          flexDirection={{ md: "row", xs: "column" }}
+          alignItems={{ md: "end", xs: "center" }}
+          gap={2}
+        >
           <Button
             variant="contained"
             sx={{ display: "flex", gap: 2 }}
@@ -255,7 +267,8 @@ export function ListaPresencas() {
                 ? frequenciaList.map((frequencia: frequencia) => (
                     <TableRow key={frequencia.frequencia_id}>
                       <TableCell align="center">
-                        {frequencia.inscricao_evento?.evento?.ano} - {frequencia.inscricao_evento?.evento?.tema}
+                        {frequencia.inscricao_evento?.evento?.ano} -{" "}
+                        {frequencia.inscricao_evento?.evento?.tema}
                       </TableCell>
                       <TableCell align="center">
                         {frequencia.inscricao_evento?.participante?.nome}
@@ -315,7 +328,10 @@ export function ListaPresencas() {
         onClose={handleClose}
         title="Presença"
       />
-      <DialogActionsQRCode openQRCode={openQRCode} onCloseQRCode={handleCloseQRCode} />
+      <DialogActionsQRCode
+        openQRCode={openQRCode}
+        onCloseQRCode={handleCloseQRCode}
+      />
     </>
   );
 }
