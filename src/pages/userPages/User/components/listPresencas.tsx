@@ -8,7 +8,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Typography,
 } from "@mui/material";
 import { frequencia, ParticipanteAuth } from "../../../../Types/type";

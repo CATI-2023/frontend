@@ -19,6 +19,7 @@ export function ControlledAccordions({
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      event.preventDefault();
       setExpanded(isExpanded ? panel : false);
     };
 
