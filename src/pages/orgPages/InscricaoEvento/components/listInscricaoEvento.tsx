@@ -202,7 +202,7 @@ export function ListaInscricaoEvento() {
                   height / 2,
                   105,
                   145,
-                  "crachaMolde",
+                  "crachaMolde" + i.inscricao_evento_id,
                   "NONE",
                   0
                 );
@@ -214,7 +214,17 @@ export function ListaInscricaoEvento() {
                 });
                 var img = new Image();
                 img.src = i.qrcode;
-                doc.addImage(img, "PNG", 72, 131, 66, 66, "qrCode", "NONE", 0);
+                doc.addImage(
+                  img,
+                  "PNG",
+                  72,
+                  131,
+                  66,
+                  66,
+                  "qrCode" + i.inscricao_evento_id,
+                  "NONE",
+                  0
+                );
               });
               window.open(doc.output("bloburl"));
             })
