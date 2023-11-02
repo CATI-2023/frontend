@@ -58,6 +58,9 @@ export function ListaPresencas() {
         if (res.data.frequencia.total > 0) {
           setTotalPages(Math.ceil(res.data.frequencia.total / 10));
           setTotalRows(res.data.frequencia.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setPresencaList(res.data.frequencia.frequencias);
       })

@@ -42,6 +42,9 @@ export function ListMiniCursos() {
         if (res.data.minicursos.total > 0) {
           setTotalPages(Math.ceil(res.data.minicursos.total / 10));
           setTotalRows(res.data.minicursos.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setMinicursoList(res.data.minicursos.minicursos);
       })

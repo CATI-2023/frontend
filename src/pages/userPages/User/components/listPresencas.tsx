@@ -34,6 +34,9 @@ export function ListaPresencas({ participante }: InformacoesParticipanteProps) {
         if (res.data.frequencia.total > 0) {
           setTotalPages(Math.ceil(res.data.frequencia.total / 10));
           setTotalRows(res.data.frequencia.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setPresencaList(res.data.frequencia.frequencias);
       })
@@ -53,10 +56,7 @@ export function ListaPresencas({ participante }: InformacoesParticipanteProps) {
 
   return (
     <>
-      <Box
-        display={"flex"}
-        gap={2}
-      >
+      <Box display={"flex"} gap={2}>
         <TableContainer component={Paper}>
           <Table id={"participante-table"}>
             <TableHead>

@@ -26,6 +26,7 @@ import useNotification from "../../../../hooks/useNotification";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import BannerCati from "../../../../assets/BANNER-CATI-23.png";
+import CrachaMolde from "../../../../assets/cracha-com-ano-v3_.png";
 import QRCode from "qrcode";
 
 export function ListaInscricaoEvento() {
@@ -55,6 +56,9 @@ export function ListaInscricaoEvento() {
         if (res.data.inscricaoEventos.total > 0) {
           setTotalPages(Math.ceil(res.data.inscricaoEventos.total / 10));
           setTotalRows(res.data.inscricaoEventos.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setInscricaoEventoList(res.data.inscricaoEventos.inscricaoEventos);
       })
@@ -98,7 +102,6 @@ export function ListaInscricaoEvento() {
             list.push(i.pagamento?.status + "");
             body.push(list);
           });
-
           doc.setLineWidth(2);
           doc.addImage(
             BannerCati,
@@ -152,61 +155,66 @@ export function ListaInscricaoEvento() {
         participante_nome: i.participante?.nome,
         qrcode: "",
       };
-      QRCode.toDataURL("cati2023-participante-" + i.inscricao_evento_id).then(
-        (url) => {
-          c.qrcode = url;
-          listCracha.push(c);
-        }
-      );
+      QRCode.toDataURL("cati2023-participante-" + i.inscricao_evento_id, {
+        width: 250,
+      }).then((url) => {
+        c.qrcode = url;
+        listCracha.push(c);
+      });
     });
     return listCracha;
   }
 
-  const ListaCrachasPDF = () => {
-    var doc = new jsPDF("p", "pt", "letter");
+  function abreviarNome(nome: string) {
+    var names = nome.split(" ");
+    const nomesAbreviados: string[] = [];
 
+    names.forEach((n, idx) => {
+      if (idx == 0 || idx == names.length - 1) {
+        nomesAbreviados.push(n.charAt(0).toUpperCase() + n.slice(1));
+      } else {
+        nomesAbreviados.push(n.charAt(0).toUpperCase() + ".");
+      }
+    });
+
+    return nomesAbreviados.join(" ");
+  }
+
+  const ListaCrachasPDF = () => {
+    var doc = new jsPDF("p", "mm", "a4");
+    let n = "";
     getInscricaoEventos(0, busca)
       .then((res) => {
         if (res.data.inscricaoEventos.total > 0) {
           setTotalRows(res.data.inscricaoEventos.total);
           var listaInscricoes: inscricaoEventoGet[] =
             res.data.inscricaoEventos.inscricaoEventos;
-          doc.setLineWidth(2);
-          doc.addImage(
-            BannerCati,
-            "PNG",
-            20,
-            20,
-            570,
-            70,
-            "bannerCati",
-            "NONE",
-            0
-          );
-          doc.text("Lista de Inscrições", 230, 120);
-          doc.setFontSize(12);
-          doc.text("Total de registros: " + totalRows, 40, 140);
           getQrCodes(listaInscricoes)
             .then((l) => {
-              l.forEach((i) => {
-                doc.addPage();
-                doc.text("Participante: " + i.participante_nome, 230, 120);
-                doc.text("Inscrição: " + i.inscricao_evento_id, 230, 150);
+              l.forEach((i, idx) => {
+                if (idx > 0) doc.addPage();
                 var width = doc.internal.pageSize.getWidth() / 2;
                 var height = doc.internal.pageSize.getHeight() / 2;
-                var img = new Image();
-                img.src = i.qrcode;
                 doc.addImage(
-                  img,
+                  CrachaMolde,
                   "PNG",
                   width / 2,
                   height / 2,
-                  width,
-                  height,
-                  "qrCode",
+                  105,
+                  145,
+                  "crachaMolde",
                   "NONE",
                   0
                 );
+                n = abreviarNome(i.participante_nome ?? "");
+                doc.setFontSize(n.length < 30 ? 14 : 12);
+                doc.text(n, 103, 124, {
+                  align: "center",
+                  maxWidth: 70,
+                });
+                var img = new Image();
+                img.src = i.qrcode;
+                doc.addImage(img, "PNG", 72, 131, 66, 66, "qrCode", "NONE", 0);
               });
               window.open(doc.output("bloburl"));
             })
@@ -263,10 +271,15 @@ export function ListaInscricaoEvento() {
         my={4}
         display={"flex"}
         flexDirection={"column"}
-        alignItems={{md: "end", xs: "center"}}
+        alignItems={{ md: "end", xs: "center" }}
         gap={2}
       >
-        <Box display={"flex"} flexDirection={{md: "row", xs: "column"}} alignItems={{md: "end", xs: "center"}} gap={2}>
+        <Box
+          display={"flex"}
+          flexDirection={{ md: "row", xs: "column" }}
+          alignItems={{ md: "end", xs: "center" }}
+          gap={2}
+        >
           <Button
             variant="contained"
             sx={{ display: "flex", gap: 2 }}

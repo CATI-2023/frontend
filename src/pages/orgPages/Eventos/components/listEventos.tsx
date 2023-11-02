@@ -34,6 +34,9 @@ export function ListaEventos() {
         if (res.data.eventos.total > 0) {
           setTotalPages(Math.ceil(res.data.eventos.total / 10));
           setTotalRows(res.data.eventos.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setEventoList(res.data.eventos.eventos);
       })

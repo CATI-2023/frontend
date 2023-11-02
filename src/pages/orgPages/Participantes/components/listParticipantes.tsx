@@ -43,6 +43,9 @@ export function ListaParticipantes() {
         if (res.data.participantes.total > 0) {
           setTotalPages(Math.ceil(res.data.participantes.total / 10));
           setTotalRows(res.data.participantes.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setParticipantes(res.data.participantes);
       })
@@ -157,7 +160,6 @@ export function ListaParticipantes() {
         }
       })
       .catch((err) => {
-        console.log(err);
         showNotification({
           message:
             err?.response?.data?.message ??
