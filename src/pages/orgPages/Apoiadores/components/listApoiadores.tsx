@@ -49,6 +49,9 @@ export function ListaApoiadores() {
             Math.ceil(res.patrocinadores.total / 10)
           );
           setTotalRows(res.patrocinadores.total);
+        } else {
+          setTotalRows(0);
+          setTotalPages(0);
         }
         setApoiadores(res.patrocinadores);
       })
