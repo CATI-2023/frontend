@@ -12,8 +12,18 @@ import FotoSilvana from "../../../../assets/palestrantesPhotos/Silvana-Copceski.
 import FotoAlexandre from "../../../../assets/palestrantesPhotos/Alexandre_Leopoldo.jpg";
 import FotoLuciano from "../../../../assets/palestrantesPhotos/Luciano-Wolski.jpeg";
 import FotoDebora from "../../../../assets/palestrantesPhotos/Debora-Camacho.jpeg";
+import ClesioSLS from "../../../../assets/palestrantesPhotos/Clesio-SLS.jpeg";
 
 const palestrantes = [
+  {
+    atuacao:
+      "Pós-graduado em Direito Processual Civil, MBA em Gestão de Cooperativas, MBA em Agronegócio e Advogado associado na Sales & Advogados Associados, SLS, Brasil",
+    nome: "Clésio Plates",
+    tema: "Lei Geral de Proteção de Dados Pessoais (LGPD): Uma abordagem jurídica",
+    foto: ClesioSLS,
+    lattes: "http://lattes.cnpq.br/2127243847277413",
+    linkedin: "",
+  },
   {
     atuacao: "Professor Associado do Departamento de Computação - UFSC",
     nome: "Alexandre Leopoldo Gonçalves",
@@ -112,7 +122,7 @@ export function ThirdSection() {
         className="background-third-section"
       >
         <h3 className="primary-text-second-section">Palestrantes</h3>
-        <Grid container>
+        <Grid container justifyContent={"center"} justifyItems={"center"}>
           {palestrantes.map((p, idx) => (
             <Grid
               item
