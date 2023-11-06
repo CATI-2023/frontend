@@ -24,7 +24,7 @@ export function ArtigosSection() {
     "Registro de minicurso: até 20/10/2023",
     "Submissão de arquivo do minicurso: até 24/10/2023",
     "Notificação dos autores (artigos completos, artigos resumidos e minicursos): até 31/10/2023",
-    "Envio da versão final dos artigos (completos e resumidos) e minicursos aprovados: até 05/11/2023",
+    "Envio da versão final dos artigos (completos e resumidos) e minicursos aprovados: até 08/11/2023",
     "Apresentação dos artigos e minicursos: 09/11/2023",
     "Disponibilização dos anais: a partir de 15/12/2023",
   ];
