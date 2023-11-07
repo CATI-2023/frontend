@@ -18,6 +18,8 @@ import SLS from "../../../../assets/colaboradores/SLS-ADVOGADOS.png";
 import TGASistemas from "../../../../assets/colaboradores/TGA-SISTEMAS.png";
 import TOPInformatica from "../../../../assets/colaboradores/TOP-INFORMATICA.png";
 import Waser from "../../../../assets/colaboradores/waser_tecnologia.png";
+import Sabre from "../../../../assets/colaboradores/SABRE.png";
+import Branco from "../../../../assets/colaboradores/BRANCO-MOVEIS-PLANEJADOS.png";
 
 const colaboradores = [
   {
@@ -42,6 +44,8 @@ const colaboradores = [
   { logo: ParadiseOutlet, colaboradorTitle: "Paradaise Outlet" },
   { logo: ReiCapinhas, colaboradorTitle: "Rei das Capinhas Tangará da Serra" },
   { logo: CNA, colaboradorTitle: "CNA Barra do Bugres" },
+  { logo: Sabre, colaboradorTitle: "Sabre Construtora" },
+  { logo: Branco, colaboradorTitle: "Branco Móveis" },
 ];
 
 export function FourthSection() {

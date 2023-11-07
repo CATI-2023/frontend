@@ -68,7 +68,7 @@ const palestrantes = [
   {
     atuacao: "Servidor da UNEMAT",
     nome: "Alessandro Costa Ribeiro",
-    tema: "Inteligência artificial aplicado ao turismo inteligente",
+    tema: "Inteligência artificial aplicada ao turismo inteligente",
     foto: FotoAlessandro,
     lattes: "http://lattes.cnpq.br/8178783515512591",
     linkedin: "",
