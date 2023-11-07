@@ -50,7 +50,7 @@ export function FirstSection() {
             <span className="typography-first-section ">Inteligência artificial</span>,
             máquinas que aprendem, raciocinam e transformam o{" "}
             <span className="typography-first-section ">futuro</span>.
-            <br></br><br></br>De 06 a 10 de novembro.
+            {/* <br></br><br></br>De 06 a 10 de novembro. */}
           </p>
         </BoxTema>
         <BoxTimer>
