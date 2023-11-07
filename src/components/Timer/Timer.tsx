@@ -1,38 +1,42 @@
 import { Box } from "@mui/material";
 import "./style.css";
-import { Tempo } from "./components/Tempo";
-import { useState, useEffect } from 'react';
+// import { Tempo } from "./components/Tempo";
+// import { useState, useEffect } from 'react';
 import { styled } from "@mui/system";
 
 export function TimerEvent() {
-  const targetDate = new Date('2023-11-06T23:59:59')
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const timeLeft = calculateTimeLeft(targetDate);
-      setTimeLeft(timeLeft);
-    }, 1000);
+  // const targetDate = new Date('2023-11-06T23:59:59')
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [targetDate]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const timeLeft = calculateTimeLeft(targetDate);
+  //     setTimeLeft(timeLeft);
+  //   }, 1000);
 
-  const formatTime = (value: number) => {
-    return value < 10 ? `0${value}` : value;
-  };
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [targetDate]);
+
+  // const formatTime = (value: number) => {
+  //   return value < 10 ? `0${value}` : value;
+  // };
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const calculateTimeLeft = (targetDate: Date | number | any) => {
-    const now = new Date().getTime();
-    const difference = targetDate - now;
+  // const calculateTimeLeft = (targetDate: Date | number | any) => {
+  //   const now = new Date().getTime();
+  //   const difference = targetDate - now;
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+  //   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  //   const hours = Math.floor(
+  //     (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  //   );
+  //   const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  //   const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    return { days, hours, minutes, seconds };
-  };
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
+  //   return { days, hours, minutes, seconds };
+  // };
+  // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
 
   const BoxTimer = styled(Box)(({ theme }) => ({
     width: "80%",
@@ -43,50 +47,45 @@ export function TimerEvent() {
     alignItems: "stretch",
     flexDirection: "column",
     justifyContent: "center",
-    [theme.breakpoints.up("lg")]: {
-    },
-    [theme.breakpoints.down("md")]: {
-    },
+    [theme.breakpoints.up("lg")]: {},
+    [theme.breakpoints.down("md")]: {},
     [theme.breakpoints.down("sm")]: {
       width: "100%",
       borderRadius: "1em",
     },
   }));
 
-  const BoxClock = styled(Box)(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-    [theme.breakpoints.down("sm")]: {
-      // display: "block"
-    },
-    [theme.breakpoints.down("md")]: {
-    },
-    [theme.breakpoints.up("lg")]: {
-    },
-  }));
+  // const BoxClock = styled(Box)(({ theme }) => ({
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "space-around",
+  //   [theme.breakpoints.down("sm")]: {
+  //     // display: "block"
+  //   },
+  //   [theme.breakpoints.down("md")]: {
+  //   },
+  //   [theme.breakpoints.up("lg")]: {
+  //   },
+  // }));
 
   return (
     <>
-      <BoxTimer
-        gap={1}
-      >
+      <BoxTimer gap={1}>
         <Box
           display={"flex"}
-          justifyContent={"center"}
+          justifyContent={"space-evenly"}
           alignItems={"center"}
           textAlign={"center"}
         >
-          <p className="timer-primary-text">Inscrições Encerram em:</p>
+          {/* <p className="timer-primary-text">Inscrições Encerram em:</p> */}
+          <p className="timer-primary-text">De 06 a 10 de novembro</p>
         </Box>
-        <BoxClock >
+        {/* <BoxClock >
           <Tempo titulo="Dias" tempo={String(timeLeft.days)} />
           <Tempo titulo="Horas" tempo={String(formatTime(timeLeft.hours))} />
           <Tempo titulo="Minutos" tempo={String(formatTime(timeLeft.minutes))} />
           <Tempo titulo="Segundos" tempo={String(formatTime(timeLeft.seconds))} />
-        </BoxClock>
-
-
+        </BoxClock> */}
       </BoxTimer>
     </>
   );

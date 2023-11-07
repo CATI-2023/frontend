@@ -36,5 +36,6 @@ export const DefaultsIcons = {
   ApagarIcon: Trash,
   ExportPdfIcon: FilePdf,
   EventosIcon: CalendarCheck,
-  CrachasIcon: UserFocus
+  CrachasIcon: UserFocus,
+  CalendarIcon: CalendarCheck
 };
