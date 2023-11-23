@@ -16,7 +16,9 @@ import {
   PencilLine,
   FilePdf,
   CalendarCheck,
-  UserFocus
+  UserFocus,
+  CheckSquare,
+  InstagramLogo,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -37,5 +39,7 @@ export const DefaultsIcons = {
   ExportPdfIcon: FilePdf,
   EventosIcon: CalendarCheck,
   CrachasIcon: UserFocus,
-  CalendarIcon: CalendarCheck
+  CalendarIcon: CalendarCheck,
+  EventoVigenteIcon: CheckSquare,
+  InstagramIcon: InstagramLogo
 };

@@ -307,7 +307,7 @@ export function InscricaoEventoPage() {
                 <FormGroup row>
                   {TAMANHOS_CAMISETA.map((tamanho) => {
                     return (
-                      <FormControlLabel
+                      <FormControlLabel key={tamanho}
                         control={
                           <Checkbox
                             checked={

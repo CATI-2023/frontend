@@ -26,7 +26,6 @@ interface props {
   Data?: evento | null;
 }
 export function DialogActionsEventos({ open, onClose, title, Data }: props) {
-  // const [data: eventos] = useFetch<Evento>("evento")
   const [evento, setEvento] = useState<evento>({
     ano: undefined,
     tema: "",
@@ -78,6 +77,7 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
       qtde_vagas: evento.qtde_vagas,
       banner_base64: evento.banner_base64,
       valor: evento.valor,
+      vigente: false,
     };
 
     await postEvento(data)
