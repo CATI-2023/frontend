@@ -7,4 +7,5 @@ export type Evento = {
   qtde_vagas: number;
   banner_base64: string;
   valor: number;
+  vigente: boolean;
 }

@@ -1,7 +1,8 @@
 import { Box } from "@mui/material";
 import "./style.css";
 import { TimerEvent } from "../../../../components/Timer/Timer";
-import { Header } from "../../../../components/Header";
+// import { Header } from "../../../../components/Header";
+import ResponsiveAppBar from "../../../../components/AppBar";
 import { styled } from "@mui/system";
 export function FirstSection() {
 
@@ -11,7 +12,7 @@ export function FirstSection() {
     justifyContent: "center",
     padding: "0 4em",
     position: "relative",
-    height: "33vh",
+    height: "30vh",
     [theme.breakpoints.down("sm")]: {
       padding: "0 2em",
     },
@@ -29,7 +30,7 @@ export function FirstSection() {
     alignItems: "center",
     justifyContent: "left",
     paddingLeft: "4em",
-    height: "34vh",
+    height: "60vh",
     [theme.breakpoints.up("lg")]: {
     },
     [theme.breakpoints.down("md")]: {
@@ -43,8 +44,10 @@ export function FirstSection() {
     <>
       <Box
         className="background-first-section"
+        id="firstSection"
       >
-        <Header />
+        <ResponsiveAppBar />
+        {/* <Header /> */}
         <BoxTema>
           <p className="text-primary-first-section">
             <span className="typography-first-section ">Inteligência artificial</span>,

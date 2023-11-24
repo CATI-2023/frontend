@@ -114,6 +114,7 @@ export function ThirdSection() {
   return (
     <>
       <Box
+        id="thirdSection"
         height={"auto"}
         display={"flex"}
         alignItems={"center"}

@@ -46,6 +46,7 @@ export type evento = {
   banner_base64?: string;
   valor?: number;
   evento_id?: number;
+  vigente?: boolean;
 };
 
 export type eventos = { eventos: evento[] };

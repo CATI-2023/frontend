@@ -8,21 +8,22 @@ import { FifthSection } from "./components/Fifth/Fifth";
 import { Footer } from "../../components/Footer";
 import { ArtigosSection } from "./components/Artigos";
 import { JogosSection } from "./components/Jogos";
+import BackToTop from "../../components/GoTopButton";
 
 export function HomePage() {
   return (
     <>
       <Box height={"100vh"}>
-        <FirstSection/>
+        <FirstSection />
         <SecondSection />
         <ThirdSection />
         <ArtigosSection />
         <JogosSection />
         <FourthSection />
         <FifthSection />
-        <Footer/>
+        <Footer />
+        <BackToTop />
       </Box>
     </>
   );
 }
-

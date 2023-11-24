@@ -8,6 +8,7 @@ export function JogosSection() {
   return (
     <>
       <Box
+        id="jogosSection"
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"center"}

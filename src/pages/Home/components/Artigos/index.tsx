@@ -32,6 +32,7 @@ export function ArtigosSection() {
   return (
     <>
       <Box
+        id="artigosSection"
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"center"}
@@ -118,7 +119,11 @@ export function ArtigosSection() {
                 </AccordionDetails>
               </Accordion>
             </Box>
-            <Box display={{ xs: "none", md: "flex" }} flexDirection={"column"} textAlign={"center"}>
+            <Box
+              display={{ xs: "none", md: "flex" }}
+              flexDirection={"column"}
+              textAlign={"center"}
+            >
               <Typography fontSize={"1.7rem"}>
                 <u>Links Importantes</u>
               </Typography>

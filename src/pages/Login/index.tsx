@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../utils/Auth";
 import { Box, Button, IconButton, TextField } from "@mui/material";
 import { getAuthUser } from "../../services/auth";
+import { getEventoVigente } from "../../services/evento";
 import useNotification from "../../hooks/useNotification";
 import { DefaultsIcons } from "../../constants/DefaultIcons";
 
@@ -34,6 +35,28 @@ export function LoginPage() {
       });
   }
 
+  async function navigateInscricaoPage() {
+    await getEventoVigente()
+      .then((resp) => {
+        if (resp.data.eventoVigente) {
+          navigate(
+            "/evento/" + resp.data.eventoVigente.evento_id + "/inscricao"
+          );
+        } else {
+          showNotification({
+            message: "Nenhum evento vigente encontrado",
+            type: "warning",
+          });
+        }
+      })
+      .catch(() => {
+        showNotification({
+          message: "Erro ao buscar por evento vigente.",
+          type: "error",
+        });
+      });
+  }
+
   return (
     <>
       <Box
@@ -57,10 +80,12 @@ export function LoginPage() {
             color={"info"}
             sx={{
               fontFamily: "Nasalization, sans-serif",
-              margin: {xs: "0 0 1rem 0", md: "-2rem 0 2rem 0"},
+              margin: { xs: "0 0 1rem 0", md: "-2rem 0 2rem 0" },
             }}
           >
-            <IconButton color="inherit" sx={{padding: "0"}}><DefaultsIcons.BackIcon/></IconButton>
+            <IconButton color="inherit" sx={{ padding: "0" }}>
+              <DefaultsIcons.BackIcon />
+            </IconButton>
             Página Inicial
           </Button>
           <form onSubmit={AuthLogin}>
@@ -101,7 +126,7 @@ export function LoginPage() {
                 Ainda não se inscreveu?
                 <Button
                   onClick={() => {
-                    navigate("/evento/1/inscricao");
+                    navigateInscricaoPage();
                   }}
                   variant={"contained"}
                   color={"warning"}
