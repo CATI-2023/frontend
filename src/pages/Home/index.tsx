@@ -14,17 +14,16 @@ export function HomePage() {
   return (
     <>
       <Box height={"100vh"}>
-        <FirstSection/>
+        <FirstSection />
         <SecondSection />
         <ThirdSection />
         <ArtigosSection />
         <JogosSection />
         <FourthSection />
         <FifthSection />
+        <Footer />
         <BackToTop />
-        <Footer/>
       </Box>
     </>
   );
 }
-
