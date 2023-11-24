@@ -13,8 +13,8 @@ import {
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import ptBR from "date-fns/locale/pt-BR";
-import { evento, minicurso, participante } from "../../../../Types/type";
-import { postMiniCurso, putMiniCurso } from "../../../../services/miniCursos";
+import { evento, palestra, participante } from "../../../../Types/type";
+import { postPalestra, putPalestra } from "../../../../services/palestras";
 import useNotification from "../../../../hooks/useNotification";
 import { getEventos } from "../../../../services/evento";
 import { getParticipantes } from "../../../../services/participantes";
@@ -22,18 +22,19 @@ import { getParticipantes } from "../../../../services/participantes";
 interface props {
   open: boolean;
   onClose: () => void;
-  Data?: minicurso | null;
+  Data?: palestra | null;
 }
 
-export function DialogActionMiniCursos({ open, onClose, Data }: props) {
-  const [minicurso, setMinicurso] = useState<minicurso>({
+export function DialogActionPalestras({ open, onClose, Data }: props) {
+  const [palestra, setPalestra] = useState<palestra>({
+    palestra_id: 0,
+    atuacao_palestrante: "",
+    lattes_palestrante: "",
     data: "",
     descricao: "",
     evento_id_reference: 0,
-    ministrante_participante_id_reference: 0,
-    titulo: "",
-    valor: 0,
-    qtde_vagas: 0,
+    participante_id_reference: 0,
+    tema: "",
     evento: {
       evento_id: 0,
       ano: 0,
@@ -44,7 +45,7 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
       banner_base64: "",
       valor: 0,
     },
-    ministrante: {
+    palestrante: {
       participante_id: 0,
       nome: "",
       cpf: "",
@@ -55,9 +56,9 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
   });
 
   const [eventos, setEventos] = useState<evento[]>([]);
-  const [ministrantes, setMinistrantes] = useState<participante[]>([]);
+  const [palestrantes, setPalestrantes] = useState<participante[]>([]);
 
-  const [ministranteSelected, setMinistranteSeletected] = useState<
+  const [palestranteSelected, setPalestranteSeletected] = useState<
     participante | undefined
   >(undefined);
 
@@ -80,16 +81,16 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
       );
   }
 
-  async function getMinistrantesList() {
+  async function getPalestrantesList() {
     await getParticipantes(0, "")
       .then((res) => {
-        setMinistrantes(res.data.participantes.participantes);
+        setPalestrantes(res.data.participantes.participantes);
       })
       .catch((err) =>
         showNotification({
           type: "error",
           message:
-            "Erro obter lista de ministrantes. " + err?.response?.data?.message,
+            "Erro obter lista de palestrantes. " + err?.response?.data?.message,
           title: "Erro ao obter lista",
         })
       );
@@ -100,24 +101,41 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const data_ = {
-      data: minicurso.data,
-      descricao: minicurso.descricao,
-      ministrante_participante_id_reference:
-        ministranteSelected?.participante_id,
-      titulo: minicurso.titulo,
-      valor: Number(minicurso.valor),
-      qtde_vagas: minicurso.qtde_vagas,
+      data: palestra.data,
+      atuacao_palestrante: palestra.atuacao_palestrante,
+      lattes_palestrante: palestra.lattes_palestrante,
+      descricao: palestra.descricao,
+      participante_id_reference: palestranteSelected?.participante_id,
+      tema: palestra.tema,
       evento_id_reference: eventoSelected?.evento_id,
     };
 
+    if (eventoSelected === undefined || palestranteSelected === undefined) {
+      showNotification({
+        type: "warning",
+        message: "Selecione o evento e o palestrante.",
+        title: "Evento ou Palestrante não selecionado",
+      });
+      return;
+    }
+
+    if (palestra.data === "") {
+      showNotification({
+        type: "warning",
+        message: "Informe a data da palestra.",
+        title: "Data não informada.",
+      });
+      return;
+    }
+
     if (Data) {
-      if (eventoSelected != undefined && ministranteSelected != undefined) {
-        await putMiniCurso(Data.minicurso_id, data_)
+      if (eventoSelected != undefined && palestranteSelected != undefined) {
+        await putPalestra(Data.palestra_id, data_)
           .then(() => {
             showNotification({
               type: "success",
-              title: "Sucesso ao editar o minicurso.",
-              message: "Minicurso editado com sucesso.",
+              title: "Sucesso ao editar a Palestra.",
+              message: "Palestra editada com sucesso.",
             });
             onClose();
             window.location.reload();
@@ -125,24 +143,24 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
           .catch((err) => {
             showNotification({
               type: "error",
-              title: "Erro ao editar o minicurso.",
-              message: "Minicurso não editado." + err?.response?.data?.message,
+              title: "Erro ao editar a Palestra.",
+              message: "Palestra não editada." + err?.response?.data?.message,
             });
           });
       } else {
         showNotification({
           type: "warning",
-          message: "Selecione o evento e o ministrante.",
-          title: "Evento ou Participante não selecionado",
+          message: "Selecione o evento e o palestrante.",
+          title: "Evento ou Palestrante não selecionado",
         });
       }
     } else {
-      postMiniCurso(data_)
+      postPalestra(data_)
         .then(() => {
           showNotification({
             type: "success",
-            title: "Sucesso ao adicionar o minicurso.",
-            message: "Minicurso adicionado com sucesso.",
+            title: "Sucesso ao adicionar a Palestra.",
+            message: "Palestra adicionada com sucesso.",
           });
           onClose();
           window.location.reload();
@@ -150,9 +168,8 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
         .catch((err) => {
           showNotification({
             type: "error",
-            title: "Erro ao adicionar o minicurso.",
-            message:
-              "Minicurso não adicionado. " + err?.response?.data?.message,
+            title: "Erro ao adicionar a Palestra.",
+            message: "Palestra não adicionada. " + err?.response?.data?.message,
           });
         });
     }
@@ -160,12 +177,12 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
 
   useEffect(() => {
     if (Data) {
-      setMinicurso(Data);
+      setPalestra(Data);
       setEventoSelected(Data?.evento);
-      setMinistranteSeletected(Data?.ministrante);
+      setPalestranteSeletected(Data?.palestrante);
     }
     getEvents();
-    getMinistrantesList();
+    getPalestrantesList();
   }, [Data]);
 
   return (
@@ -180,121 +197,14 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
           gap={2}
         >
           <DialogTitle sx={{ textAlign: "center" }}>
-            {Data != null ? "Editar minicurso" : "Adicionar minicurso"}
+            {Data != null ? "Editar Palestra" : "Adicionar Palestra"}
           </DialogTitle>
           <DialogContent sx={{ width: "100%" }}>
             <form onSubmit={handleSubmit}>
               <Box display={"flex"} flexDirection={"column"} gap={2} py={2}>
-                <TextField
-                  required
-                  size="small"
-                  label="Título"
-                  value={minicurso.titulo}
-                  fullWidth
-                  onChange={(event) => {
-                    setMinicurso({
-                      ...minicurso,
-                      titulo: event?.target?.value,
-                    });
-                  }}
-                />
-                <TextField
-                  required
-                  size="small"
-                  label="Descrição"
-                  value={minicurso.descricao}
-                  onChange={(event) => {
-                    setMinicurso({
-                      ...minicurso,
-                      descricao: event?.target?.value,
-                    });
-                  }}
-                  fullWidth
-                />
-                <LocalizationProvider
-                  dateAdapter={AdapterDateFns}
-                  adapterLocale={ptBR}
-                >
-                  <DatePicker
-                    label="Data"
-                    views={["day", "month", "year"]}
-                    value={new Date(minicurso.data)}
-                    onChange={(event) => {
-                      if (typeof event === "string") {
-                        setMinicurso({ ...minicurso, data: event });
-                      } else if (event instanceof Date) {
-                        setMinicurso({
-                          ...minicurso,
-                          data: event.toISOString(),
-                        });
-                      }
-                    }}
-                  />
-                </LocalizationProvider>
-                {/* <TextField
-                  fullWidth
-                  label="Data"
-                  value={minicurso.data.replace("Z", "")}
-                  placeholder="Data"
-                  required
-                  type="datetime-local"
-                  size="small"
-                  onChange={(e) => {
-                    setMinicurso({
-                      ...minicurso,
-                      data: e.target.value,
-                    });
-                  }}
-                /> */}
-                <TextField
-                  required
-                  size="small"
-                  type="number"
-                  label="Valor"
-                  value={minicurso.valor}
-                  fullWidth
-                  onChange={(event) => {
-                    setMinicurso({
-                      ...minicurso,
-                      valor: parseFloat(event.target.value),
-                    });
-                  }}
-                />
-                <TextField
-                  required
-                  size="small"
-                  type="number"
-                  label="Qtde. Vagas"
-                  value={minicurso.qtde_vagas}
-                  onChange={(event) => {
-                    setMinicurso({
-                      ...minicurso,
-                      qtde_vagas: Number(event.target.value),
-                    });
-                  }}
-                  fullWidth
-                />
                 <FormControl>
                   <Autocomplete
-                    value={Data ? minicurso?.ministrante : ministranteSelected}
-                    disablePortal
-                    readOnly={Data ? true : false}
-                    fullWidth
-                    size="small"
-                    options={ministrantes}
-                    getOptionLabel={(option: participante) => option.nome}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Selecione o Ministrante" />
-                    )}
-                    onChange={(event: any, value: participante | null) => {
-                      event.preventDefault();
-                      setMinistranteSeletected(value ? value : undefined);
-                    }}
-                  />
-                </FormControl>
-                <FormControl>
-                  <Autocomplete
-                    value={Data ? minicurso?.evento : eventoSelected}
+                    value={Data ? palestra?.evento : eventoSelected}
                     disablePortal
                     readOnly={Data ? true : false}
                     fullWidth
@@ -312,6 +222,102 @@ export function DialogActionMiniCursos({ open, onClose, Data }: props) {
                     }}
                   />
                 </FormControl>
+                <TextField
+                  required
+                  size="small"
+                  label="Tema"
+                  value={palestra.tema}
+                  fullWidth
+                  onChange={(event) => {
+                    setPalestra({
+                      ...palestra,
+                      tema: event?.target?.value,
+                    });
+                  }}
+                />
+                <TextField
+                  required
+                  size="small"
+                  label="Descrição"
+                  value={palestra.descricao}
+                  onChange={(event) => {
+                    setPalestra({
+                      ...palestra,
+                      descricao: event?.target?.value,
+                    });
+                  }}
+                  fullWidth
+                />
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  adapterLocale={ptBR}
+                >
+                  <DatePicker
+                    label="Data"
+                    views={["day", "month", "year"]}
+                    defaultValue={new Date()}
+                    value={new Date(palestra.data)}
+                    onChange={(event) => {
+                      if (typeof event === "string") {
+                        setPalestra({ ...palestra, data: event });
+                      } else if (event instanceof Date) {
+                        setPalestra({
+                          ...palestra,
+                          data: event.toISOString(),
+                        });
+                      }
+                    }}
+                    slotProps={{
+                      textField: {
+                        required: true,
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
+                <FormControl>
+                  <Autocomplete
+                    value={Data ? palestra?.palestrante : palestranteSelected}
+                    disablePortal
+                    readOnly={Data ? true : false}
+                    fullWidth
+                    size="small"
+                    options={palestrantes}
+                    getOptionLabel={(option: participante) => option.nome}
+                    renderInput={(params) => (
+                      <TextField {...params} label="Selecione o Ministrante" />
+                    )}
+                    onChange={(event: any, value: participante | null) => {
+                      event.preventDefault();
+                      setPalestranteSeletected(value ? value : undefined);
+                    }}
+                  />
+                </FormControl>
+                <TextField
+                  required
+                  size="small"
+                  label="Atuação do Palestrante"
+                  value={palestra.atuacao_palestrante}
+                  onChange={(event) => {
+                    setPalestra({
+                      ...palestra,
+                      atuacao_palestrante: event?.target?.value,
+                    });
+                  }}
+                  fullWidth
+                />
+                <TextField
+                  required
+                  size="small"
+                  label="Currículo Lattes"
+                  value={palestra.lattes_palestrante}
+                  onChange={(event) => {
+                    setPalestra({
+                      ...palestra,
+                      lattes_palestrante: event?.target?.value,
+                    });
+                  }}
+                  fullWidth
+                />
               </Box>
               <DialogActions>
                 <Box
