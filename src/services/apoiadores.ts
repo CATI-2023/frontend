@@ -16,7 +16,7 @@ export async function getApoiadores(_page: Number, _busca: string) {
 }
 
 export async function getApoiadoresIndex() {
-  const response = await apiBase.get("/colaboradores-index");
+  const response = await apiBase.get("/index/colaboradores");
   return response.data;
 }
 

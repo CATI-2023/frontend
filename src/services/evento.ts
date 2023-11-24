@@ -17,7 +17,7 @@ export async function getEventos(_page: Number, _busca: string) {
 }
 
 export async function getEventoVigente() {
-  const response = await apiBase("/evento-vigente");
+  const response = await apiBase("/index/evento-vigente");
   return response;
 }
 
