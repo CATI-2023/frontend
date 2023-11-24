@@ -8,6 +8,7 @@ import { FifthSection } from "./components/Fifth/Fifth";
 import { Footer } from "../../components/Footer";
 import { ArtigosSection } from "./components/Artigos";
 import { JogosSection } from "./components/Jogos";
+import BackToTop from "../../components/GoTopButton";
 
 export function HomePage() {
   return (
@@ -20,6 +21,7 @@ export function HomePage() {
         <JogosSection />
         <FourthSection />
         <FifthSection />
+        <BackToTop />
         <Footer/>
       </Box>
     </>

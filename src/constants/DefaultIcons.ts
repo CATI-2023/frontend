@@ -19,6 +19,7 @@ import {
   UserFocus,
   CheckSquare,
   InstagramLogo,
+  SignIn,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -32,6 +33,7 @@ export const DefaultsIcons = {
   InscricaoEventoIcon: PencilLine,
   NoticiasIcon: Newspaper,
   LogOff: SignOut,
+  LogIn: SignIn,
   EditIcon: Pencil,
   AdicionarIcon: Plus,
   DotsIcon: DotsThree,

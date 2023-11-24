@@ -11,16 +11,31 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { DefaultsIcons } from "../constants/DefaultIcons";
 import { LogoCatiIndex } from "../assets/logoCatiIndex";
+import { useNavigate } from "react-router-dom";
+import { Divider } from "@mui/material";
 
 const pages = [
-  { label: "CATI", element: "secondSection" },
-  { label: "Palestrantes", element: "thirdSection" },
-  { label: "Artigos", element: "artigosSection" },
-  { label: "Jogos", element: "jogosSection" },
-  { label: "Colaboradores", element: "fourthSection" },
+  { label: "O CATI", element: "secondSection", externo: false, link: "" },
+  { label: "Palestrantes", element: "thirdSection", externo: false, link: "" },
+  { label: "Artigos", element: "artigosSection", externo: false, link: "" },
+  { label: "Jogos", element: "jogosSection", externo: false, link: "" },
+  {
+    label: "Colaboradores",
+    element: "fourthSection",
+    externo: false,
+    link: "",
+  },
+  {
+    label: "Fotos",
+    element: "",
+    externo: true,
+    link: "https://drive.google.com/drive/folders/1vfI8sWxT0WpKFhCMLJ2E1BZm8vWvAeBU?usp=drive_link",
+  },
 ];
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -39,7 +54,7 @@ function ResponsiveAppBar() {
   return (
     <AppBar position="static" sx={{ backgroundColor: "#00214e" }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters id="toolbar-index">
           <LogoCatiIndex
             sx={{ display: { xs: "none", md: "flex" }, mr: 1, width: "8em" }}
           />
@@ -75,11 +90,22 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <MenuItem
                   key={page.label}
-                  onClick={() => handleClick(page.element)}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    page.externo
+                      ? (window.location.href = page.link)
+                      : handleClick(page.element);
+                    handleCloseNavMenu();
+                  }}
                 >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
+              <Divider />
+              <MenuItem onClick={() => navigate("/login")}>
+                <DefaultsIcons.LogIn />
+                <Typography textAlign="center">Entrar</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <LogoCatiIndex
@@ -87,25 +113,40 @@ function ResponsiveAppBar() {
           />
           <Box
             sx={{
+              paddingX: "4rem",
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
-              justifyContent: "center",
+              justifyContent: "space-evenly",
             }}
           >
             {pages.map((page) => (
               <Button
                 key={page.label}
-                onClick={() => handleClick(page.element)}
-                sx={{ color: "white", display: "block", textAlign: "center" }}
+                onClick={(event) => {
+                  event.preventDefault();
+                  page.externo
+                    ? (window.location.href = page.link)
+                    : handleClick(page.element);
+                }}
+                sx={{
+                  color: "white",
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "1.2rem",
+                  "&:hover": {
+                    backgroundColor: "#fff",
+                    color: "#00214e",
+                  },
+                }}
               >
                 {page.label}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <IconButton href="www.instagram.com/caccunemat" sx={{ p: 0 }}>
-              <DefaultsIcons.InstagramIcon size={40} color="white" />
+          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+            <IconButton color="inherit" onClick={() => navigate("/login")}>
+              <DefaultsIcons.LogIn /> Entrar
             </IconButton>
           </Box>
         </Toolbar>
