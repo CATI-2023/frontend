@@ -15,6 +15,11 @@ export async function getApoiadores(_page: Number, _busca: string) {
   return response.data;
 }
 
+export async function getApoiadoresIndex() {
+  const response = await apiBase.get("/index/colaboradores");
+  return response.data;
+}
+
 export async function postApoiadores(data: patrocinadores) {
   const config = {
     headers: {

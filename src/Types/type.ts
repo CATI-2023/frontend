@@ -37,6 +37,12 @@ export type patrocinadores = {
 };
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
+export type colaboradoresIndex = {
+  razao_social: string;
+  nivel: "OURO" | "PRATA" | "BRONZE";
+  banner_base64: string;
+};
+
 export type evento = {
   ano?: number;
   tema?: string;
