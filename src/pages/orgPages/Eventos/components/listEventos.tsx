@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Chip,
   IconButton,
   Pagination,
   Paper,
@@ -17,7 +18,11 @@ import { evento } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsEventos } from "./DialogAction";
 import { useEffect, useState } from "react";
-import { deleteEvento, getEventos } from "../../../../services/evento";
+import {
+  deleteEvento,
+  getEventos,
+  putEventoSetVigente,
+} from "../../../../services/evento";
 import useNotification from "../../../../hooks/useNotification";
 
 export function ListaEventos() {
@@ -27,6 +32,26 @@ export function ListaEventos() {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [busca, setBusca] = useState<string>("*");
+
+  async function updateEventoSetVigente(evento_id: number | undefined) {
+    await putEventoSetVigente(evento_id)
+      .then(() => {
+        showNotification({
+          type: "success",
+          message: "Evento atualizado com sucesso.",
+          title: "Sucesso ao atualizar",
+        });
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        showNotification({
+          type: "error",
+          message: "Erro ao atualizar evento. " + err?.response?.data?.message,
+          title: "Erro ao atualizar",
+        });
+      });
+  }
 
   async function getEventosList() {
     getEventos(page, busca)
@@ -73,6 +98,7 @@ export function ListaEventos() {
       banner_base64: "",
       valor: 0,
       evento_id: 0,
+      vigente: false,
     });
     setOpen(false);
   };
@@ -121,7 +147,7 @@ export function ListaEventos() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center" colSpan={5}>
+                <TableCell align="center" colSpan={6}>
                   <TextField
                     label="Informe sua busca"
                     fullWidth
@@ -147,6 +173,9 @@ export function ListaEventos() {
                   <b>Data fim</b>
                 </TableCell>
                 <TableCell align="center">
+                  <b>Vigente</b>
+                </TableCell>
+                <TableCell align="center">
                   <b>Ações</b>
                 </TableCell>
               </TableRow>
@@ -163,7 +192,7 @@ export function ListaEventos() {
                           {
                             year: "numeric",
                             month: "long",
-                            day: "numeric"
+                            day: "numeric",
                           }
                         )}
                       </TableCell>
@@ -173,8 +202,27 @@ export function ListaEventos() {
                           {
                             year: "numeric",
                             month: "long",
-                            day: "numeric"
+                            day: "numeric",
                           }
+                        )}
+                      </TableCell>
+                      <TableCell align="center">
+                        {evento.vigente ? (
+                          <>
+                            <Chip label="Evento vigente" color="success" />
+                          </>
+                        ) : (
+                          <>
+                            <Button
+                              variant="contained"
+                              onClick={() => {
+                                updateEventoSetVigente(evento?.evento_id);
+                              }}
+                            >
+                              <DefaultsIcons.EventoVigenteIcon size={20} />
+                              Tornar vigente
+                            </Button>
+                          </>
                         )}
                       </TableCell>
                       <TableCell align="center">

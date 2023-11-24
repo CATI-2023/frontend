@@ -5,6 +5,7 @@ export function SecondSection() {
   return (
     <>
       <Box
+        id="secondSection"
         className="background-second-section"
         display={"flex"}
         height={{
