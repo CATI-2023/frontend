@@ -1,8 +1,25 @@
-export type palestras = {
+export type palestra = {
+  palestra_id?: number;
   tema: string;
+  atuacao_palestrante: string;
+  lattes_palestrante: string;
   descricao: string;
   data: string;
-  evento_id_reference: number;
+  evento_id_reference?: number;
+  participante_id_reference?: number;
+  evento?: evento;
+  palestrante?: participante;
+};
+
+export type palestraIndex = {
+  tema: string;
+  atuacao_palestrante: string;
+  lattes_palestrante: string;
+  data: string;
+  palestrante?: {
+    foto: string;
+    nome: string;
+  };
 };
 
 export type participantesList = { participantes: participante[] };

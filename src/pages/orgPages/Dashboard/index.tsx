@@ -55,7 +55,7 @@ export function OrganizacaoPage() {
             <WidgetDashboard
               title="Palestras"
               Icon={DefaultsIcons.PalestranteIcon}
-              route=""
+              route="/palestras/org/"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
