@@ -144,7 +144,6 @@ export function DialogActionPalestras({ open, onClose, Data }: props) {
             window.location.reload();
           })
           .catch((err) => {
-            console.log(err)
             showNotification({
               type: "error",
               title: "Erro ao editar a Palestra.",
