@@ -144,10 +144,11 @@ export function DialogActionPalestras({ open, onClose, Data }: props) {
             window.location.reload();
           })
           .catch((err) => {
+            console.log(err)
             showNotification({
               type: "error",
               title: "Erro ao editar a Palestra.",
-              message: "Palestra não editada." + err?.response?.data?.message,
+              message: "Palestra não editada. " + err?.response?.data?.message,
             });
           });
       } else {
@@ -306,6 +307,7 @@ export function DialogActionPalestras({ open, onClose, Data }: props) {
                 />
                 <TextField
                   required
+                  type="url"
                   size="small"
                   label="Currículo Lattes"
                   value={palestra.lattes_palestrante}
