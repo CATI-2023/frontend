@@ -10,7 +10,10 @@ import {
   FormControl,
   TextField,
 } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import {
+  LocalizationProvider,
+  DateTimePicker,
+} from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import ptBR from "date-fns/locale/pt-BR";
 import { evento, palestra, participante } from "../../../../Types/type";
@@ -252,11 +255,12 @@ export function DialogActionPalestras({ open, onClose, Data }: props) {
                   dateAdapter={AdapterDateFns}
                   adapterLocale={ptBR}
                 >
-                  <DatePicker
+                  <DateTimePicker
                     label="Data"
-                    views={["day", "month", "year"]}
+                    views={["day", "month", "year", "hours", "minutes"]}
+                    timezone="America/Cuiaba"
                     defaultValue={new Date()}
-                    value={new Date(palestra.data)}
+                    value={new Date(palestra.data ?? "")}
                     onChange={(event) => {
                       if (typeof event === "string") {
                         setPalestra({ ...palestra, data: event });
@@ -266,11 +270,6 @@ export function DialogActionPalestras({ open, onClose, Data }: props) {
                           data: event.toISOString(),
                         });
                       }
-                    }}
-                    slotProps={{
-                      textField: {
-                        required: true,
-                      },
                     }}
                   />
                 </LocalizationProvider>

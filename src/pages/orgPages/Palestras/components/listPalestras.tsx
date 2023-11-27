@@ -158,12 +158,14 @@ export function ListPalestras() {
                     <TableRow key={palestraItem.palestra_id}>
                       <TableCell align="center">{palestraItem.tema}</TableCell>
                       <TableCell align="center">
-                        {new Date(palestraItem.data).toLocaleDateString(
+                        {new Date(palestraItem.data ?? "").toLocaleDateString(
                           "pt-BR",
                           {
                             year: "numeric",
-                            month: "long",
+                            month: "numeric",
                             day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
                           }
                         )}
                       </TableCell>
