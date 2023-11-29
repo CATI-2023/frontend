@@ -11,6 +11,18 @@ export type palestra = {
   palestrante?: participante;
 };
 
+export type competicao = {
+  competicao_id?: number;
+  descricao: string,
+  titulo: string,
+  qtde_membros_equipe: number,
+  inscricao_data_inicio: string,
+  inscricao_data_fim: string,
+  valor_inscricao: number,
+  regulamento_base64: string,
+  banner_base64: string,
+};
+
 export type palestraIndex = {
   tema: string;
   atuacao_palestrante: string;
