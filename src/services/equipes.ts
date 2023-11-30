@@ -1,7 +1,7 @@
-import { competicao } from "../Types/type";
+import { equipe } from "../Types/type";
 import { apiBase } from "./api";
 
-export async function getCompeticoes(_page: Number, _busca: string) {
+export async function getEquipes(_page: Number, _busca: string) {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -9,30 +9,30 @@ export async function getCompeticoes(_page: Number, _busca: string) {
     },
   };
 
-  var url = "/competicoes?busca=" + (_busca == "*" ? "" : _busca);
+  var url = "/equipes?busca=" + (_busca == "*" ? "" : _busca);
   if (_page) url += "&page=" + +(Number(_page) > 0 ? _page : "");
 
   const response = await apiBase(url, config);
   return response;
 }
 
-export async function getCompeticoesOpen() {
-  const response = await apiBase("/index/competicoes");
+export async function getEquipesIndex() {
+  const response = await apiBase("/index/equipes");
   return response.data;
 }
 
-export async function getCompeticao(id_competicao: number) {
+export async function getEquipe(id_equipe: number) {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
-  const response = await apiBase.get("/competicoes/" + id_competicao, config);
+  const response = await apiBase.get("/equipes/" + id_equipe, config);
   return response;
 }
 
-export async function postCompeticao(data: competicao) {
+export async function postEquipe(data: equipe) {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -40,13 +40,13 @@ export async function postCompeticao(data: competicao) {
     },
   };
 
-  const response = await apiBase.post("/competicoes", data, config);
+  const response = await apiBase.post("/equipes", data, config);
   return response;
 }
 
-export async function putCompeticao(
-  id_competicao: number | undefined,
-  data: competicao
+export async function putEquipe(
+  id_equipe: number | undefined,
+  data: equipe
 ) {
   const config = {
     headers: {
@@ -55,11 +55,11 @@ export async function putCompeticao(
     },
   };
 
-  const response = await apiBase.put("/competicoes/" + id_competicao, data, config);
+  const response = await apiBase.put("/equipes/" + id_equipe, data, config);
   return response;
 }
 
-export async function deleteCompeticao(id_competicao: number | undefined) {
+export async function deleteEquipe(id_equipe: number | undefined) {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -67,6 +67,6 @@ export async function deleteCompeticao(id_competicao: number | undefined) {
     },
   };
 
-  const response = await apiBase.delete("/competicoes/" + id_competicao, config);
+  const response = await apiBase.delete("/equipes/" + id_equipe, config);
   return response;
 }

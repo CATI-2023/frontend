@@ -108,10 +108,16 @@ export default function DrawerComponent({ title }: props) {
               route="/inscricao-evento/org/"
             />
             <ListItemDrawer
-              title="Competicções"
+              title="Competições"
               Icon={DefaultsIcons.CompeticaoIcon}
               size={24}
               route="/competicoes/org/"
+            />
+            <ListItemDrawer
+              title="Competições - Equipes"
+              Icon={DefaultsIcons.EquipeIcon}
+              size={24}
+              route="/equipes/org/"
             />
             <ListItemDrawer
               title="Noticias"

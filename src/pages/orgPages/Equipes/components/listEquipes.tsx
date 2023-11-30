@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Chip,
   IconButton,
   Pagination,
   Paper,
@@ -15,18 +16,13 @@ import {
   Typography,
 } from "@mui/material";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
-import { competicao } from "../../../../Types/type";
-import { DialogActionCompeticoes } from "./DialogActionCompeticoes";
-import {
-  getCompeticoes,
-  deleteCompeticao,
-} from "../../../../services/competicoes";
+import { equipe } from "../../../../Types/type";
+import { DialogActionEquipes } from "./DialogActionEquipes";
+import { getEquipes, deleteEquipe } from "../../../../services/equipes";
 import useNotification from "../../../../hooks/useNotification";
 
-export function ListCompeticoes() {
-  const [competicaoList, setCompeticaoList] = useState<competicao[] | null>(
-    null
-  );
+export function ListEquipes() {
+  const [equipeList, setEquipeList] = useState<equipe[] | null>(null);
 
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -34,19 +30,18 @@ export function ListCompeticoes() {
   const [busca, setBusca] = useState<string>("*");
 
   const [open, setOpen] = useState(false);
-  const [selectedCompeticao, setSelectedCompeticao] =
-    useState<competicao | null>(null);
-  async function getCompeticaoList() {
-    getCompeticoes(page, busca)
+  const [selectedEquipe, setSelectedEquipe] = useState<equipe | null>(null);
+  async function getEquipeList() {
+    getEquipes(page, busca)
       .then((res) => {
-        if (res.data.competicoes.total > 0) {
-          setTotalPages(Math.ceil(res.data.competicoes.total / 10));
-          setTotalRows(res.data.competicoes.total);
+        if (res.data.equipes.total > 0) {
+          setTotalPages(Math.ceil(res.data.equipes.total / 10));
+          setTotalRows(res.data.equipes.total);
         } else {
           setTotalRows(0);
           setTotalPages(0);
         }
-        setCompeticaoList(res.data.competicoes.competicoes);
+        setEquipeList(res.data.equipes.equipes);
       })
       .catch((err) =>
         showNotification({
@@ -58,37 +53,30 @@ export function ListCompeticoes() {
   }
 
   useEffect(() => {
-    getCompeticaoList();
+    getEquipeList();
   }, [page, busca]);
 
-  const handleOpen = (data: competicao | null) => {
+  const handleOpen = (data: equipe | null) => {
     setOpen(true);
-    setSelectedCompeticao(data);
+    setSelectedEquipe(data);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedCompeticao({
-      descricao: "",
-      titulo: "",
-      qtde_membros_equipe: 0,
-      inscricao_data_inicio: "",
-      inscricao_data_fim: "",
-      valor_inscricao: 0,
-      regulamento_base64: "",
-      banner_base64: "",
+    setSelectedEquipe({
+      nome: "",
     });
   };
 
   const showNotification = useNotification();
 
-  const handleDeleteCompeticao = async (id_competicao: number | undefined) => {
-    await deleteCompeticao(id_competicao)
+  const handleDeleteEquipe = async (id_equipe: number | undefined) => {
+    await deleteEquipe(id_equipe)
       .then(() => {
         showNotification({
           type: "success",
-          title: "Sucesso ao remover a Competição.",
-          message: "Competição removida com sucesso",
+          title: "Sucesso ao remover a Equipe.",
+          message: "Equipe removida com sucesso",
         });
         handleClose();
         setTimeout(() => {
@@ -98,8 +86,8 @@ export function ListCompeticoes() {
       .catch((err) => {
         showNotification({
           type: "error",
-          title: "Erro ao remover a Competição.",
-          message: "Competição não removida. " + err?.response?.data?.message,
+          title: "Erro ao remover a Equipe.",
+          message: "Equipe não removida. " + err?.response?.data?.message,
         });
       });
   };
@@ -120,7 +108,7 @@ export function ListCompeticoes() {
             handleOpen(null);
           }}
         >
-          <DefaultsIcons.AdicionarIcon size={26} /> Adicionar Competição
+          <DefaultsIcons.AdicionarIcon size={26} /> Adicionar Equipe
         </Button>
         <TableContainer component={Paper}>
           <Table>
@@ -140,16 +128,16 @@ export function ListCompeticoes() {
               </TableRow>
               <TableRow>
                 <TableCell align="center">
-                  <b>Título</b>
+                  <b>Nome</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Período Inscrição</b>
+                  <b>Competição</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Qtde Membros da Equipe</b>
+                  <b>Pagamento</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Valor Inscrição</b>
+                  <b>Gerenciar Membros</b>
                 </TableCell>
                 <TableCell align="center">
                   <b>Ações</b>
@@ -157,44 +145,47 @@ export function ListCompeticoes() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {competicaoList != null
-                ? competicaoList.map((competicaoItem: competicao) => (
-                    <TableRow key={competicaoItem.competicao_id}>
+              {equipeList != null
+                ? equipeList.map((equipeItem: equipe) => (
+                    <TableRow key={equipeItem.equipe_id}>
+                      <TableCell align="center">{equipeItem.nome}</TableCell>
                       <TableCell align="center">
-                        {competicaoItem.titulo}
+                        {equipeItem.competicao?.titulo}
                       </TableCell>
                       <TableCell align="center">
-                        {"De "}{new Date(competicaoItem.inscricao_data_inicio ?? "").toLocaleDateString(
-                          "pt-BR",
-                          {
-                            year: "numeric",
-                            month: "numeric",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
+                        <Chip
+                          label={
+                            equipeItem.pagamento?.status === "APROVADO"
+                              ? "Aprovado"
+                              : equipeItem.pagamento?.status === "PENDENTE"
+                              ? "Pendente"
+                              : "Recusado"
                           }
-                        )}{" até "}
-                        {new Date(competicaoItem.inscricao_data_fim ?? "").toLocaleDateString(
-                          "pt-BR",
-                          {
-                            year: "numeric",
-                            month: "numeric",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
+                          color={
+                            // Refatorar
+                            equipeItem.pagamento?.status === "APROVADO"
+                              ? "success"
+                              : equipeItem.pagamento?.status === "PENDENTE"
+                              ? "warning"
+                              : "error"
                           }
-                        )}
+                        />
                       </TableCell>
                       <TableCell align="center">
-                        {competicaoItem.qtde_membros_equipe}
-                      </TableCell>
-                      <TableCell align="center">
-                        {"R$"}{competicaoItem.valor_inscricao}
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            // updateEventoSetVigente(evento?.evento_id);
+                          }}
+                        >
+                          <DefaultsIcons.AdicionarIcon size={20} />
+                          Abrir
+                        </Button>
                       </TableCell>
                       <TableCell align="center">
                         <IconButton
                           onClick={() => {
-                            handleOpen(competicaoItem);
+                            handleOpen(equipeItem);
                           }}
                         >
                           <DefaultsIcons.EditIcon />
@@ -202,9 +193,7 @@ export function ListCompeticoes() {
                         <IconButton
                           color="error"
                           onClick={() => {
-                            handleDeleteCompeticao(
-                              competicaoItem?.competicao_id
-                            );
+                            handleDeleteEquipe(equipeItem?.equipe_id);
                           }}
                         >
                           <DefaultsIcons.ApagarIcon />
@@ -229,10 +218,10 @@ export function ListCompeticoes() {
           />
         </TableContainer>
       </Box>
-      <DialogActionCompeticoes
+      <DialogActionEquipes
         open={open}
         onClose={handleClose}
-        Data={selectedCompeticao}
+        Data={selectedEquipe}
       />
     </>
   );

@@ -23,6 +23,16 @@ export type competicao = {
   banner_base64: string,
 };
 
+export type equipe = {
+  equipe_id?: number;
+  nome: string,
+  competicao?: competicao,
+  competicao_id_reference?: number;
+  pagamento?: pagamentos,
+  pagamento_id_reference?: number,
+  participante_id_reference?: number,  
+};
+
 export type palestraIndex = {
   tema: string;
   atuacao_palestrante: string;

@@ -21,6 +21,7 @@ import {
   InstagramLogo,
   SignIn,
   GameController,
+  Users,
 } from "@phosphor-icons/react";
 export const DefaultsIcons = {
   MenuIcon: List,
@@ -46,4 +47,5 @@ export const DefaultsIcons = {
   EventoVigenteIcon: CheckSquare,
   InstagramIcon: InstagramLogo,
   CompeticaoIcon: GameController,
+  EquipeIcon: Users,
 };

@@ -87,7 +87,6 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     };
 
     if (Data) {
-      console.log(data_);
       await putCompeticao(Data.competicao_id, data_)
         .then(() => {
           showNotification({
@@ -161,7 +160,6 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   useEffect(() => {
     if (Data) {
       setCompeticao(Data);
-      console.log(Data);
     }
   }, [Data]);
 
