@@ -13,24 +13,34 @@ export type palestra = {
 
 export type competicao = {
   competicao_id?: number;
-  descricao: string,
-  titulo: string,
-  qtde_membros_equipe: number,
-  inscricao_data_inicio: string,
-  inscricao_data_fim: string,
-  valor_inscricao: number,
-  regulamento_base64: string,
-  banner_base64: string,
+  descricao: string;
+  titulo: string;
+  qtde_membros_equipe: number;
+  inscricao_data_inicio: string;
+  inscricao_data_fim: string;
+  valor_inscricao: number;
+  regulamento_base64: string;
+  banner_base64: string;
 };
 
 export type equipe = {
   equipe_id?: number;
-  nome: string,
-  competicao?: competicao,
+  nome: string;
+  competicao?: competicao;
   competicao_id_reference?: number;
-  pagamento?: pagamentos,
-  pagamento_id_reference?: number,
-  participante_id_reference?: number,  
+  pagamento?: pagamentos;
+  pagamento_id_reference?: number;
+  participante_id_reference?: number;
+  MembroEquipe?: membroEquipe[];
+};
+
+export type membroEquipe = {
+  membro_equipe_id?: number;
+  equipe_id_reference?: number;
+  participante_id_referente?: number;
+  lider: boolean;
+  equipe?: equipe;
+  participante?: participante;
 };
 
 export type palestraIndex = {

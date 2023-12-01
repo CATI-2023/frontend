@@ -18,6 +18,7 @@ import {
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { equipe } from "../../../../Types/type";
 import { DialogActionEquipes } from "./DialogActionEquipes";
+import { ExpandableTableRow } from "./subTableMembros";
 import { getEquipes, deleteEquipe } from "../../../../services/equipes";
 import useNotification from "../../../../hooks/useNotification";
 
@@ -30,7 +31,9 @@ export function ListEquipes() {
   const [busca, setBusca] = useState<string>("*");
 
   const [open, setOpen] = useState(false);
+
   const [selectedEquipe, setSelectedEquipe] = useState<equipe | null>(null);
+  
   async function getEquipeList() {
     getEquipes(page, busca)
       .then((res) => {
@@ -128,6 +131,9 @@ export function ListEquipes() {
               </TableRow>
               <TableRow>
                 <TableCell align="center">
+                  <b>Gerenciar Membros</b>
+                </TableCell>
+                <TableCell align="center">
                   <b>Nome</b>
                 </TableCell>
                 <TableCell align="center">
@@ -137,9 +143,6 @@ export function ListEquipes() {
                   <b>Pagamento</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Gerenciar Membros</b>
-                </TableCell>
-                <TableCell align="center">
                   <b>Ações</b>
                 </TableCell>
               </TableRow>
@@ -147,7 +150,10 @@ export function ListEquipes() {
             <TableBody>
               {equipeList != null
                 ? equipeList.map((equipeItem: equipe) => (
-                    <TableRow key={equipeItem.equipe_id}>
+                    <ExpandableTableRow
+                      key={equipeItem.equipe_id}
+                      equipe={equipeItem}
+                    >
                       <TableCell align="center">{equipeItem.nome}</TableCell>
                       <TableCell align="center">
                         {equipeItem.competicao?.titulo}
@@ -172,17 +178,6 @@ export function ListEquipes() {
                         />
                       </TableCell>
                       <TableCell align="center">
-                        <Button
-                          variant="contained"
-                          onClick={() => {
-                            // updateEventoSetVigente(evento?.evento_id);
-                          }}
-                        >
-                          <DefaultsIcons.AdicionarIcon size={20} />
-                          Abrir
-                        </Button>
-                      </TableCell>
-                      <TableCell align="center">
                         <IconButton
                           onClick={() => {
                             handleOpen(equipeItem);
@@ -199,7 +194,7 @@ export function ListEquipes() {
                           <DefaultsIcons.ApagarIcon />
                         </IconButton>
                       </TableCell>
-                    </TableRow>
+                    </ExpandableTableRow>
                   ))
                 : "Carregando..."}
             </TableBody>

@@ -57,43 +57,50 @@ export function DialogActionEquipes({ open, onClose, Data }: props) {
         comprovante_base64: Data?.pagamento?.comprovante_base64 || "",
       },
     };
-
-    if (Data) {
-      await putEquipe(Data.equipe_id, data_)
-        .then(() => {
-          showNotification({
-            type: "success",
-            title: "Sucesso ao editar Equipe.",
-            message: "Equipe editada com sucesso.",
+    if (competicaoSelected != undefined) {
+      if (Data) {
+        await putEquipe(Data.equipe_id, data_)
+          .then(() => {
+            showNotification({
+              type: "success",
+              title: "Sucesso ao editar Equipe.",
+              message: "Equipe editada com sucesso.",
+            });
+            onClose();
+            window.location.reload();
+          })
+          .catch((err) => {
+            showNotification({
+              type: "error",
+              title: "Erro ao editar a Equipe.",
+              message: "Equipe não editada. " + err?.response?.data?.message,
+            });
           });
-          onClose();
-          window.location.reload();
-        })
-        .catch((err) => {
-          showNotification({
-            type: "error",
-            title: "Erro ao editar a Equipe.",
-            message: "Equipe não editada. " + err?.response?.data?.message,
+      } else {
+        postEquipe(data_)
+          .then(() => {
+            showNotification({
+              type: "success",
+              title: "Sucesso ao adicionar a Equipe.",
+              message: "Equipe adicionada com sucesso.",
+            });
+            onClose();
+            window.location.reload();
+          })
+          .catch((err) => {
+            showNotification({
+              type: "error",
+              title: "Erro ao adicionar a Equipe.",
+              message: "Equipe não adicionada. " + err?.response?.data?.message,
+            });
           });
-        });
+      }
     } else {
-      postEquipe(data_)
-        .then(() => {
-          showNotification({
-            type: "success",
-            title: "Sucesso ao adicionar a Equipe.",
-            message: "Equipe adicionada com sucesso.",
-          });
-          onClose();
-          window.location.reload();
-        })
-        .catch((err) => {
-          showNotification({
-            type: "error",
-            title: "Erro ao adicionar a Equipe.",
-            message: "Equipe não adicionada. " + err?.response?.data?.message,
-          });
-        });
+      showNotification({
+        type: "warning",
+        message: "Selecione a competição.",
+        title: "Competição não selecionada.",
+      });
     }
   };
 
@@ -103,7 +110,6 @@ export function DialogActionEquipes({ open, onClose, Data }: props) {
         setCompeticoes(res.competicoes);
       })
       .catch((err) => {
-        console.log(err);
         showNotification({
           type: "error",
           message:
