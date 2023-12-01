@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import {
-  Autocomplete,
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   TextField,
 } from "@mui/material";
-import { equipe, participante } from "../../../../Types/type";
-import { postMembroEquipe } from "../../../../services/membrosEquipe";
-import { getParticipantes } from "../../../../services/participantes";
-import useNotification from "../../../../hooks/useNotification";
+import { equipe, participante } from "../../../../../Types/type";
+import { postMembroEquipe } from "../../../../../services/membrosEquipe";
+import { getParticipanteByEmail } from "../../../../../services/participantes";
+import useNotification from "../../../../../hooks/useNotification";
 
 interface props {
   open: boolean;
@@ -22,11 +20,10 @@ interface props {
 }
 
 export function DialogActionMembroEquipe({ open, onClose, Data }: props) {
-  const [participantes, setParticipantes] = useState<participante[]>([]);
   const [participanteSelected, setParticipanteSelected] = useState<
     participante | undefined
   >(undefined);
-
+  const [busca, setBusca] = useState<string>("");
   const [equipe, setEquipe] = useState<equipe>({
     nome: "",
   });
@@ -69,18 +66,25 @@ export function DialogActionMembroEquipe({ open, onClose, Data }: props) {
     }
   };
 
-  async function getParticipantesList() {
-    await getParticipantes(0, "*")
+  async function getParticipante() {
+    await getParticipanteByEmail(busca)
       .then((res) => {
-        setParticipantes(res.data.participantes.participantes);
+        if (res.data) {
+          setParticipanteSelected(res.data);
+        } else {
+          setParticipanteSelected(undefined);
+          showNotification({
+            type: "warning",
+            message: "Participante não encontrado. ",
+            title: "Participante não encontrado.",
+          });
+        }
       })
-      .catch((err) => {
+      .catch(() => {
         showNotification({
           type: "error",
-          message:
-            "Erro obter lista de participantes. " +
-            err?.response?.data?.message,
-          title: "Erro ao obter lista",
+          message: "Erro buscar participante. ",
+          title: "Erro ao obter participante",
         });
       });
   }
@@ -89,7 +93,6 @@ export function DialogActionMembroEquipe({ open, onClose, Data }: props) {
     if (Data) {
       setEquipe(Data);
     }
-    getParticipantesList();
   }, [Data]);
 
   return (
@@ -106,23 +109,30 @@ export function DialogActionMembroEquipe({ open, onClose, Data }: props) {
           <DialogContent sx={{ width: "100%" }}>
             <form onSubmit={handleSubmit}>
               <Box display={"flex"} flexDirection={"column"} gap={2} py={2}>
-                <FormControl>
-                  <Autocomplete
-                    value={participanteSelected}
-                    disablePortal
-                    fullWidth
-                    size="small"
-                    options={participantes}
-                    getOptionLabel={(option: participante) => option.nome}
-                    renderInput={(params) => (
-                      <TextField {...params} label="Selecione o participante" />
-                    )}
-                    onChange={(event: any, value: participante | null) => {
-                      event.preventDefault();
-                      setParticipanteSelected(value ? value : undefined);
-                    }}
-                  />
-                </FormControl>
+                <TextField
+                  fullWidth
+                  placeholder="Email Participante"
+                  label="Informe o email do participante"
+                  value={busca}
+                  onChange={(e) => {
+                    setBusca(e.target.value);
+                  }}
+                  size="small"
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => getParticipante()}
+                >
+                  Buscar
+                </Button>
+                <TextField
+                  fullWidth
+                  disabled
+                  placeholder="Participante "
+                  value={participanteSelected?.nome}
+                  size="small"
+                />
               </Box>
               <DialogActions>
                 <Box

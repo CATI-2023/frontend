@@ -12,6 +12,20 @@ export async function getEuParticipante() {
   return response;
 }
 
+export async function getParticipanteByEmail(_email: string) {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  };
+  const response = await apiBase.get(
+    "/participantes/email?busca=" + _email,
+    config
+  );
+  return response;
+}
+
 export async function getParticipantes(_page: Number, _busca: string) {
   const config = {
     headers: {
@@ -21,7 +35,7 @@ export async function getParticipantes(_page: Number, _busca: string) {
   };
 
   var url = "/participantes?busca=" + (_busca == "*" ? "" : _busca);
-  if (_page) url += "&page=" + + (Number(_page) > 0 ? _page : "");
+  if (_page) url += "&page=" + +(Number(_page) > 0 ? _page : "");
 
   const response = await apiBase.get(url, config);
   return response;
