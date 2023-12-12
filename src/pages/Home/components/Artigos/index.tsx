@@ -12,6 +12,7 @@ import {
 import "./style.css";
 import { ButtonDefault } from "../../../../components/buttonDefault/btnInscrevaSe";
 import cronograma from "./assets/Submissoes_Trabalhos_CATI_2023_Atualizado.pdf";
+import anais from "./assets/AnaisCATI2023.pdf";
 import { ListItens } from "../../../../components/listItens/listItens";
 import { ArrowUp } from "../../../../assets/ArrowUp";
 
@@ -106,6 +107,15 @@ export function ArtigosSection() {
                         Modelo artigo SBC
                       </Link>
                     </ListItem>
+                    <ListItem>
+                      <Link
+                        title="Normas para submissão de artigos"
+                        href={anais}
+                        download
+                      >
+                        Anais 2023
+                      </Link>
+                    </ListItem>
                     {/* <ListItem>
                       <Link
                         title="Modelo artigo resumido SBC"
@@ -156,6 +166,16 @@ export function ArtigosSection() {
                   }
                   download={false}
                   target="_blank"
+                />
+                <ButtonDefault
+                  style={{
+                    marginBottom: "1rem",
+                    padding: "1rem 2rem",
+                    width: "60%",
+                  }}
+                  title="Anais 2023"
+                  href={anais}
+                  download={true}
                 />
                 {/* <ButtonDefault
                     style={{marginBottom: "1rem", padding: "1rem 2rem", width: "60%" }}
