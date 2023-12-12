@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Chip,
   IconButton,
   Pagination,
@@ -19,6 +20,7 @@ import useNotification from "../../../../../hooks/useNotification";
 import { DefaultsIcons } from "../../../../../constants/DefaultIcons";
 import { ActionComprovantePagamentoEquipe } from "./ActionComprovantePagamentoEquipe";
 import { ExpandableTableRow } from "./subTableMembros";
+import { DialogActionEquipes } from "./DialogActionEquipes";
 
 interface InformacoesParticipanteProps {
   participante: ParticipanteAuth;
@@ -28,6 +30,7 @@ export function ListaEquipes({ participante }: InformacoesParticipanteProps) {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [totalRows, setTotalRows] = useState<number>(0);
+  const [openAddEquipe, setOpenAddEquipe] = useState(false);
 
   const showNotification = useNotification();
 
@@ -64,7 +67,16 @@ export function ListaEquipes({ participante }: InformacoesParticipanteProps) {
 
   return (
     <>
-      <Box display={"flex"} gap={2}>
+      <Box display={"flex"} gap={2} flexDirection={"column"} alignItems={"end"}>
+        <Button
+          variant={"contained"}
+          sx={{ display: "flex", gap: 2 }}
+          onClick={() => {
+            setOpenAddEquipe(true);
+          }}
+        >
+          <DefaultsIcons.AdicionarIcon size={26} /> Inscrever Equipe
+        </Button>
         <TableContainer component={Paper}>
           <Table id={"participante-table"}>
             <TableHead>
@@ -152,6 +164,13 @@ export function ListaEquipes({ participante }: InformacoesParticipanteProps) {
         open={openActionComprovantePagamento}
         onClose={() => setOpenActionComprovantePagamento(false)}
         equipe={equipe}
+      />
+      <DialogActionEquipes
+        open={openAddEquipe}
+        participante={participante.participante_id}
+        onClose={() => {
+          setOpenAddEquipe(false);
+        }}
       />
     </>
   );
