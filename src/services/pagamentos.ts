@@ -28,7 +28,6 @@ export async function putPagamentos(id_pagamentos: number, data: pagamentos) {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
-  console.log(data);
   const res = await apiBase.put("/pagamentos/" + id_pagamentos, data, config);
   return res;
 }
