@@ -7,25 +7,25 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import { InscricaoEvento } from "../../../../Types/type";
+import { equipe } from "../../../../../Types/type";
 import { useState } from "react";
-import { DialogSubmicaoPagamento } from "./DialogSubmicaoPagamento";
+import { DialogSubmicaoPagamento } from "../DialogSubmicaoPagamento";
 
 interface Props {
   open: boolean;
   onClose(): void;
-  inscricao: InscricaoEvento | null;
+  equipe: equipe | null;
 }
 
-export function ActionComprovantePagamento({
+export function ActionComprovantePagamentoEquipe({
   open,
   onClose,
-  inscricao,
+  equipe,
 }: Props) {
   const [openActionComprovantePagamento, setOpenActionComprovantePagamento] =
     useState(false);
 
-  if (!inscricao) {
+  if (!equipe) {
     return null;
   }
 
@@ -34,8 +34,8 @@ export function ActionComprovantePagamento({
       <DialogTitle>Anexar comprovante de pagamento</DialogTitle>
       <DialogContent>
         <Typography variant="body2" textAlign="center">
-          Para confirmar sua inscrição, é necessário enviar o comprovante de
-          pagamento.
+          Para confirmar a inscrição da equipe, é necessário enviar o
+          comprovante de pagamento.
         </Typography>
         <Box
           display={"flex"}
@@ -47,7 +47,7 @@ export function ActionComprovantePagamento({
         >
           <img
             src={
-              inscricao.pagamento.comprovante_base64 ||
+              equipe.pagamento?.comprovante_base64 ||
               "https://via.placeholder.com/200x200.png?text=Comprovante+de+pagamento"
             }
             height={"200px"}
@@ -58,7 +58,7 @@ export function ActionComprovantePagamento({
             }}
           />
           <Button
-            disabled={inscricao.pagamento.status === "APROVADO"}
+            disabled={equipe.pagamento?.status === "APROVADO"}
             variant="contained"
             onClick={() => {
               setOpenActionComprovantePagamento(true);
@@ -79,7 +79,7 @@ export function ActionComprovantePagamento({
       </DialogActions>
 
       <DialogSubmicaoPagamento
-        idPagamento={inscricao.pagamento_id_reference}
+        idPagamento={equipe.pagamento_id_reference || 0}
         open={openActionComprovantePagamento}
         onClose={() => {
           setOpenActionComprovantePagamento(false);

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { InscricoesEventosCards } from "./inscricoesEventosCards";
 import { ListaPresencas } from "./listPresencas";
+import { ListaEquipes } from "./equipes/listCompeticoesEquipes";
 import { ParticipanteAuth } from "../../../../Types/type";
 
 interface InformacoesParticipanteProps {
@@ -72,6 +73,30 @@ export function ControlledAccordions({
         </AccordionSummary>
         <AccordionDetails>
           <ListaPresencas participante={participante} />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <Typography
+            sx={{ width: "33%", flexShrink: 0 }}
+            fontSize={"1.3em"}
+            fontWeight={"bold"}
+          >
+            Equipes de Competição
+          </Typography>
+          <Typography sx={{ color: "text.secondary" }} paddingLeft={"1rem"}>
+            Minha lista de equipes em competições
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ListaEquipes participante={participante} />
         </AccordionDetails>
       </Accordion>
     </div>
