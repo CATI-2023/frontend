@@ -4,6 +4,7 @@ import WidgetDashboard from "./components/widget-dashboard";
 import { DefaultsIcons } from "../../../constants/DefaultIcons";
 
 export function OrganizacaoPage() {
+  
   return (
     <>
       <Navbar title="Dashboard" typeUser="Organização" />

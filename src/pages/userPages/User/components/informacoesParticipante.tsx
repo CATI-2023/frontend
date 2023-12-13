@@ -34,7 +34,7 @@ export function InformacoesParticipante({
     });
     setOpen(false);
   };
-
+  
   return (
     <Box
       flex={1}
@@ -43,6 +43,7 @@ export function InformacoesParticipante({
       alignItems={"center"}
       justifyContent={"start"}
       gap={2}
+      flexDirection={{xs: "column", md:"row"}}
     >
       <Avatar sx={{ height: 200, width: 200 }} src={participante.foto} alt="" />
       <Box flex={1} mx={2} display={"flex"} flexDirection={"column"}>

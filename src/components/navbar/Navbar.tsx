@@ -8,6 +8,7 @@ import {
 import DrawerComponent from "../drawer/Drawer";
 import { logout } from "../../utils/Auth";
 import { DefaultsIcons } from "../../constants/DefaultIcons";
+import "./style.css";
 
 type Props = {
   title: string;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export function Navbar({ title, typeUser }: Props) {
+  
   return (
     <>
       <Box>
