@@ -37,7 +37,7 @@ export type equipe = {
 export type membroEquipe = {
   membro_equipe_id?: number;
   equipe_id_reference?: number;
-  participante_id_referente?: number;
+  participante_id_reference?: number;
   lider: boolean;
   equipe?: equipe;
   participante?: participante;

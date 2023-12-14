@@ -35,7 +35,7 @@ export function DialogActionMembroEquipe({ open, onClose, Data }: props) {
 
     const data_ = {
       equipe_id_reference: equipe.equipe_id,
-      participante_id_referente: participanteSelected?.participante_id,
+      participante_id_reference: participanteSelected?.participante_id,
       lider: false,
     };
 

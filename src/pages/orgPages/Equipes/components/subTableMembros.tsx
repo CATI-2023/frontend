@@ -45,7 +45,7 @@ const ExpandableTableRow = ({ children, equipe, ...otherProps }: Props) => {
     const data_ = {
       membro_equipe_id: membro.membro_equipe_id,
       equipe_id_reference: membro.equipe_id_reference,
-      participante_id_referente: membro.participante_id_referente,
+      participante_id_reference: membro.participante_id_reference,
       lider: true,
     };
 
