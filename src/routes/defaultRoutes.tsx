@@ -1,11 +1,8 @@
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./privateRoutes";
-// import { LoginPage } from "../pages/Login";
 import { UserPage } from "../pages/userPages/User";
 import { HomePage } from "../pages/Home";
-// import { UserMiniCursosPage } from "../pages/userPages/MiniCursos";
-// import { UserPresencaPage } from "../pages/userPages/Presenca";
 import { OrganizacaoPalestrasPage } from "../pages/orgPages/Palestras";
 import { LoginPage } from "../pages/Login";
 import { InscricaoEventoPage } from "../pages/InscricaoEventoPage";
@@ -76,7 +73,6 @@ export function DefaultRoutes() {
               element={<OrganizacaoNoticiasPage />}
             />
           </Route>
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -39,7 +39,7 @@ export function DialogActionsParticipantes({
   title,
   Data,
 }: props) {
-  // const [data: eventos] = useFetch<Evento>("evento")
+  
   const [participante, setParticipante] = useState<participante>({
     nome: "",
     foto: "",
