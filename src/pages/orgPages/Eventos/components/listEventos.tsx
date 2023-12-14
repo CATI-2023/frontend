@@ -44,7 +44,6 @@ export function ListaEventos() {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
         showNotification({
           type: "error",
           message: "Erro ao atualizar evento. " + err?.response?.data?.message,

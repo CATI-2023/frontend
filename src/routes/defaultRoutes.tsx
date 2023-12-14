@@ -14,6 +14,8 @@ import { OrganizacaoParticipantePage } from "../pages/orgPages/Participantes";
 import { OrganizacaoEventoPage } from "../pages/orgPages/Eventos";
 import { OrganizacaoInscricaoEventoPage } from "../pages/orgPages/InscricaoEvento";
 import { OrganizacaoNoticiasPage } from "../pages/orgPages/Noticias";
+import { OrganizacaoCompeticoesPage } from "../pages/orgPages/Competicoes";
+import { OrganizacaoEquipesPage } from "../pages/orgPages/Equipes";
 
 export function DefaultRoutes() {
   return (
@@ -57,6 +59,14 @@ export function DefaultRoutes() {
             <Route
               path="/inscricao-evento/org/"
               element={<OrganizacaoInscricaoEventoPage />}
+            />
+            <Route
+              path="/competicoes/org/"
+              element={<OrganizacaoCompeticoesPage />}
+            />
+            <Route
+              path="/equipes/org/"
+              element={<OrganizacaoEquipesPage />}
             />
             <Route
               path="/noticias/org/"
