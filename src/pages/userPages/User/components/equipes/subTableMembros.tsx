@@ -79,7 +79,7 @@ const ExpandableTableRow = ({
               setMembroLider(
                 equipe.MembroEquipe?.find(
                   (m) =>
-                    m.participante_id_referente == participante.participante_id
+                    m.participante_id_reference == participante.participante_id
                 )?.lider || false
               );
             }}

@@ -127,9 +127,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   };
 
   const handleImageUploadBanner = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
+      let reader = new FileReader();
       reader.onload = () => {
         setCompeticao((prev) => ({
           ...prev,
@@ -143,9 +143,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   const handleImageUploadRegulamento = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
+      let reader = new FileReader();
       reader.onload = () => {
         setCompeticao((prev) => ({
           ...prev,

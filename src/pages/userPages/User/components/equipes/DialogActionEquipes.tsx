@@ -14,6 +14,7 @@ import { competicao, equipe } from "../../../../../Types/type";
 import { postEquipe } from "../../../../../services/equipes";
 import { getCompeticoesOpen } from "../../../../../services/competicoes";
 import useNotification from "../../../../../hooks/useNotification";
+import { DefaultsIcons } from "../../../../../constants/DefaultIcons";
 
 interface props {
   participante: number;
@@ -83,6 +84,17 @@ export function DialogActionEquipes({ open, onClose, participante }: props) {
       });
   }
 
+  const abrirRegulamento = () => {
+    if (competicaoSelected !== undefined) {
+      const downloadLink = document.createElement("a");
+      const fileName = "regulamento_" + competicaoSelected.titulo + ".pdf";
+
+      downloadLink.href = competicaoSelected.regulamento_base64;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    }
+  };
+
   useEffect(() => {
     getCompeticaoList();
   }, []);
@@ -118,7 +130,21 @@ export function DialogActionEquipes({ open, onClose, participante }: props) {
                     }}
                   />
                 </FormControl>
-                <Box display={"flex"} flexDirection={"column"} gap={2} py={2}>
+                <Box display={"flex"} flexDirection={"column"} gap={2}>
+                  <Button
+                    disabled={competicaoSelected == undefined}
+                    variant="contained"
+                    sx={{ display: "flex" }}
+                    onClick={() => {
+                      abrirRegulamento();
+                    }}
+                    color="info"
+                  >
+                    <DefaultsIcons.ExportPdfIcon size={26} />
+                    Abrir Regulamento
+                  </Button>
+                </Box>
+                <Box display={"flex"} flexDirection={"column"} gap={2}>
                   <TextField
                     required
                     size="small"
