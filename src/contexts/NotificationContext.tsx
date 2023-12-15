@@ -94,7 +94,7 @@ function NotificationProvider({ children }: NotificationProviderProps) {
       <Snackbar
         open={open}
         TransitionComponent={Slide}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         onClose={() => setOpen(false)}
         anchorOrigin={notificationProps.anchorOrigin}
       >

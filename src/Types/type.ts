@@ -21,6 +21,8 @@ export type competicao = {
   valor_inscricao: number;
   regulamento_base64: string;
   banner_base64: string;
+  regulamento_pdfFile?: File | null;
+  banner_pictureFile?: File | null;
 };
 
 export type equipe = {

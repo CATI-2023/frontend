@@ -39,6 +39,8 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     valor_inscricao: 0,
     regulamento_base64: "",
     banner_base64: "",
+    regulamento_pdfFile: null,
+    banner_pictureFile: null,
   });
 
   const showNotification = useNotification();
@@ -66,7 +68,10 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
       return;
     }
 
-    if (competicao.regulamento_base64 === "") {
+    if (
+      competicao.regulamento_base64 === "" &&
+      competicao.regulamento_pdfFile === null
+    ) {
       showNotification({
         type: "warning",
         message: "Selecione o Regulamento da Competição.",
@@ -84,6 +89,8 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
       valor_inscricao: competicao.valor_inscricao,
       regulamento_base64: competicao.regulamento_base64,
       banner_base64: competicao.banner_base64,
+      regulamento_pdfFile: competicao.regulamento_pdfFile,
+      banner_pictureFile: competicao.banner_pictureFile,
     };
 
     if (Data) {
@@ -134,6 +141,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
         setCompeticao((prev) => ({
           ...prev,
           banner_base64: reader.result as string,
+          banner_pictureFile: file,
         }));
       };
       reader.readAsDataURL(file);
@@ -145,15 +153,22 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   ) => {
     let file = e.target.files?.[0];
     if (file) {
-      let reader = new FileReader();
-      reader.onload = () => {
+      if (file.size > (10 * 1024 * 1024)) {
+        showNotification({
+          type: "warning",
+          message: "Tamanho máximo suportado é 10mb.",
+          title: "Tamanho de arquivo não suportado",
+        });
+        return;
+      } else {
         setCompeticao((prev) => ({
           ...prev,
-          regulamento_base64: reader.result as string,
+          regulamento_pdfFile: file,
         }));
-      };
-      reader.readAsDataURL(file);
-      setRegulamentoNameFile(file.name);
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        setRegulamentoNameFile(file.name);
+      }
     }
   };
 
@@ -178,7 +193,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
             {Data != null ? "Editar Competição" : "Adicionar Competição"}
           </DialogTitle>
           <DialogContent sx={{ width: "100%" }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               <Box
                 display="flex"
                 flexDirection="column"
