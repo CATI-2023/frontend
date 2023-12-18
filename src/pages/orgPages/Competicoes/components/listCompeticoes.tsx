@@ -75,8 +75,8 @@ export function ListCompeticoes() {
       inscricao_data_inicio: "",
       inscricao_data_fim: "",
       valor_inscricao: 0,
-      regulamento_base64: "",
-      banner_base64: "",
+      regulamento: "",
+      banner: "",
     });
   };
 

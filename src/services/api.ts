@@ -13,7 +13,7 @@ export const apiBase = axios.create({
 // Add a request interceptor
 apiBase.interceptors.request.use(
   function (conf) {
-    if (window.location.pathname !== "/") {
+    if (conf.method !== "get") {
       document.body.classList.add("loading-indicator");
     }
     return conf;
