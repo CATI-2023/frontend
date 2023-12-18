@@ -216,9 +216,11 @@ export function ListaParticipantes() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setBusca(
-                        e.target.value.length > 2 ? e.target.value : "*"
-                      );
+                      setTimeout(function () {
+                        setBusca(
+                          e.target.value.length > 2 ? e.target.value : "*"
+                        );
+                      }, 500);
                     }}
                   />
                 </TableCell>

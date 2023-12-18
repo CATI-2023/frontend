@@ -131,9 +131,11 @@ export function ListCompeticoes() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setBusca(
-                        e.target.value.length > 2 ? e.target.value : "*"
-                      );
+                      setTimeout(function () {
+                        setBusca(
+                          e.target.value.length > 2 ? e.target.value : "*"
+                        );
+                      }, 500);
                     }}
                   />
                 </TableCell>
@@ -164,32 +166,33 @@ export function ListCompeticoes() {
                         {competicaoItem.titulo}
                       </TableCell>
                       <TableCell align="center">
-                        {"De "}{new Date(competicaoItem.inscricao_data_inicio ?? "").toLocaleDateString(
-                          "pt-BR",
-                          {
-                            year: "numeric",
-                            month: "numeric",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
-                          }
-                        )}{" até "}
-                        {new Date(competicaoItem.inscricao_data_fim ?? "").toLocaleDateString(
-                          "pt-BR",
-                          {
-                            year: "numeric",
-                            month: "numeric",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
-                          }
-                        )}
+                        {"De "}
+                        {new Date(
+                          competicaoItem.inscricao_data_inicio ?? ""
+                        ).toLocaleDateString("pt-BR", {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}
+                        {" até "}
+                        {new Date(
+                          competicaoItem.inscricao_data_fim ?? ""
+                        ).toLocaleDateString("pt-BR", {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}
                       </TableCell>
                       <TableCell align="center">
                         {competicaoItem.qtde_membros_equipe}
                       </TableCell>
                       <TableCell align="center">
-                        {"R$"}{competicaoItem.valor_inscricao}
+                        {"R$"}
+                        {competicaoItem.valor_inscricao}
                       </TableCell>
                       <TableCell align="center">
                         <IconButton
