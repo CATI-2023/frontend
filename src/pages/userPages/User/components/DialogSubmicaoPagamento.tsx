@@ -12,10 +12,10 @@ import useNotification from "../../../../hooks/useNotification";
 interface Props {
   open: boolean;
   onClose: () => void;
-  idParticipante: number;
+  idPagamento: number;
 }
 
-export function DialogSubmicaoPagamento({ open, onClose, idParticipante }: Props) {
+export function DialogSubmicaoPagamento({ open, onClose, idPagamento }: Props) {
 
   const showNotification = useNotification()
 
@@ -38,7 +38,7 @@ export function DialogSubmicaoPagamento({ open, onClose, idParticipante }: Props
   };
 
   async function updatePagamento() {
-    await putPagamentos(idParticipante, {
+    await putPagamentos(idPagamento, {
       status: "PENDENTE",
       comprovante_base64: comprovantePagamento,
     }).then(() => {

@@ -17,7 +17,8 @@ import {
 import { participante, participantesList } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsParticipantes } from "./DialogAction";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useDebounce from "../../../../hooks/useDebounce";
 import {
   deleteParticipante,
   getParticipantes,
@@ -58,9 +59,14 @@ export function ListaParticipantes() {
       );
   }
 
-  useEffect(() => {
-    getParticipantesList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getParticipantesList();
+    },
+    [page, busca],
+    500
+  );
 
   const [open, setOpen] = useState(false);
 
@@ -119,11 +125,12 @@ export function ListaParticipantes() {
       .then((res) => {
         if (res.data.participantes.total > 0) {
           setTotalRows(res.data.participantes.total);
-          var listParticipantes: participante[] = res.data.participantes.participantes;
+          var listParticipantes: participante[] =
+            res.data.participantes.participantes;
           listParticipantes.forEach((i) => {
             let list = [];
             list.push(i.nome + "");
-            list.push(formataCPF(i.cpf ?? "") );
+            list.push(formataCPF(i.cpf ?? ""));
             list.push(formataCelular(i.telefone ?? ""));
             list.push(i.email + "");
             list.push(i.organizacao ? "Sim" : "Não");

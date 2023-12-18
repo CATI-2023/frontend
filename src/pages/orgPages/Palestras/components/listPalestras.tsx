@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -19,6 +19,7 @@ import { palestra } from "../../../../Types/type";
 import { DialogActionPalestras } from "./DialogActionPalestras";
 import { getPalestras, deletePalestra } from "../../../../services/palestras";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 
 export function ListPalestras() {
   const [palestraList, setPalestraList] = useState<palestra[] | null>(null);
@@ -53,9 +54,14 @@ export function ListPalestras() {
       );
   }
 
-  useEffect(() => {
-    getPalestraList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getPalestraList();
+    },
+    [page, busca],
+    500
+  );
 
   const handleOpen = (data: palestra | null) => {
     setOpen(true);

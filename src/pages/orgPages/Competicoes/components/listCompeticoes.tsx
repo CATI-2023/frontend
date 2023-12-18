@@ -15,18 +15,19 @@ import {
   Typography,
 } from "@mui/material";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
-import { minicurso } from "../../../../Types/type";
-import { formataMoeda } from "../../../../constants/function";
-import { DialogActionMiniCursos } from "./DialogActionMiniCursos";
+import { competicao } from "../../../../Types/type";
+import { DialogActionCompeticoes } from "./DialogActionCompeticoes";
 import {
-  getMiniCursos,
-  deleteMiniCurso,
-} from "../../../../services/miniCursos";
+  getCompeticoes,
+  deleteCompeticao,
+} from "../../../../services/competicoes";
 import useNotification from "../../../../hooks/useNotification";
 import useDebounce from "../../../../hooks/useDebounce";
 
-export function ListMiniCursos() {
-  const [minicursoList, setMinicursoList] = useState<minicurso[] | null>(null);
+export function ListCompeticoes() {
+  const [competicaoList, setCompeticaoList] = useState<competicao[] | null>(
+    null
+  );
 
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -34,25 +35,24 @@ export function ListMiniCursos() {
   const [busca, setBusca] = useState<string>("*");
 
   const [open, setOpen] = useState(false);
-  const [selectedMiniCurso, setSelectedMiniCurso] = useState<minicurso | null>(
-    null
-  );
-  async function getMinicursoList() {
-    getMiniCursos(page, busca)
+  const [selectedCompeticao, setSelectedCompeticao] =
+    useState<competicao | null>(null);
+  async function getCompeticaoList() {
+    getCompeticoes(page, busca)
       .then((res) => {
-        if (res.data.minicursos.total > 0) {
-          setTotalPages(Math.ceil(res.data.minicursos.total / 10));
-          setTotalRows(res.data.minicursos.total);
+        if (res.data.competicoes.total > 0) {
+          setTotalPages(Math.ceil(res.data.competicoes.total / 10));
+          setTotalRows(res.data.competicoes.total);
         } else {
           setTotalRows(0);
           setTotalPages(0);
         }
-        setMinicursoList(res.data.minicursos.minicursos);
+        setCompeticaoList(res.data.competicoes.competicoes);
       })
       .catch((err) =>
         showNotification({
           message:
-            err?.response?.data?.message ?? "Erro ao carregar Minicursos.",
+            err?.response?.data?.message ?? "Erro ao carregar Competições.",
           type: "error",
         })
       );
@@ -61,38 +61,40 @@ export function ListMiniCursos() {
   // DeBounce Function
   useDebounce(
     () => {
-      getMinicursoList();
+      getCompeticaoList();
     },
     [page, busca],
     500
   );
 
-  const handleOpen = (data: minicurso | null) => {
+  const handleOpen = (data: competicao | null) => {
     setOpen(true);
-    setSelectedMiniCurso(data);
+    setSelectedCompeticao(data);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedMiniCurso({
-      data: "",
+    setSelectedCompeticao({
       descricao: "",
-      ministrante_participante_id_reference: 0,
       titulo: "",
-      valor: 0,
-      qtde_vagas: 0,
+      qtde_membros_equipe: 0,
+      inscricao_data_inicio: "",
+      inscricao_data_fim: "",
+      valor_inscricao: 0,
+      regulamento: "",
+      banner: "",
     });
   };
 
   const showNotification = useNotification();
 
-  const handleDeleteMinicurso = async (id_minicurso: number | undefined) => {
-    await deleteMiniCurso(id_minicurso)
-      .then((res) => {
+  const handleDeleteCompeticao = async (id_competicao: number | undefined) => {
+    await deleteCompeticao(id_competicao)
+      .then(() => {
         showNotification({
           type: "success",
-          title: "Sucesso ao remover o minicurso" + res,
-          message: "Minicurso removido com sucesso",
+          title: "Sucesso ao remover a Competição.",
+          message: "Competição removida com sucesso",
         });
         handleClose();
         setTimeout(() => {
@@ -102,8 +104,8 @@ export function ListMiniCursos() {
       .catch((err) => {
         showNotification({
           type: "error",
-          title: "Erro ao remover o minicurso",
-          message: "Minicurso não removido" + err?.response?.data?.message,
+          title: "Erro ao remover a Competição.",
+          message: "Competição não removida. " + err?.response?.data?.message,
         });
       });
   };
@@ -124,13 +126,13 @@ export function ListMiniCursos() {
             handleOpen(null);
           }}
         >
-          <DefaultsIcons.AdicionarIcon size={26} /> Adicionar minicurso
+          <DefaultsIcons.AdicionarIcon size={26} /> Adicionar Competição
         </Button>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center" colSpan={6}>
+                <TableCell align="center" colSpan={5}>
                   <TextField
                     label="Informe sua busca"
                     fullWidth
@@ -147,16 +149,13 @@ export function ListMiniCursos() {
                   <b>Título</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Data</b>
+                  <b>Período Inscrição</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Valor</b>
+                  <b>Qtde Membros da Equipe</b>
                 </TableCell>
                 <TableCell align="center">
-                  <b>Qtde. Vagas</b>
-                </TableCell>
-                <TableCell align="center">
-                  <b>Ministrante</b>
+                  <b>Valor Inscrição</b>
                 </TableCell>
                 <TableCell align="center">
                   <b>Ações</b>
@@ -164,30 +163,45 @@ export function ListMiniCursos() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {minicursoList != null
-                ? minicursoList.map((minicurso: minicurso) => (
-                    <TableRow key={minicurso.minicurso_id}>
-                      <TableCell align="center">{minicurso.titulo}</TableCell>
+              {competicaoList != null
+                ? competicaoList.map((competicaoItem: competicao) => (
+                    <TableRow key={competicaoItem.competicao_id}>
                       <TableCell align="center">
-                        {new Date(minicurso.data).toLocaleDateString("pt-BR", {
+                        {competicaoItem.titulo}
+                      </TableCell>
+                      <TableCell align="center">
+                        {"De "}
+                        {new Date(
+                          competicaoItem.inscricao_data_inicio ?? ""
+                        ).toLocaleDateString("pt-BR", {
                           year: "numeric",
-                          month: "long",
+                          month: "numeric",
                           day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}
+                        {" até "}
+                        {new Date(
+                          competicaoItem.inscricao_data_fim ?? ""
+                        ).toLocaleDateString("pt-BR", {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
                         })}
                       </TableCell>
                       <TableCell align="center">
-                        {formataMoeda(minicurso.valor)}
+                        {competicaoItem.qtde_membros_equipe}
                       </TableCell>
                       <TableCell align="center">
-                        {minicurso.qtde_vagas}
-                      </TableCell>
-                      <TableCell align="center">
-                        {minicurso.ministrante?.nome}
+                        {"R$"}
+                        {competicaoItem.valor_inscricao}
                       </TableCell>
                       <TableCell align="center">
                         <IconButton
                           onClick={() => {
-                            handleOpen(minicurso);
+                            handleOpen(competicaoItem);
                           }}
                         >
                           <DefaultsIcons.EditIcon />
@@ -195,7 +209,9 @@ export function ListMiniCursos() {
                         <IconButton
                           color="error"
                           onClick={() => {
-                            handleDeleteMinicurso(minicurso?.minicurso_id);
+                            handleDeleteCompeticao(
+                              competicaoItem?.competicao_id
+                            );
                           }}
                         >
                           <DefaultsIcons.ApagarIcon />
@@ -220,10 +236,10 @@ export function ListMiniCursos() {
           />
         </TableContainer>
       </Box>
-      <DialogActionMiniCursos
+      <DialogActionCompeticoes
         open={open}
         onClose={handleClose}
-        Data={selectedMiniCurso}
+        Data={selectedCompeticao}
       />
     </>
   );

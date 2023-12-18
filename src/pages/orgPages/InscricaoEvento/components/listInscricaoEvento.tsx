@@ -17,7 +17,8 @@ import {
 import { inscricaoEventoGet } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsInscricoesEvento } from "./DialogAction";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useDebounce from "../../../../hooks/useDebounce";
 import {
   getInscricaoEventos,
   deleteInscricaoEvento,
@@ -72,9 +73,14 @@ export function ListaInscricaoEvento() {
       });
   }
 
-  useEffect(() => {
-    getInscricaoEventosList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getInscricaoEventosList();
+    },
+    [page, busca],
+    500
+  );
 
   const handleClose = () => {
     setSelectedInscricaoEvento(null);

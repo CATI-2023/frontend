@@ -27,12 +27,8 @@ interface props {
   title: string;
   Data?: participante | null;
 }
-export function DialogActionsParticipantes({
-  open,
-  onClose,
-  Data,
-}: props) {
-  // const [data: eventos] = useFetch<Evento>("evento")
+export function DialogActionsParticipantes({ open, onClose, Data }: props) {
+  
   const [participante, setParticipante] = useState<participante>({
     nome: "",
     foto: "",
@@ -73,7 +69,7 @@ export function DialogActionsParticipantes({
             "Erro ao atualizar participante. " + err?.response?.data?.message,
           title: "Erro ao atualizar",
         })
-      );
+      )
     onClose();
   }
 
@@ -226,7 +222,7 @@ export function DialogActionsParticipantes({
                     fullWidth
                     label="Telefone"
                     placeholder="Telefone"
-                    value={ formataCelular(participante.telefone ?? "")}
+                    value={formataCelular(participante.telefone ?? "")}
                     onChange={(e) => {
                       setParticipante({
                         ...participante,

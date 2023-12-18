@@ -1,11 +1,8 @@
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoutes from "./privateRoutes";
-// import { LoginPage } from "../pages/Login";
 import { UserPage } from "../pages/userPages/User";
 import { HomePage } from "../pages/Home";
-// import { UserMiniCursosPage } from "../pages/userPages/MiniCursos";
-// import { UserPresencaPage } from "../pages/userPages/Presenca";
 import { OrganizacaoPalestrasPage } from "../pages/orgPages/Palestras";
 import { LoginPage } from "../pages/Login";
 import { InscricaoEventoPage } from "../pages/InscricaoEventoPage";
@@ -17,6 +14,8 @@ import { OrganizacaoParticipantePage } from "../pages/orgPages/Participantes";
 import { OrganizacaoEventoPage } from "../pages/orgPages/Eventos";
 import { OrganizacaoInscricaoEventoPage } from "../pages/orgPages/InscricaoEvento";
 import { OrganizacaoNoticiasPage } from "../pages/orgPages/Noticias";
+import { OrganizacaoCompeticoesPage } from "../pages/orgPages/Competicoes";
+import { OrganizacaoEquipesPage } from "../pages/orgPages/Equipes";
 
 export function DefaultRoutes() {
   return (
@@ -62,11 +61,18 @@ export function DefaultRoutes() {
               element={<OrganizacaoInscricaoEventoPage />}
             />
             <Route
+              path="/competicoes/org/"
+              element={<OrganizacaoCompeticoesPage />}
+            />
+            <Route
+              path="/equipes/org/"
+              element={<OrganizacaoEquipesPage />}
+            />
+            <Route
               path="/noticias/org/"
               element={<OrganizacaoNoticiasPage />}
             />
           </Route>
-          {/* <Route path="*" element={<Navigate to="/" />} /> */}
         </Routes>
       </Suspense>
     </BrowserRouter>

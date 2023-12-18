@@ -4,6 +4,7 @@ import WidgetDashboard from "./components/widget-dashboard";
 import { DefaultsIcons } from "../../../constants/DefaultIcons";
 
 export function OrganizacaoPage() {
+  
   return (
     <>
       <Navbar title="Dashboard" typeUser="Organização" />
@@ -130,6 +131,52 @@ export function OrganizacaoPage() {
               title="Registro de Frequência"
               Icon={DefaultsIcons.PresencaIcon}
               route="/presenca/org/"
+            />
+          </Grid>
+        </Grid>
+      </Container>
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Card
+          component={Stack}
+          direction="row"
+          sx={{
+            px: 2,
+            py: 2,
+            borderRadius: 2,
+            mt: 4,
+            mb: 4,
+            backgroundColor: "#1976d27a",
+            color: "#fff",
+          }}
+          alignItems={"center"}
+          alignContent={"center"}
+          justifyContent={"center"}
+          justifyItems={"center"}
+        >
+          <Typography sx={{ fontSize: "1.5rem", textAlign: "center" }}>
+            Competições
+          </Typography>
+        </Card>
+        <Grid
+          container
+          alignItems={"center"}
+          alignContent={"center"}
+          justifyContent={"center"}
+          justifyItems={"center"}
+          spacing={3}
+        >
+          <Grid item xs={12} sm={6} md={4} lg={3}>
+            <WidgetDashboard
+              title="Competições"
+              Icon={DefaultsIcons.CompeticaoIcon}
+              route="/competicoes/org/"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} lg={3}>
+            <WidgetDashboard
+              title="Equipes"
+              Icon={DefaultsIcons.EquipeIcon}
+              route="/equipes/org/"
             />
           </Grid>
         </Grid>

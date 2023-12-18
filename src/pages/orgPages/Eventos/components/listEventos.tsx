@@ -17,13 +17,14 @@ import {
 import { evento } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsEventos } from "./DialogAction";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   deleteEvento,
   getEventos,
   putEventoSetVigente,
 } from "../../../../services/evento";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 
 export function ListaEventos() {
   const [eventoList, setEventoList] = useState<evento[] | null>(null);
@@ -44,7 +45,6 @@ export function ListaEventos() {
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
         showNotification({
           type: "error",
           message: "Erro ao atualizar evento. " + err?.response?.data?.message,
@@ -73,9 +73,14 @@ export function ListaEventos() {
       );
   }
 
-  useEffect(() => {
-    getEventosList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getEventosList();
+    },
+    [page, busca],
+    500
+  );
 
   const [open, setOpen] = useState(false);
 
