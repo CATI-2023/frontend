@@ -18,7 +18,7 @@ import {
   putCompeticao,
 } from "../../../../services/competicoes";
 import useNotification from "../../../../hooks/useNotification";
-import { Camera, File, Trash } from "@phosphor-icons/react";
+import { Camera, File, FilePdf, Trash } from "@phosphor-icons/react";
 
 interface props {
   open: boolean;
@@ -28,6 +28,9 @@ interface props {
 
 export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   const [regulamentoNameFile, setRegulamentoNameFile] = useState<string>("");
+  const [bannerFile, setBannerFile] = useState<string>("");
+
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
 
   const [competicao, setCompeticao] = useState<competicao>({
     competicao_id: 0,
@@ -37,8 +40,8 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     inscricao_data_inicio: "",
     inscricao_data_fim: "",
     valor_inscricao: 0,
-    regulamento_base64: "",
-    banner_base64: "",
+    regulamento: "",
+    banner: "",
     regulamento_pdfFile: null,
     banner_pictureFile: null,
   });
@@ -59,7 +62,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
       return;
     }
 
-    if (competicao.banner_base64 === "") {
+    if (competicao.banner === "" && competicao.banner_pictureFile === null) {
       showNotification({
         type: "warning",
         message: "Selecione o Banner da Competição.",
@@ -69,7 +72,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     }
 
     if (
-      competicao.regulamento_base64 === "" &&
+      competicao.regulamento === "" &&
       competicao.regulamento_pdfFile === null
     ) {
       showNotification({
@@ -87,8 +90,8 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
       inscricao_data_inicio: competicao.inscricao_data_inicio,
       inscricao_data_fim: competicao.inscricao_data_fim,
       valor_inscricao: competicao.valor_inscricao,
-      regulamento_base64: competicao.regulamento_base64,
-      banner_base64: competicao.banner_base64,
+      regulamento: competicao.regulamento,
+      banner: competicao.banner,
       regulamento_pdfFile: competicao.regulamento_pdfFile,
       banner_pictureFile: competicao.banner_pictureFile,
     };
@@ -138,9 +141,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     if (file) {
       let reader = new FileReader();
       reader.onload = () => {
+        setBannerFile(reader.result as string);
         setCompeticao((prev) => ({
           ...prev,
-          banner_base64: reader.result as string,
           banner_pictureFile: file,
         }));
       };
@@ -153,7 +156,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   ) => {
     let file = e.target.files?.[0];
     if (file) {
-      if (file.size > (10 * 1024 * 1024)) {
+      if (file.size > 10 * 1024 * 1024) {
         showNotification({
           type: "warning",
           message: "Tamanho máximo suportado é 10mb.",
@@ -165,8 +168,6 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
           ...prev,
           regulamento_pdfFile: file,
         }));
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
         setRegulamentoNameFile(file.name);
       }
     }
@@ -175,6 +176,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   useEffect(() => {
     if (Data) {
       setCompeticao(Data);
+      setBannerFile(apiHostBase + "/download?file=" + Data.banner);
     }
   }, [Data]);
 
@@ -201,7 +203,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                 gap={1}
               >
                 <Avatar
-                  src={competicao.banner_base64}
+                  src={bannerFile}
                   variant="rounded"
                   sx={{
                     objectFit: "contain",
@@ -239,7 +241,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                     onClick={() => {
                       setCompeticao((prev) => ({
                         ...prev,
-                        banner_base64: "",
+                        banner: "",
                       }));
                     }}
                   >
@@ -366,13 +368,37 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                 gap={1}
                 mb="1rem"
               >
-                <TextField
-                  required
-                  size="small"
-                  label="Regulamento"
-                  disabled
-                  value={regulamentoNameFile}
-                />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="stretch"
+                  gap={1}
+                  mb="1rem"
+                >
+                  <TextField
+                    required
+                    size="small"
+                    label="Regulamento"
+                    disabled
+                    value={regulamentoNameFile}
+                  />
+                  {Data ? (
+                    <>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          window.open(
+                            apiHostBase +
+                              "/download?file=" +
+                              competicao.regulamento
+                          );
+                        }}
+                      >
+                        <FilePdf /> {"Abrir PDF"}
+                      </Button>
+                    </>
+                  ) : null}
+                </Box>
                 <Box display="flex" gap={1}>
                   <Button
                     variant="outlined"
@@ -403,7 +429,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                     onClick={() => {
                       setCompeticao((prev) => ({
                         ...prev,
-                        regulamento_base64: "",
+                        regulamento: "",
                       }));
                     }}
                   >

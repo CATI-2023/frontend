@@ -84,14 +84,13 @@ export function DialogActionEquipes({ open, onClose, participante }: props) {
       });
   }
 
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
+
   const abrirRegulamento = () => {
     if (competicaoSelected !== undefined) {
-      const downloadLink = document.createElement("a");
-      const fileName = "regulamento_" + competicaoSelected.titulo + ".pdf";
-
-      downloadLink.href = competicaoSelected.regulamento_base64;
-      downloadLink.download = fileName;
-      downloadLink.click();
+      window.open(
+        apiHostBase + "/download?file=" + competicaoSelected.regulamento
+      );
     }
   };
 
