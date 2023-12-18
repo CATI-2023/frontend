@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -21,6 +21,7 @@ import { DialogActionEquipes } from "./DialogActionEquipes";
 import { ExpandableTableRow } from "./subTableMembros";
 import { getEquipes, deleteEquipe } from "../../../../services/equipes";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 
 export function ListEquipes() {
   const [equipeList, setEquipeList] = useState<equipe[] | null>(null);
@@ -33,7 +34,7 @@ export function ListEquipes() {
   const [open, setOpen] = useState(false);
 
   const [selectedEquipe, setSelectedEquipe] = useState<equipe | null>(null);
-  
+
   async function getEquipeList() {
     getEquipes(page, busca)
       .then((res) => {
@@ -55,9 +56,14 @@ export function ListEquipes() {
       );
   }
 
-  useEffect(() => {
-    getEquipeList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getEquipeList();
+    },
+    [page, busca],
+    500
+  );
 
   const handleOpen = (data: equipe | null) => {
     setOpen(true);
@@ -122,11 +128,9 @@ export function ListEquipes() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setTimeout(function () {
-                        setBusca(
-                          e.target.value.length > 2 ? e.target.value : "*"
-                        );
-                      }, 500);
+                      setBusca(
+                        e.target.value.length > 2 ? e.target.value : "*"
+                      );
                     }}
                   />
                 </TableCell>

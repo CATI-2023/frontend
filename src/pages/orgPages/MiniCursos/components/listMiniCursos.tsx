@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -23,6 +23,7 @@ import {
   deleteMiniCurso,
 } from "../../../../services/miniCursos";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 
 export function ListMiniCursos() {
   const [minicursoList, setMinicursoList] = useState<minicurso[] | null>(null);
@@ -57,9 +58,14 @@ export function ListMiniCursos() {
       );
   }
 
-  useEffect(() => {
-    getMinicursoList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getMinicursoList();
+    },
+    [page, busca],
+    500
+  );
 
   const handleOpen = (data: minicurso | null) => {
     setOpen(true);
@@ -129,11 +135,9 @@ export function ListMiniCursos() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setTimeout(function () {
-                        setBusca(
-                          e.target.value.length > 2 ? e.target.value : "*"
-                        );
-                      }, 500);
+                      setBusca(
+                        e.target.value.length > 2 ? e.target.value : "*"
+                      );
                     }}
                   />
                 </TableCell>
@@ -168,7 +172,7 @@ export function ListMiniCursos() {
                         {new Date(minicurso.data).toLocaleDateString("pt-BR", {
                           year: "numeric",
                           month: "long",
-                          day: "numeric"
+                          day: "numeric",
                         })}
                       </TableCell>
                       <TableCell align="center">
