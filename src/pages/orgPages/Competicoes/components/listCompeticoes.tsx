@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import {
   deleteCompeticao,
 } from "../../../../services/competicoes";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 
 export function ListCompeticoes() {
   const [competicaoList, setCompeticaoList] = useState<competicao[] | null>(
@@ -57,9 +58,14 @@ export function ListCompeticoes() {
       );
   }
 
-  useEffect(() => {
-    getCompeticaoList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getCompeticaoList();
+    },
+    [page, busca],
+    500
+  );
 
   const handleOpen = (data: competicao | null) => {
     setOpen(true);
@@ -131,11 +137,9 @@ export function ListCompeticoes() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setTimeout(function () {
-                        setBusca(
-                          e.target.value.length > 2 ? e.target.value : "*"
-                        );
-                      }, 500);
+                      setBusca(
+                        e.target.value.length > 2 ? e.target.value : "*"
+                      );
                     }}
                   />
                 </TableCell>

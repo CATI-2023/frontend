@@ -17,12 +17,13 @@ import { frequencia } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsPresenca } from "./DialogAction";
 import { DialogActionsQRCode } from "./DialogActionQRCode";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   getFrequencias,
   deleteFrequencia,
 } from "../../../../services/frequencia";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import BannerCati from "../../../../assets/BANNER-CATI-23.png";
@@ -74,9 +75,14 @@ export function ListaPresencas() {
       });
   }
 
-  useEffect(() => {
-    getPresencasList();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getPresencasList();
+    },
+    [page, busca],
+    500
+  );
 
   const handleClose = () => {
     setSelectedPresenca({
@@ -243,11 +249,9 @@ export function ListaPresencas() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setTimeout(function () {
-                        setBusca(
-                          e.target.value.length > 2 ? e.target.value : "*"
-                        );
-                      }, 500);
+                      setBusca(
+                        e.target.value.length > 2 ? e.target.value : "*"
+                      );
                     }}
                   />
                 </TableCell>

@@ -16,12 +16,13 @@ import {
 import { apoiadores, patrocinadores } from "../../../../Types/type";
 import { DefaultsIcons } from "../../../../constants/DefaultIcons";
 import { DialogActionsPatrocinadores } from "./DialogAction";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   deleteApoiadores,
   getApoiadores,
 } from "../../../../services/apoiadores";
 import useNotification from "../../../../hooks/useNotification";
+import useDebounce from "../../../../hooks/useDebounce";
 
 export function ListaApoiadores() {
   const [open, setOpen] = useState(false);
@@ -45,9 +46,7 @@ export function ListaApoiadores() {
     getApoiadores(page, busca)
       .then((res) => {
         if (res.patrocinadores.total > 0) {
-          setTotalPages(
-            Math.ceil(res.patrocinadores.total / 10)
-          );
+          setTotalPages(Math.ceil(res.patrocinadores.total / 10));
           setTotalRows(res.patrocinadores.total);
         } else {
           setTotalRows(0);
@@ -65,9 +64,14 @@ export function ListaApoiadores() {
       });
   }
 
-  useEffect(() => {
-    getPatrocinadores();
-  }, [page, busca]);
+  // DeBounce Function
+  useDebounce(
+    () => {
+      getPatrocinadores();
+    },
+    [page, busca],
+    500
+  );
 
   const handleClose = () => {
     setSelectedApoiador({
@@ -131,11 +135,9 @@ export function ListaApoiadores() {
                     label="Informe sua busca"
                     fullWidth
                     onChange={(e) => {
-                      setTimeout(function () {
-                        setBusca(
-                          e.target.value.length > 2 ? e.target.value : "*"
-                        );
-                      }, 500);
+                      setBusca(
+                        e.target.value.length > 2 ? e.target.value : "*"
+                      );
                     }}
                   />
                 </TableCell>
@@ -173,7 +175,9 @@ export function ListaApoiadores() {
                           {patrocinador.nivel}
                         </TableCell>
                         <TableCell align="center">
-                          {patrocinador.evento?.ano}{"-"}{patrocinador.evento?.tema}
+                          {patrocinador.evento?.ano}
+                          {"-"}
+                          {patrocinador.evento?.tema}
                         </TableCell>
                         <TableCell align="center">
                           <IconButton
