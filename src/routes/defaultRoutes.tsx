@@ -5,6 +5,7 @@ import { UserPage } from "../pages/userPages/User";
 import { HomePage } from "../pages/Home";
 import { OrganizacaoPalestrasPage } from "../pages/orgPages/Palestras";
 import { LoginPage } from "../pages/Login";
+import { RecuperacaoSenhaPage } from "../pages/RecuperacaoSenhaPage";
 import { InscricaoEventoPage } from "../pages/InscricaoEventoPage";
 import { OrganizacaoPage } from "../pages/orgPages/Dashboard";
 import { OrganizacaoMiniCursosPage } from "../pages/orgPages/MiniCursos";
@@ -24,6 +25,10 @@ export function DefaultRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/recuperacao-senha/:hash"
+            element={<RecuperacaoSenhaPage />}
+          />
           <Route
             path="/evento/:id/inscricao"
             element={<InscricaoEventoPage />}
@@ -52,10 +57,7 @@ export function DefaultRoutes() {
               path="/participantes/org/"
               element={<OrganizacaoParticipantePage />}
             />
-            <Route
-              path="/eventos/org/"
-              element={<OrganizacaoEventoPage />}
-            />
+            <Route path="/eventos/org/" element={<OrganizacaoEventoPage />} />
             <Route
               path="/inscricao-evento/org/"
               element={<OrganizacaoInscricaoEventoPage />}
@@ -64,10 +66,7 @@ export function DefaultRoutes() {
               path="/competicoes/org/"
               element={<OrganizacaoCompeticoesPage />}
             />
-            <Route
-              path="/equipes/org/"
-              element={<OrganizacaoEquipesPage />}
-            />
+            <Route path="/equipes/org/" element={<OrganizacaoEquipesPage />} />
             <Route
               path="/noticias/org/"
               element={<OrganizacaoNoticiasPage />}

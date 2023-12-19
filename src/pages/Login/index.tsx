@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../utils/Auth";
 import { Box, Button, IconButton, TextField } from "@mui/material";
-import { getAuthUser } from "../../services/auth";
+import { getAuthUser, postRecuperacaoSenha } from "../../services/auth";
 import { getEventoVigente } from "../../services/evento";
 import useNotification from "../../hooks/useNotification";
 import { DefaultsIcons } from "../../constants/DefaultIcons";
+import { NotePencil, Password, SignIn } from "@phosphor-icons/react";
 
 export function LoginPage() {
   const [Login, setLogin] = useState({ user: "", password: "" });
@@ -52,6 +53,33 @@ export function LoginPage() {
       .catch(() => {
         showNotification({
           message: "Erro ao buscar por evento vigente.",
+          type: "error",
+        });
+      });
+  }
+
+  async function recuperacaoSenha() {
+    if (Login.user == "") {
+      showNotification({
+        message: "Informe o email.",
+        type: "warning",
+      });
+      return;
+    }
+
+    await postRecuperacaoSenha({ email: Login.user })
+      .then(() => {
+        showNotification({
+          message:
+            "Um email foi encaminhado para você com o procedimento para recuperação de senha.",
+          type: "success",
+        });
+      })
+      .catch((err) => {
+        showNotification({
+          message:
+            "Erro ao recuperar senha: " + err?.response?.data?.message ??
+            "Erro ao recuperar senha.",
           type: "error",
         });
       });
@@ -118,10 +146,28 @@ export function LoginPage() {
               <Button
                 variant="contained"
                 type="submit"
+                size="large"
                 sx={{ fontFamily: "Nasalization, sans-serif" }}
+                startIcon={<SignIn />}
               >
                 Acessar
               </Button>
+              <p style={{ textAlign: "center" }}>
+                Esqueceu sua senha?
+                <Button
+                  onClick={() => {
+                    recuperacaoSenha();
+                  }}
+                  variant={"outlined"}
+                  sx={{
+                    fontFamily: "Nasalization, sans-serif",
+                    margin: { md: "0 1rem", xs: ".5rem 0" },
+                  }}
+                  endIcon={<Password />}
+                >
+                  Recupere aqui
+                </Button>
+              </p>
               <p style={{ textAlign: "center" }}>
                 Ainda não se inscreveu?
                 <Button
@@ -134,6 +180,7 @@ export function LoginPage() {
                     fontFamily: "Nasalization, sans-serif",
                     margin: { md: "0 1rem", xs: ".5rem 0" },
                   }}
+                  endIcon={<NotePencil />}
                 >
                   Inscreva-se aqui
                 </Button>
