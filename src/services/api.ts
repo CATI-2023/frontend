@@ -18,8 +18,9 @@ apiBase.interceptors.request.use(
     }
     return conf;
   },
-  function () {
+  function (error) {
     document.body.classList.remove("loading-indicator");
+    return Promise.reject(error);
   }
 );
 
@@ -29,7 +30,8 @@ apiBase.interceptors.response.use(
     document.body.classList.remove("loading-indicator");
     return response;
   },
-  function () {
+  function (error) {
     document.body.classList.remove("loading-indicator");
+    return Promise.reject(error);
   }
 );
