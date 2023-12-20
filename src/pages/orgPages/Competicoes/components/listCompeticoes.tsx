@@ -81,6 +81,7 @@ export function ListCompeticoes() {
       inscricao_data_inicio: "",
       inscricao_data_fim: "",
       valor_inscricao: 0,
+      tabela_jogos: "",
       regulamento: "",
       banner: "",
     });

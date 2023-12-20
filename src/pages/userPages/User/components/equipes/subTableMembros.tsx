@@ -24,6 +24,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { DialogActionMembroEquipe } from "./DialogActionMembroEquipe";
 import { deleteMembroEquipe } from "../../../../../services/membrosEquipe";
 import useNotification from "../../../../../hooks/useNotification";
+import { FilePdf, Plus } from "@phosphor-icons/react";
 
 interface Props {
   children?: ReactNode;
@@ -43,6 +44,7 @@ const ExpandableTableRow = ({
   const [openDialogMembro, setOpenDialogMembro] = useState(false);
   const [membroLider, setMembroLider] = useState(false);
   const showNotification = useNotification();
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
 
   const handleCloseDialogMembro = () => {
     setOpenDialogMembro(false);
@@ -94,16 +96,53 @@ const ExpandableTableRow = ({
           <TableCell colSpan={6}>
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Button
-                  variant={"outlined"}
-                  disabled={!membroLider}
-                  sx={{ display: "flex", gap: 2 }}
-                  onClick={() => {
-                    setOpenDialogMembro(true);
-                  }}
+                <Box
+                  display={"flex"}
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                  justifyContent={"center"}
+                  alignContent={"center"}
+                  marginBottom={2}
                 >
-                  <DefaultsIcons.AdicionarIcon size={26} /> Adicionar Membro
-                </Button>
+                  <Button
+                    variant={"outlined"}
+                    disabled={!membroLider}
+                    onClick={() => {
+                      setOpenDialogMembro(true);
+                    }}
+                    startIcon={<Plus />}
+                  >
+                    Adicionar Membro
+                  </Button>
+                  <Button
+                    variant={"outlined"}
+                    color="primary"
+                    startIcon={<FilePdf />}
+                    onClick={() => {
+                      window.open(
+                        apiHostBase +
+                          "/download?file=" +
+                          equipe.competicao?.regulamento
+                      );
+                    }}
+                  >
+                    Regulamento
+                  </Button>
+                  <Button
+                    variant={"outlined"}
+                    color="primary"
+                    onClick={() => {
+                      window.open(
+                        apiHostBase +
+                          "/download?file=" +
+                          equipe.competicao?.tabela_jogos
+                      );
+                    }}
+                    startIcon={<FilePdf />}
+                  >
+                    Tabela de Jogos
+                  </Button>
+                </Box>
                 <TableContainer component={Paper}>
                   <Table>
                     <TableHead>
