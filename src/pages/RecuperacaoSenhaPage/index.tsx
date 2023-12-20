@@ -4,6 +4,7 @@ import { Box, Button, IconButton, TextField } from "@mui/material";
 import { putRecuperacaoSenha, getRecuperacaoSenha } from "../../services/auth";
 import useNotification from "../../hooks/useNotification";
 import { DefaultsIcons } from "../../constants/DefaultIcons";
+import { LogoCatiPreto } from "../../assets/logoCati-Preto";
 
 type dataUser = {
   recuperacao_senha_id: number;
@@ -170,16 +171,20 @@ export function RecuperacaoSenhaPage() {
               </form>
             </>
           ) : (
-            <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              flexDirection={"column"}
-              gap={2}
-              color={"black"}
-            >
-              <h2>Esta solicitação já expirou ou não é válida.</h2>
-            </Box>
+            <>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                flexDirection={"column"}
+                textAlign={"center"}
+                gap={2}
+                color={"black"}
+              >
+                <h2>Esta solicitação já expirou ou não é válida.</h2>
+                <LogoCatiPreto sx={{ width:{xs: "15em", md: "20em"}, marginBottom: {xs:"0", md:"-3em"}}} />
+              </Box>
+            </>
           )}
         </Box>
       </Box>

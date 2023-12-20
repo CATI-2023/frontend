@@ -21,6 +21,7 @@ import { DefaultsIcons } from "../../../../../constants/DefaultIcons";
 import { ActionComprovantePagamentoEquipe } from "./ActionComprovantePagamentoEquipe";
 import { ExpandableTableRow } from "./subTableMembros";
 import { DialogActionEquipes } from "./DialogActionEquipes";
+import { Plus } from "@phosphor-icons/react";
 
 interface InformacoesParticipanteProps {
   participante: ParticipanteAuth;
@@ -70,12 +71,12 @@ export function ListaEquipes({ participante }: InformacoesParticipanteProps) {
       <Box display={"flex"} gap={2} flexDirection={"column"} alignItems={"end"}>
         <Button
           variant={"contained"}
-          sx={{ display: "flex", gap: 2 }}
+          startIcon={<Plus />}
           onClick={() => {
             setOpenAddEquipe(true);
           }}
         >
-          <DefaultsIcons.AdicionarIcon size={26} /> Inscrever Equipe
+          Inscrever Equipe
         </Button>
         <TableContainer component={Paper}>
           <Table id={"participante-table"}>
@@ -120,7 +121,6 @@ export function ListaEquipes({ participante }: InformacoesParticipanteProps) {
                               : "Recusado"
                           }
                           color={
-                            // Refatorar
                             equipeItem.pagamento?.status === "APROVADO"
                               ? "success"
                               : equipeItem.pagamento?.status === "PENDENTE"

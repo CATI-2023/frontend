@@ -7,6 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   TextField,
 } from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
@@ -28,6 +29,7 @@ interface props {
 
 export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   const [regulamentoNameFile, setRegulamentoNameFile] = useState<string>("");
+  const [tabelaJogosNameFile, setTabelaJogosNameFile] = useState<string>("");
   const [bannerFile, setBannerFile] = useState<string>("");
 
   const apiHostBase = import.meta.env.VITE_API_URL as string;
@@ -42,8 +44,10 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     valor_inscricao: 0,
     regulamento: "",
     banner: "",
+    tabela_jogos: "",
     regulamento_pdfFile: null,
     banner_pictureFile: null,
+    tabelaJogos_pdfFile: null,
   });
 
   const showNotification = useNotification();
@@ -92,8 +96,10 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
       valor_inscricao: competicao.valor_inscricao,
       regulamento: competicao.regulamento,
       banner: competicao.banner,
+      tabela_jogos: competicao.tabela_jogos,
       regulamento_pdfFile: competicao.regulamento_pdfFile,
       banner_pictureFile: competicao.banner_pictureFile,
+      tabelaJogos_pdfFile: competicao.tabelaJogos_pdfFile,
     };
 
     if (Data) {
@@ -173,10 +179,43 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
     }
   };
 
+  const handlePDFUploadTabelaJogos = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    let file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        showNotification({
+          type: "warning",
+          message: "Tamanho máximo suportado é 10mb.",
+          title: "Tamanho de arquivo não suportado",
+        });
+        return;
+      } else {
+        setCompeticao((prev) => ({
+          ...prev,
+          tabelaJogos_pdfFile: file,
+        }));
+        setTabelaJogosNameFile(file.name);
+      }
+    }
+  };
+
   useEffect(() => {
     if (Data) {
       setCompeticao(Data);
       setBannerFile(apiHostBase + "/download?file=" + Data.banner);
+      setRegulamentoNameFile(
+        "Regulamento-" +
+          Data.titulo.replace(/\./g, "-").replace(/ /g, "_") +
+          ".pdf"
+      );
+      if (Data.tabela_jogos !== "")
+        setTabelaJogosNameFile(
+          "Tabela_jogos-" +
+            Data.titulo.replace(/\./g, "-").replace(/ /g, "_") +
+            ".pdf"
+        );
     }
   }, [Data]);
 
@@ -361,6 +400,12 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                   />
                 </Box>
               </Box>
+              <Divider
+                sx={{ my: 1, fontSize: "0.675rem", color: "text.secondary" }}
+                textAlign="left"
+              >
+                Regulamento
+              </Divider>
               <Box
                 display="flex"
                 flexDirection="column"
@@ -382,7 +427,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                     disabled
                     value={regulamentoNameFile}
                   />
-                  {Data ? (
+                  {Data && Data.regulamento !== "" ? (
                     <>
                       <Button
                         color="primary"
@@ -430,6 +475,87 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                       setCompeticao((prev) => ({
                         ...prev,
                         regulamento: "",
+                      }));
+                    }}
+                  >
+                    <Trash />
+                  </Button>
+                </Box>
+              </Box>
+              <Divider
+                sx={{ my: 1, fontSize: "0.675rem", color: "text.secondary" }}
+                textAlign="left"
+              >
+                Tabela de Jogos
+              </Divider>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                gap={1}
+                mb="1rem"
+              >
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="stretch"
+                  gap={1}
+                  mb="1rem"
+                >
+                  <TextField
+                    size="small"
+                    label="Tabela de Jogos"
+                    disabled
+                    value={tabelaJogosNameFile}
+                  />
+                  {Data && Data.tabela_jogos !== "" ? (
+                    <>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          window.open(
+                            apiHostBase +
+                              "/download?file=" +
+                              competicao.tabela_jogos
+                          );
+                        }}
+                      >
+                        <FilePdf /> {"Abrir PDF"}
+                      </Button>
+                    </>
+                  ) : null}
+                </Box>
+                <Box display="flex" gap={1}>
+                  <Button
+                    variant="outlined"
+                    color="info"
+                    onClick={() => {
+                      const input = document.getElementById(
+                        "contained-button-file-tabela-jogos"
+                      );
+                      input?.click();
+                    }}
+                  >
+                    <File />
+                  </Button>
+                  <input
+                    accept="application/pdf"
+                    style={{ display: "none" }}
+                    id="contained-button-file-tabela-jogos"
+                    type="file"
+                    onChange={(event) => {
+                      if (event.target.files) {
+                        handlePDFUploadTabelaJogos(event);
+                      }
+                    }}
+                  />
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => {
+                      setCompeticao((prev) => ({
+                        ...prev,
+                        tabela_jogos: "",
                       }));
                     }}
                   >
