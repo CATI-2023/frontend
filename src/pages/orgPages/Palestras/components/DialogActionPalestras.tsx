@@ -45,7 +45,7 @@ export function DialogActionPalestras({ open, onClose, Data }: props) {
       data_inicio: "",
       data_fim: "",
       qtde_vagas: 0,
-      banner_base64: "",
+      banner: "",
       valor: 0,
     },
     palestrante: {

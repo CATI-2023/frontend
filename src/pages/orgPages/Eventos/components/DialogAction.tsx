@@ -32,12 +32,15 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
     data_inicio: "",
     data_fim: "",
     qtde_vagas: undefined,
-    banner_base64: "",
+    banner: "",
     valor: undefined,
     evento_id: undefined,
   });
+  const [bannerBase64, setBannerBase64] = useState<string>("");
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
 
   const showNotification = useNotification();
+
   async function UpdateEvento() {
     const data = {
       ano: evento?.ano,
@@ -45,8 +48,10 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
       data_inicio: new Date(evento.data_inicio).toISOString(),
       data_fim: new Date(evento.data_fim).toISOString(),
       qtde_vagas: evento.qtde_vagas,
-      banner_base64: evento.banner_base64,
+      banner: evento.banner,
       valor: evento.valor,
+      vigente: evento.vigente,
+      banner_pictureFile: evento.banner_pictureFile,
     };
 
     await putEvento(Data?.evento_id, data)
@@ -75,9 +80,10 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
       data_inicio: new Date(evento.data_inicio).toISOString(),
       data_fim: new Date(evento.data_fim).toISOString(),
       qtde_vagas: evento.qtde_vagas,
-      banner_base64: evento.banner_base64,
+      banner: evento.banner,
       valor: evento.valor,
       vigente: false,
+      banner_pictureFile: evento.banner_pictureFile,
     };
 
     await postEvento(data)
@@ -100,25 +106,48 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (evento.banner === "" && evento.banner_pictureFile === null) {
+      showNotification({
+        type: "warning",
+        message: "Selecione o Banner do Evento.",
+        title: "Banner não selecionado",
+      });
+      return;
+    }
+
     Data ? UpdateEvento() : CreateEvento();
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
+      if (file.size > 10 * 1024 * 1024) {
+        showNotification({
+          type: "warning",
+          message: "Tamanho máximo suportado é 10mb.",
+          title: "Tamanho de arquivo não suportado",
+        });
+        return;
+      } else {
         setEvento((prev) => ({
           ...prev,
-          banner_base64: reader.result as string,
+          banner_pictureFile: file,
         }));
-      };
-      reader.readAsDataURL(file);
+        let reader = new FileReader();
+        reader.onload = () => {
+          setBannerBase64(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
   useEffect(() => {
-    if (Data) setEvento(Data);
+    if (Data) {
+      setEvento(Data);
+      if (Data.banner)
+        setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
+    }
   }, [Data]);
 
   return (
@@ -141,7 +170,7 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
             }}
           > */}
           <DialogContent sx={{ width: "100%" }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               <Divider
                 sx={{
                   mt: 2,
@@ -157,7 +186,7 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
                 gap={1}
               >
                 <Avatar
-                  src={evento.banner_base64}
+                  src={bannerBase64}
                   variant="rounded"
                   sx={{
                     objectFit: "contain",
@@ -196,8 +225,10 @@ export function DialogActionsEventos({ open, onClose, title, Data }: props) {
                     onClick={() => {
                       setEvento((prev) => ({
                         ...prev,
-                        banner_base64: "",
+                        banner: "",
+                        banner_pictureFile: null,
                       }));
+                      setBannerBase64("");
                     }}
                   >
                     <Trash />

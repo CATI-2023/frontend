@@ -100,10 +100,11 @@ export function ListaEventos() {
       data_inicio: "",
       data_fim: "",
       qtde_vagas: 0,
-      banner_base64: "",
+      banner: "",
       valor: 0,
       evento_id: 0,
       vigente: false,
+      banner_pictureFile: null
     });
     setOpen(false);
   };

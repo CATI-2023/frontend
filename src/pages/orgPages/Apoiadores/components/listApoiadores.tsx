@@ -79,7 +79,8 @@ export function ListaApoiadores() {
       telefone: "",
       nivel: "BRONZE",
       email: "",
-      banner_base64: "",
+      banner: "",
+      banner_pictureFile: null
     });
     setOpen(false);
   };

@@ -5,7 +5,7 @@ export type Evento = {
   data_inicio: string;
   data_fim: string;
   qtde_vagas: number;
-  banner_base64: string;
+  banner: string;
   valor: number;
   vigente: boolean;
 }

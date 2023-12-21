@@ -30,7 +30,7 @@ interface props {
 export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   const [regulamentoNameFile, setRegulamentoNameFile] = useState<string>("");
   const [tabelaJogosNameFile, setTabelaJogosNameFile] = useState<string>("");
-  const [bannerFile, setBannerFile] = useState<string>("");
+  const [bannerBase64, setBannerBase64] = useState<string>("");
 
   const apiHostBase = import.meta.env.VITE_API_URL as string;
 
@@ -145,15 +145,24 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   const handleImageUploadBanner = (e: React.ChangeEvent<HTMLInputElement>) => {
     let file = e.target.files?.[0];
     if (file) {
-      let reader = new FileReader();
-      reader.onload = () => {
-        setBannerFile(reader.result as string);
+      if (file.size > 10 * 1024 * 1024) {
+        showNotification({
+          type: "warning",
+          message: "Tamanho máximo suportado é 10mb.",
+          title: "Tamanho de arquivo não suportado",
+        });
+        return;
+      } else {
         setCompeticao((prev) => ({
           ...prev,
           banner_pictureFile: file,
         }));
-      };
-      reader.readAsDataURL(file);
+        let reader = new FileReader();
+        reader.onload = () => {
+          setBannerBase64(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -204,7 +213,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   useEffect(() => {
     if (Data) {
       setCompeticao(Data);
-      setBannerFile(apiHostBase + "/download?file=" + Data.banner);
+      if (Data.banner) {
+        setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
+      }
       setRegulamentoNameFile(
         "Regulamento-" +
           Data.titulo.replace(/\./g, "-").replace(/ /g, "_") +
@@ -242,7 +253,7 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                 gap={1}
               >
                 <Avatar
-                  src={bannerFile}
+                  src={bannerBase64}
                   variant="rounded"
                   sx={{
                     objectFit: "contain",
@@ -281,7 +292,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                       setCompeticao((prev) => ({
                         ...prev,
                         banner: "",
+                        banner_pictureFile: null,
                       }));
+                      setBannerBase64("");
                     }}
                   >
                     <Trash />

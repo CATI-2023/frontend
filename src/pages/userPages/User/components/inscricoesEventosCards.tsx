@@ -25,6 +25,8 @@ export function InscricoesEventosCards({
     ParticipanteAuth["InscricaoEvento"][0] | null
   >(null);
 
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
+  
   if (!participante) {
     return <h1>Carregando...</h1>;
   }
@@ -40,7 +42,7 @@ export function InscricoesEventosCards({
               component="img"
               height="194"
               image={
-                evento.banner_base64 ||
+                apiHostBase + "/download?file=" + evento.banner ||
                 "https://via.placeholder.com/200x194.png?text=Banner+do+evento"
               }
               alt={"Banner do evento"}

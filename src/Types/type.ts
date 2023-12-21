@@ -83,17 +83,18 @@ export type patrocinadores = {
   evento_id_reference?: number;
   razao_social: string;
   nivel: "OURO" | "PRATA" | "BRONZE";
-  banner_base64: string;
+  banner: string;
   email: string;
   telefone: string;
   evento?: evento;
+  banner_pictureFile?: File | null;
 };
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
 export type colaboradoresIndex = {
   razao_social: string;
   nivel: "OURO" | "PRATA" | "BRONZE";
-  banner_base64: string;
+  banner: string;
 };
 
 export type evento = {
@@ -102,10 +103,11 @@ export type evento = {
   data_inicio: string;
   data_fim: string;
   qtde_vagas?: number;
-  banner_base64?: string;
+  banner?: string;
   valor?: number;
   evento_id?: number;
   vigente?: boolean;
+  banner_pictureFile?: File | null;
 };
 
 export type eventos = { eventos: evento[] };
@@ -160,13 +162,14 @@ export type inscricaoEventoGet = {
   pagamento?: {
     pagamento_id?: number;
     status?: "APROVADO" | "PENDENTE" | "RECUSADO";
-    comprovante_base64?: string;
+    comprovante?: string;
   };
 };
 
 export type pagamentos = {
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
-  comprovante_base64: string;
+  comprovante: string;
+  comprovante_pdfFile?: File | null;
 };
 
 export type ParticipanteAuth = {
@@ -197,7 +200,7 @@ export type InscricaoEvento = {
 export type Pagamento = {
   pagamento_id: number;
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
-  comprovante_base64: string;
+  comprovante: string;
   criado_em: string;
   alterado_em: string;
   excluido?: string;

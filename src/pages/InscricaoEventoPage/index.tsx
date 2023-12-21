@@ -35,7 +35,7 @@ type EventoResponse = {
   data_inicio: Date;
   data_fim: Date;
   qtde_vagas: number;
-  banner_base64: string;
+  banner: string;
 };
 
 interface CreateInscricaoRequest {

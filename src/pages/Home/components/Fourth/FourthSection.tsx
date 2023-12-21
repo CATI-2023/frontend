@@ -10,6 +10,8 @@ export function FourthSection() {
   const [apoiadores, setApoiadores] = useState<colaboradoresIndex[] | null>(
     null
   );
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
+
   async function getPatrocinadores() {
     getApoiadoresIndex().then((res) => {
       setApoiadores(res.patrocinadores);
@@ -57,7 +59,7 @@ export function FourthSection() {
             >
               {apoiadores?.map((c, idx) => (
                 <ColaboradorCard
-                  logo={c.banner_base64}
+                  logo={apiHostBase + "/download?file=" + c.banner}
                   key={idx}
                   colaboradorTitle={c.razao_social}
                 />
@@ -80,7 +82,7 @@ export function FourthSection() {
             >
               {apoiadores?.map((c, idx) => (
                 <ColaboradorCard
-                  logo={c.banner_base64}
+                  logo={apiHostBase + "/download?file=" + c.banner}
                   key={idx}
                   colaboradorTitle={c.razao_social}
                 />
