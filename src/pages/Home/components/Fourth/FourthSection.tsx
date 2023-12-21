@@ -59,7 +59,6 @@ export function FourthSection() {
             >
               {apoiadores?.map((c, idx) => (
                 <ColaboradorCard
-                  // logo={c.banner_base64}
                   logo={apiHostBase + "/download?file=" + c.banner}
                   key={idx}
                   colaboradorTitle={c.razao_social}

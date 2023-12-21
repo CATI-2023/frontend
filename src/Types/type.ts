@@ -103,10 +103,11 @@ export type evento = {
   data_inicio: string;
   data_fim: string;
   qtde_vagas?: number;
-  banner_base64?: string;
+  banner?: string;
   valor?: number;
   evento_id?: number;
   vigente?: boolean;
+  banner_pictureFile?: File | null;
 };
 
 export type eventos = { eventos: evento[] };

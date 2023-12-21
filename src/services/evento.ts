@@ -36,7 +36,7 @@ export async function getEvento(id_evento: number) {
 export async function postEvento(data: evento) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
@@ -47,7 +47,7 @@ export async function postEvento(data: evento) {
 export async function putEvento(id_evento: number | undefined, data: evento) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };

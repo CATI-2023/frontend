@@ -56,7 +56,7 @@ export function DialogActionsInscricoesEvento({
       data_inicio: "",
       data_fim: "",
       qtde_vagas: 0,
-      banner_base64: "",
+      banner: "",
       valor: 0,
     },
     participante_id_reference: 0,

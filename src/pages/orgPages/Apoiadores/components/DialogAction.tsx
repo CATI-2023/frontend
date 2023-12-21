@@ -54,7 +54,7 @@ export function DialogActionsPatrocinadores({
       data_inicio: "",
       data_fim: "",
       qtde_vagas: 0,
-      banner_base64: "",
+      banner: "",
       valor: 0,
     },
   });
@@ -187,7 +187,7 @@ export function DialogActionsPatrocinadores({
     ) {
       showNotification({
         type: "warning",
-        message: "Selecione o Banner da Competição.",
+        message: "Selecione o Banner do Colaborador.",
         title: "Banner não selecionado",
       });
       return;
@@ -200,7 +200,9 @@ export function DialogActionsPatrocinadores({
     if (Data) {
       setPatrocinador(Data);
       setEventoSelected(Data?.evento);
-      setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
+      if (Data.banner) {
+        setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
+      }
     }
     getEvents();
   }, [Data]);
@@ -358,8 +360,10 @@ export function DialogActionsPatrocinadores({
                       onClick={() => {
                         setPatrocinador((prev) => ({
                           ...prev,
-                          banner_base64: "",
+                          banner: "",
+                          banner_pictureFile: null,
                         }));
+                        setBannerBase64("");
                       }}
                     >
                       <Trash />

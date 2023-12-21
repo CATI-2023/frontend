@@ -213,7 +213,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
   useEffect(() => {
     if (Data) {
       setCompeticao(Data);
-      setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
+      if (Data.banner) {
+        setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
+      }
       setRegulamentoNameFile(
         "Regulamento-" +
           Data.titulo.replace(/\./g, "-").replace(/ /g, "_") +
@@ -290,7 +292,9 @@ export function DialogActionCompeticoes({ open, onClose, Data }: props) {
                       setCompeticao((prev) => ({
                         ...prev,
                         banner: "",
+                        banner_pictureFile: null,
                       }));
+                      setBannerBase64("");
                     }}
                   >
                     <Trash />
