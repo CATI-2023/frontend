@@ -38,7 +38,7 @@ export function DialogActionEquipes({ open, onClose, Data }: props) {
   const [equipe, setEquipe] = useState<equipe>({
     nome: "",
   });
-
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
   const showNotification = useNotification();
 
   const handleClose = () => {
@@ -54,7 +54,7 @@ export function DialogActionEquipes({ open, onClose, Data }: props) {
       pagamento_id_reference: equipe.pagamento_id_reference || 0,
       pagamento: {
         status: statusPagamento,
-        comprovante_base64: Data?.pagamento?.comprovante_base64 || "",
+        comprovante: Data?.pagamento?.comprovante || "",
       },
     };
     if (competicaoSelected != undefined) {
@@ -216,7 +216,14 @@ export function DialogActionEquipes({ open, onClose, Data }: props) {
                             setOpenDialogComprovante(true);
                           }
                         }}
-                        src={equipe?.pagamento?.comprovante_base64}
+                        src={
+                          equipe?.pagamento?.comprovante &&
+                          equipe?.pagamento?.comprovante !== ""
+                            ? apiHostBase +
+                              "/download?file=" +
+                              equipe?.pagamento?.comprovante
+                            : ""
+                        }
                         variant="rounded"
                         sx={{
                           objectFit: "contain",
@@ -259,7 +266,14 @@ export function DialogActionEquipes({ open, onClose, Data }: props) {
             gap={1}
           >
             <Avatar
-              src={equipe?.pagamento?.comprovante_base64}
+              src={
+                equipe?.pagamento?.comprovante &&
+                equipe?.pagamento?.comprovante !== ""
+                  ? apiHostBase +
+                    "/download?file=" +
+                    equipe?.pagamento?.comprovante
+                  : ""
+              }
               variant="rounded"
               sx={{
                 objectFit: "contain",

@@ -72,13 +72,15 @@ export function DialogActionsInscricoesEvento({
     pagamento: {
       pagamento_id: 0,
       status: "PENDENTE",
-      comprovante_base64: "",
+      comprovante: "",
     },
   });
   const [eventos, setEventos] = useState<evento[]>([]);
   const [participantes, setParticipantes] = useState<participante[]>([]);
   const [statusPagamento, setStatusPagamento] = useState<Status>("PENDENTE");
   const [openDialogComprovante, setOpenDialogComprovante] = useState(false);
+
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
 
   const TAMANHOS_CAMISETA = ["PP", "P", "M", "G", "GG", "XG"];
   const [eventoSelected, setEventoSelected] = useState<evento | undefined>(
@@ -136,7 +138,7 @@ export function DialogActionsInscricoesEvento({
       },
       observacoes: inscricaoEvento?.observacoes,
     };
-    
+
     await updateInscricaoEvento(Data?.inscricao_evento_id, data_)
       .then(() => {
         showNotification({
@@ -233,7 +235,7 @@ export function DialogActionsInscricoesEvento({
                         : participanteSelected
                     }
                     disablePortal
-                    readOnly = {Data ? true : false}
+                    readOnly={Data ? true : false}
                     fullWidth
                     size="small"
                     options={participantes}
@@ -251,7 +253,7 @@ export function DialogActionsInscricoesEvento({
                   <Autocomplete
                     value={Data ? inscricaoEvento?.evento : eventoSelected}
                     disablePortal
-                    readOnly = {Data ? true : false}
+                    readOnly={Data ? true : false}
                     fullWidth
                     size="small"
                     options={eventos}
@@ -309,7 +311,13 @@ export function DialogActionsInscricoesEvento({
                             setOpenDialogComprovante(true);
                           }
                         }}
-                        src={inscricaoEvento?.pagamento?.comprovante_base64}
+                        src={
+                          inscricaoEvento?.pagamento?.comprovante !== ""
+                            ? apiHostBase +
+                              "/download?file=" +
+                              inscricaoEvento?.pagamento?.comprovante
+                            : ""
+                        }
                         variant="rounded"
                         sx={{
                           objectFit: "contain",
@@ -393,7 +401,13 @@ export function DialogActionsInscricoesEvento({
             gap={1}
           >
             <Avatar
-              src={inscricaoEvento?.pagamento?.comprovante_base64}
+              src={
+                inscricaoEvento?.pagamento?.comprovante !== ""
+                  ? apiHostBase +
+                    "/download?file=" +
+                    inscricaoEvento?.pagamento?.comprovante
+                  : ""
+              }
               variant="rounded"
               sx={{
                 objectFit: "contain",

@@ -25,6 +25,8 @@ export function ActionComprovantePagamentoEquipe({
   const [openActionComprovantePagamento, setOpenActionComprovantePagamento] =
     useState(false);
 
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
+
   if (!equipe) {
     return null;
   }
@@ -47,8 +49,11 @@ export function ActionComprovantePagamentoEquipe({
         >
           <img
             src={
-              equipe.pagamento?.comprovante_base64 ||
-              "https://via.placeholder.com/200x200.png?text=Comprovante+de+pagamento"
+              equipe.pagamento?.comprovante !== ""
+                ? apiHostBase +
+                  "/download?file=" +
+                  equipe.pagamento?.comprovante
+                : ""
             }
             height={"200px"}
             width={"200px"}

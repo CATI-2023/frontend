@@ -16,10 +16,11 @@ interface Props {
 }
 
 export function DialogSubmicaoPagamento({ open, onClose, idPagamento }: Props) {
+  const showNotification = useNotification();
 
-  const showNotification = useNotification()
-
-  const [comprovantePagamento, setComprovantePagamento] = useState<string>("");
+  const [comprovantePagamento, setComprovantePagamento] = useState<File | null>(
+    null
+  );
 
   const handleClose = () => {
     window.location.reload();
@@ -27,32 +28,31 @@ export function DialogSubmicaoPagamento({ open, onClose, idPagamento }: Props) {
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setComprovantePagamento(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setComprovantePagamento(file);
     }
   };
 
   async function updatePagamento() {
     await putPagamentos(idPagamento, {
       status: "PENDENTE",
-      comprovante_base64: comprovantePagamento,
-    }).then(() => {
-      showNotification({
-        message: "Comprovante enviado com sucesso",
-        type: "success"
-      })
-      handleClose;
-    }).catch(() => {
-      showNotification({
-        message: "Erro ao enviar comprovante",
-        type: "error"
-      })
+      comprovante: "",
+      comprovante_pdfFile: comprovantePagamento,
     })
+      .then(() => {
+        showNotification({
+          message: "Comprovante enviado com sucesso.",
+          type: "success",
+        });
+        handleClose;
+      })
+      .catch(() => {
+        showNotification({
+          message: "Erro ao enviar comprovante.",
+          type: "error",
+        });
+      });
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +63,7 @@ export function DialogSubmicaoPagamento({ open, onClose, idPagamento }: Props) {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Anexar</DialogTitle>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <DialogContent>
           <input
             type="file"
@@ -87,11 +87,7 @@ export function DialogSubmicaoPagamento({ open, onClose, idPagamento }: Props) {
           >
             Enviar
           </Button>
-          <Button
-            color={"error"}
-            variant="outlined"
-            onClick={handleClose}
-          >
+          <Button color={"error"} variant="outlined" onClick={handleClose}>
             Cancelar
           </Button>
         </DialogActions>

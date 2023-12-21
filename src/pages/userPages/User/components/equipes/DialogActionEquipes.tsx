@@ -44,7 +44,7 @@ export function DialogActionEquipes({ open, onClose, participante }: props) {
       participante_id_reference: participante,
       pagamento: {
         status: "PENDENTE" as Status,
-        comprovante_base64: "",
+        comprovante: "",
       },
     };
 

@@ -162,13 +162,14 @@ export type inscricaoEventoGet = {
   pagamento?: {
     pagamento_id?: number;
     status?: "APROVADO" | "PENDENTE" | "RECUSADO";
-    comprovante_base64?: string;
+    comprovante?: string;
   };
 };
 
 export type pagamentos = {
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
-  comprovante_base64: string;
+  comprovante: string;
+  comprovante_pdfFile?: File | null;
 };
 
 export type ParticipanteAuth = {
@@ -199,7 +200,7 @@ export type InscricaoEvento = {
 export type Pagamento = {
   pagamento_id: number;
   status: "APROVADO" | "PENDENTE" | "RECUSADO";
-  comprovante_base64: string;
+  comprovante: string;
   criado_em: string;
   alterado_em: string;
   excluido?: string;

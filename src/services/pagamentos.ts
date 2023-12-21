@@ -24,7 +24,7 @@ export async function getPagamentos(id_pagamentos: number) {
 export async function putPagamentos(id_pagamentos: number, data: pagamentos) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
