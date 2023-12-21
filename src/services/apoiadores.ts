@@ -23,7 +23,7 @@ export async function getApoiadoresIndex() {
 export async function postApoiadores(data: patrocinadores) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };
@@ -37,7 +37,7 @@ export async function updateApoiadores(
 ) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   };

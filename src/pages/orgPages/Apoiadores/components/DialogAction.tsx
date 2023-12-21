@@ -45,7 +45,8 @@ export function DialogActionsPatrocinadores({
     telefone: "",
     nivel: "BRONZE",
     email: "",
-    banner_base64: "",
+    banner: "",
+    banner_pictureFile: null,
     evento: {
       evento_id: 0,
       ano: 0,
@@ -62,6 +63,8 @@ export function DialogActionsPatrocinadores({
   const [eventoSelected, setEventoSelected] = useState<evento | undefined>(
     undefined
   );
+  const [bannerBase64, setBannerBase64] = useState<string>("");
+  const apiHostBase = import.meta.env.VITE_API_URL as string;
 
   const showNotification = useNotification();
 
@@ -87,8 +90,9 @@ export function DialogActionsPatrocinadores({
       telefone: patrocinador.telefone,
       nivel: patrocinador.nivel,
       email: patrocinador.email,
-      banner_base64: patrocinador.banner_base64,
+      banner: patrocinador.banner,
       evento: eventoSelected,
+      banner_pictureFile: patrocinador.banner_pictureFile,
     };
 
     await updateApoiadores(Data?.patrocinador_id, data_)
@@ -118,8 +122,9 @@ export function DialogActionsPatrocinadores({
       telefone: patrocinador.telefone,
       nivel: patrocinador.nivel,
       email: patrocinador.email,
-      banner_base64: patrocinador.banner_base64,
+      banner: patrocinador.banner,
       evento: eventoSelected,
+      banner_pictureFile: patrocinador.banner_pictureFile,
     };
 
     if (eventoSelected != undefined) {
@@ -150,21 +155,44 @@ export function DialogActionsPatrocinadores({
   }
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    let file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
+      if (file.size > 10 * 1024 * 1024) {
+        showNotification({
+          type: "warning",
+          message: "Tamanho máximo suportado é 10mb.",
+          title: "Tamanho de arquivo não suportado",
+        });
+        return;
+      } else {
         setPatrocinador((prev) => ({
           ...prev,
-          banner_base64: reader.result as string,
+          banner_pictureFile: file,
         }));
-      };
-      reader.readAsDataURL(file);
+        let reader = new FileReader();
+        reader.onload = () => {
+          setBannerBase64(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (
+      patrocinador.banner === "" &&
+      patrocinador.banner_pictureFile === null
+    ) {
+      showNotification({
+        type: "warning",
+        message: "Selecione o Banner da Competição.",
+        title: "Banner não selecionado",
+      });
+      return;
+    }
+
     Data ? updatePatrocinador() : CreatePatrocinador();
   };
 
@@ -172,6 +200,7 @@ export function DialogActionsPatrocinadores({
     if (Data) {
       setPatrocinador(Data);
       setEventoSelected(Data?.evento);
+      setBannerBase64(apiHostBase + "/download?file=" + Data.banner);
     }
     getEvents();
   }, [Data]);
@@ -190,7 +219,7 @@ export function DialogActionsPatrocinadores({
             {!Data ? `Adicionar ${title}` : `Editar ${title}`}
           </DialogTitle>
           <DialogContent sx={{ width: "100%" }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               <Box display={"flex"} flexDirection={"column"} gap={2} py={2}>
                 <TextField
                   required
@@ -290,7 +319,7 @@ export function DialogActionsPatrocinadores({
                   gap={1}
                 >
                   <Avatar
-                    src={patrocinador.banner_base64}
+                    src={bannerBase64}
                     variant="rounded"
                     sx={{
                       objectFit: "contain",

@@ -83,17 +83,18 @@ export type patrocinadores = {
   evento_id_reference?: number;
   razao_social: string;
   nivel: "OURO" | "PRATA" | "BRONZE";
-  banner_base64: string;
+  banner: string;
   email: string;
   telefone: string;
   evento?: evento;
+  banner_pictureFile?: File | null;
 };
 export type apoiadores = { patrocinadores: patrocinadores[] };
 
 export type colaboradoresIndex = {
   razao_social: string;
   nivel: "OURO" | "PRATA" | "BRONZE";
-  banner_base64: string;
+  banner: string;
 };
 
 export type evento = {
