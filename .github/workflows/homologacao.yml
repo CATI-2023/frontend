@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - homologacao
+
+name: 🚀 [homologacao] Build and deploy website on push
+
+jobs:
+  web-deploy:
+    name: 🎉 [homologacao] Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: 🔨 Build Project
+        env:
+          VITE_DEBUG: true
+          VITE_API_URL: ${{ secrets.PROD_VITE_API_URL }}
+
+        run: |
+          yarn 
+          yarn build
+
+      - name: List output files
+        run: |
+          cp "./.htaccess" "./dist"
+          find ./dist/ -print
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOMOLOGACAO_HOST }}
+          username: ${{ secrets.FTP_DEV_USER }}
+          password: ${{ secrets.FTP_DEV_PASSWORD }}
+          protocol: ftp
+          local-dir: ./dist/
